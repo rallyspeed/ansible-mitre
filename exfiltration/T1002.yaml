@@ -1,16 +1,18 @@
 # Playbook-T1002
 - name : attacktechniqueT1002
   hosts: linux
+  vars_files:
+   - /opt/ansible/vars.yaml
   tasks:
           - name: compress-files
-            file: path=/tmp/victim-files state=directory
+            file: path={{ victim_folder }}  state=directory
           - name: createfiles
             shell: |
-                cd /tmp/victim-files
+                cd {{ victim_folder }}
                 touch a b c d e f g h
-                echo "This file will be gzipped" > /tmp/victim-gzip.txt
-                echo "This file will be tarred" > /tmp/victim-tar.txt
-                zip /tmp/victim-files.zip /tmp/victim-files/*
-                gzip -f /tmp/victim-gzip.txt
-                tar -cvzf /tmp/victim-files.tar.gz /tmp/victim-files/
-                tar -cvzf /tmp/victim-tar.tar.gz
+                echo "This file will be gzipped" > {{ victim_file }}-gzip.txt
+                echo "This file will be tarred" > {{ victim_file }}-tar.txt
+                zip {{ victim_file }}.zip {{ victim_folder }}/*
+                gzip -f {{ victim_file }}-gzip.txt
+                tar -cvzf {{ victim_file }}-gzip.tar.gz {{ victim_folder }}
+                tar -cvzf {{ victim_file }}-tar.tar.gz
