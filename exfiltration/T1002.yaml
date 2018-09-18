@@ -16,3 +16,8 @@
                 gzip -f {{ victim_file }}-gzip.txt
                 #tar -cvzf {{ victim_file }}-gzip.tar.gz {{ victim_folder }}
                 #tar -cvzf {{ victim_file }}-tar.tar.gz
+          - name: delete temp files
+            shell: |
+                rm -r {{ victim_folder }}
+                rm {{ victim_file }}-gzip.txt
+                rm {{ victim_file }}-tar.tx
