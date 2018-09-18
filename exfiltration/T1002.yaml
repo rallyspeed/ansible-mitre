@@ -1,0 +1,16 @@
+# Playbook-T1002
+- name : attacktechniqueT1002
+  hosts: linux
+  tasks:
+          - name: compress-files
+            file: path=/tmp/victim-files state=directory
+          - name: createfiles
+            shell: |
+                cd /tmp/victim-files
+                touch a b c d e f g h
+                echo "This file will be gzipped" > /tmp/victim-gzip.txt
+                echo "This file will be tarred" > /tmp/victim-tar.txt
+                zip /tmp/victim-files.zip /tmp/victim-files/*
+                gzip -f /tmp/victim-gzip.txt
+                tar -cvzf /tmp/victim-files.tar.gz /tmp/victim-files/
+                tar -cvzf /tmp/victim-tar.tar.gz
