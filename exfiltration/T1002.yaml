@@ -13,6 +13,6 @@
                 echo "This file will be gzipped" > {{ victim_file }}-gzip.txt
                 echo "This file will be tarred" > {{ victim_file }}-tar.txt
                 zip {{ victim_file }}.zip {{ victim_folder }}/*
-                #gzip -f {{ victim_file }}-gzip.txt
+                gzip -f {{ victim_file }}-gzip.txt
                 #tar -cvzf {{ victim_file }}-gzip.tar.gz {{ victim_folder }}
                 #tar -cvzf {{ victim_file }}-tar.tar.gz
