@@ -1,0 +1,19 @@
+# attack_technique: T1022
+- name: Data Encrypted
+  hosts: linux
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+   - name: create folder
+     file: path={{ victim_folder }} state=directory
+   - name: create files
+     shell: |
+        echo "This file will be encrypted" > {{ victim_file }}.txt
+        cd {{ victim_folder }}
+        touch a b c d e f g h
+        zip --password {{ password_encryption }} {{ victim_file }}.zip {{ victim_folder }}/*
+        gpg --batch --passphrase {{ password_encryption }} -c {{ victim_file}}.txt
+   - name: delete temp files
+     shell: |
+       rm -r {{ victim_folder }}
+       rm {{ victim_file }}.txt
