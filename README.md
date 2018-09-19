@@ -18,6 +18,7 @@ INSTALL  sephamore for GUI interface.
  - `dpkg -i semaphore_2.5.1_linux_amd64.deb`
  - `semaphore -setup`
 ## Optional RUN SEPHAMORE GUI
+ - `ssh-agent bash`
  - `ssh-add ~/.ssh/id_rsa`
  - `ssh -T git@github.com` To confirm ansible machine can reach the github repo
  - `semaphore -config /opt/config.json &`
