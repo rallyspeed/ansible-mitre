@@ -6,7 +6,7 @@
   tasks:
     - name: Ansible check directory exists example.
       stat:
-        path: {{ exfiltration_folder }}
+        path: "{{ exfiltration_folder }}"
       register: exfil_check
     - name: Exfiltration Over Alternative Protocol - SSH
       shell: |
