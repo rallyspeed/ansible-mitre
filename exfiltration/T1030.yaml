@@ -5,7 +5,12 @@
    - /opt/ansible/vars.yaml
   tasks:
           - name: compress-files
-            file: path={{ victim_folder }}  state=directory
+            file:
+              path={{ item }}  state=directory
+              state=directory
+            with_items:
+              - "{{ victim_folder }}"
+              - "{{ exfiltration_folder }}"
           - name: create BIG file
             shell: |
                 cd /tmp/
