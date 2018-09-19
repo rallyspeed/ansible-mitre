@@ -1,6 +1,8 @@
 # attack_technique: T1158
 - name: Hidden Files and Directories
   hosts: linux
+  vars_files:
+   - /opt/ansible/vars.yaml
   tasks:
         - name: Create a hidden file in a hidden directory
           file: path=.{{ victim_folder }}-hidden state=directory
