@@ -1,3 +1,11 @@
 # attack_technique: T1030
 - name: Data Transfer Size Limits
   hosts: linux
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+          - name: compress-files
+            file: path={{ victim_folder }}  state=directory
+          - name: createfiles
+            shell: |
+                cd {{ victim_folder }}
