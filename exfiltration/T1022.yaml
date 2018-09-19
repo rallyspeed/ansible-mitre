@@ -5,13 +5,18 @@
    - /opt/ansible/vars.yaml
   tasks:
    - name: create folder
-     file: path={{ victim_folder }} state=directory
+     file: 
+        path={{ item }}  state=directory
+        state=directory
+      with_items:
+        - "{{ victim_folder }}"
+        - "{{ exfiltration_folder }}"
    - name: create files
      shell: |
         echo "This file will be encrypted" > /tmp/{{ victim_file }}.txt
         cd {{ victim_folder }}
         touch a b c d e f g h
-        zip --password {{ password_encryption }} /tmp/{{ victim_file }}.zip {{ victim_folder }}/*
+        zip --password {{ password_encryption }} {{ exfiltration_folder }}/{{ exfiltration_file }}-enc.zip {{ victim_folder }}/*
         gpg --batch --passphrase {{ password_encryption }} -c /tmp/{{ victim_file}}.txt
    - name: delete temp files
      shell: |
