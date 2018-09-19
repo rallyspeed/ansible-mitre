@@ -8,7 +8,7 @@
      file: 
         path={{ item }}  state=directory
         state=directory
-      with_items:
+     with_items:
         - "{{ victim_folder }}"
         - "{{ exfiltration_folder }}"
    - name: create files
