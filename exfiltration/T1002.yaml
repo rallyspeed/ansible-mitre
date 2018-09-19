@@ -6,15 +6,16 @@
   tasks:
           - name: compress-files
             file: path={{ victim_folder }}  state=directory
+            file: path={{ exfiltration_folder }}  state=directory
           - name: createfiles
             shell: |
                 cd {{ victim_folder }}
                 touch a b c d e f g h
                 echo "This file will be gzipped" > /tmp/{{ victim_file }}-gzip.txt
                 echo "This file will be tarred" > /tmp/{{ victim_file }}-tar.txt
-                zip /tmp/{{ victim_file }}.zip {{ victim_folder }}/*
-                gzip -f /tmp/{{ victim_file }}-gzip.txt
-                tar -cvzf /tmp/{{ victim_file }}-gzip.tar.gz {{ victim_folder }}
+                zip {{ exfiltration_folder }}/{{ exfiltration_file }}.zip {{ victim_folder }}/*
+                gzip -f /tmp/{{ victim_file }}-gzip.txt >> {{ exfiltration_folder }}/{{ exfiltration_file }}.gzip
+                tar -cvzf {{ exfiltration_folder }}/{{ exfiltration_file }}-gzip.tar.gz {{ victim_folder }}
           - name: delete temp files
             shell: |
                 rm -r {{ victim_folder }}
