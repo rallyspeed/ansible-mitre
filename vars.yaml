@@ -1,0 +1,10 @@
+## Variable files
+## To be copied into /opt/ansible
+victim_folder: [path1]
+victim_file: [path2]
+password_encryption: "[password]"
+backdoor_script: [path3]
+crontab_task: [path4]
+cnc_port: [port]
+cnc_fqdn: [fqdn]
+cnc_user: [user]
