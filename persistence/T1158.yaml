@@ -5,13 +5,13 @@
    - /opt/ansible/vars.yaml
   tasks:
         - name: Create a hidden file in a hidden directory
-          file: path={{ victim_folder }}/.hidden state=directory
+          file: path={{ victim_folder_hidden }} state=directory
         - name: create hidden file
           shell: |
-                echo "this file is hidden" > {{ victim_folder }}/.hidden/.{{ victim_file }}-1
+                echo "this file is hidden" > {{ victim_folder_hidden }}/.{{ victim_file }}-1
         - name: Hidden file mv file to a .file
           shell: |
-                cp /etc/shadow {{ victim_folder }}/.hidden/.{{ victim_file }}-2
+                cp /etc/shadow {{ victim_folder_hidden }}/.{{ victim_file }}-2
         - name: Create visible Directories
           file: path={{ victim_folder }}-visible state=directory
         - name: create visible file
