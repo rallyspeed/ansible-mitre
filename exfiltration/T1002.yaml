@@ -10,13 +10,13 @@
             shell: |
                 cd {{ victim_folder }}
                 touch a b c d e f g h
-                echo "This file will be gzipped" > {{ victim_file }}-gzip.txt
-                echo "This file will be tarred" > {{ victim_file }}-tar.txt
-                zip {{ victim_file }}.zip {{ victim_folder }}/*
-                gzip -f {{ victim_file }}-gzip.txt
-                tar -cvzf {{ victim_file }}-gzip.tar.gz {{ victim_folder }}
+                echo "This file will be gzipped" > /tmp/{{ victim_file }}-gzip.txt
+                echo "This file will be tarred" > /tmp/{{ victim_file }}-tar.txt
+                zip /tmp/{{ victim_file }}.zip {{ victim_folder }}/*
+                gzip -f /tmp/{{ victim_file }}-gzip.txt
+                tar -cvzf /tmp/{{ victim_file }}-gzip.tar.gz {{ victim_folder }}
           - name: delete temp files
             shell: |
                 rm -r {{ victim_folder }}
-                rm {{ victim_file }}-gzip.txt
-                rm {{ victim_file }}-tar.txt
+                rm /tmp/{{ victim_file }}-gzip.txt
+                rm /tmp/{{ victim_file }}-tar.txt
