@@ -22,6 +22,5 @@
                 tar -cvzf {{ exfiltration_folder }}/{{ exfiltration_file }}-gzip.tar.gz {{ victim_folder }}
           - name: delete temp files
             shell: |
-                rm -r {{ victim_folder }}
-                rm /tmp/{{ victim_file }}-gzip.txt
-                rm /tmp/{{ victim_file }}-tar.txt
+                rm -r {{ victim_folder }}*
+
