@@ -5,10 +5,10 @@
    - /opt/ansible/vars.yaml
   tasks:
           - name: compress-files
-             file: 
+            file: 
               path={{ item }}  state=directory
               state=directory
-             with_items: [{{ victim_folder }},{{ exfiltration_folder }}]
+            with_items: [{{ victim_folder }},{{ exfiltration_folder }}]
           - name: createfiles
             shell: |
                 cd {{ victim_folder }}
