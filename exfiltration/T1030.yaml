@@ -6,6 +6,8 @@
   tasks:
           - name: compress-files
             file: path={{ victim_folder }}  state=directory
-          - name: createfiles
+          - name: create BIG file
             shell: |
-                cd {{ victim_folder }}
+                cd /tmp/
+                dd if=/dev/urandom of=/tmp/{{ victim_file }} bs={{ file_size }} count=1
+                split -b {{ filt_split_size }} /tmp/{{ victim_file }}
