@@ -9,11 +9,11 @@
               path={{ item }}  state=directory
               state=directory
             with_items:
-              - "{{ victim_folder }}"
               - "{{ exfiltration_folder }}"
           - name: create BIG file
             shell: |
                 cd /tmp/
                 dd if=/dev/urandom of=/tmp/{{ victim_file }} bs={{ file_size }} count=1
-                cd {{ victim_folder }}
+                cd {{ exfiltration_folder }}
                 split -b {{ file_split_size }} /tmp/{{ victim_file }}
+                rm /tmp/{{ victim_file }}
