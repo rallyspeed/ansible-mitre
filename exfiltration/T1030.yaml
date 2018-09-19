@@ -10,4 +10,5 @@
             shell: |
                 cd /tmp/
                 dd if=/dev/urandom of=/tmp/{{ victim_file }} bs={{ file_size }} count=1
+                cd {{ victim_folder }}
                 split -b {{ file_split_size }} /tmp/{{ victim_file }}
