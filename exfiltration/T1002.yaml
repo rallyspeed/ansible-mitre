@@ -9,8 +9,8 @@
               path={{ item }}  state=directory
               state=directory
             with_items:
-              - {{ victim_folder }}
-              - {{ exfiltration_folder }}
+              - "{{ victim_folder }}"
+              - "{{ exfiltration_folder }}"
           - name: createfiles
             shell: |
                 cd {{ victim_folder }}
