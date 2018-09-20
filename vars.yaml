@@ -2,6 +2,10 @@
 ## To be copied into /opt/ansible
 victim_folder: [path1]
 victim_file: [path2]
+exfiltration_file: [exfil filename]
+exfiltration_folder: [exfil folder]
+file_size: [file size] ex: 25M
+file_split_size: [split size} ex:5000000
 password_encryption: "[password]"
 backdoor_script: [path3]
 crontab_task: [path4]
