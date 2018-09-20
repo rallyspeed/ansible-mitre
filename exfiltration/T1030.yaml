@@ -13,7 +13,7 @@
           - name: create BIG file
             shell: |
                 cd /tmp/
-                fallocate -l {{ file_size }} tmp/{{ victim_file }}.img
+                fallocate -l {{ file_size }} {{ victim_file }}.img
                 cd {{ exfiltration_folder }}
                 split -b {{ file_split_size }} /tmp/{{ victim_file }}.img
                 rm /tmp/{{ victim_file }}.img
