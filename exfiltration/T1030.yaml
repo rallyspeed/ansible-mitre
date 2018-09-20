@@ -13,7 +13,7 @@
           - name: create BIG file
             shell: |
                 cd /tmp/
-                dd if=/dev/urandom of=/tmp/{{ victim_file }} bs={{ file_size }} count=1
+                fallocate -l {{ file_size }} tmp/{{ victim_file }}.img
                 cd {{ exfiltration_folder }}
-                split -b {{ file_split_size }} /tmp/{{ victim_file }}
-                rm /tmp/{{ victim_file }}
+                split -b {{ file_split_size }} /tmp/{{ victim_file }}.img
+                rm /tmp/{{ victim_file }}.img
