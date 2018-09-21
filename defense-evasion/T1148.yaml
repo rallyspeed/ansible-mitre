@@ -1,0 +1,12 @@
+# Playbook-T11148
+- name : HISTCONTROL
+  hosts: linux
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+          - name: disable history
+            shell: |
+              - export HISTCONTROL=ignoreboth
+              - echo export "HISTCONTROL=ignoreboth" >> ~/.bash_profile
+          - name: execute hidden commands
+            shell: {{ nohistory_command }}
