@@ -22,7 +22,7 @@
     - name: Exfiltration Over Alternative Protocol TCP
       archive:
         path: "{{ exfiltration_folder }}/*"
-        dest: {{ exfiltration_file }}-tcp.gz
+        dest: "{{ exfiltration_file }}-tcp.gz"
         format: gz
       shell: |
         tar czpf {{ exfiltration_file }}-tcp.tar.gz {{ exfiltration_folder }}/*
