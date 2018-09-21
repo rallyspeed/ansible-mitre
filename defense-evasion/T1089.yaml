@@ -3,8 +3,8 @@
   hosts: linux
   tasks:
           - name: disable syslog
-            shell: 
-              - service rsyslog stop
+            shell: |
+              service rsyslog stop
           - name: disable ufw
-            shell:
-              - ufw disable
+            shell: |
+              ufw disable
