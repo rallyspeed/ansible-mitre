@@ -8,9 +8,9 @@
       stat:
         path: "{{ exfiltration_folder }}"
       register: exfil_check
-   - name: fail if exfil folder does not exist
-     fail: msg="No Exfiltration folder, please run another playbook before this one"
-     when: exfil_check.stat.exists == False
+    - name: fail if exfil folder does not exist
+      fail: msg="No Exfiltration folder, please run another playbook before this one"
+      when: exfil_check.stat.exists == False
     - name: Exfiltration Over Alternative Protocol - SSH
       shell: |
         echo port closed
