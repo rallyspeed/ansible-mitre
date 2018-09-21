@@ -10,7 +10,6 @@
               echo export "HISTCONTROL=ignoreboth" >> ~/.bash_profile
           - name: execute hidden commands
             shell: |
-              echo {{ nohistory_command }} > /tmp/nohis
               {{ nohistory_command }}
               export HISTCONTROL=
               
