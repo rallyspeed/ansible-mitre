@@ -1,4 +1,4 @@
-# Playbook-T11148
+# Playbook-T1148
 # check if command don't show in ~/.bash_history
 - name : HISTCONTROL
   hosts: linux
