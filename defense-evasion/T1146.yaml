@@ -7,23 +7,23 @@
   tasks:
           - name: Clear Bash history (rm)
             shell: rm ~/.bash_history
-            tags: #1
+            tags: option1
           - name: Clear Bash history (rm)
             shell: echo "" > ~/.bash_history
-            tags: #2
+            tags: option2
           - name: Clear Bash history (rm)
             shell: cat /dev/null > ~/.bash_history
-            tags: #3
+            tags: option3
           - name: Clear Bash history (ln dev/null)
             shell: ln -sf /dev/null ~/.bash_history
-            tags: #4
+            tags: option4
           - name: Clear Bash history (truncate)
             shell: truncate -s0 ~/.bash_history
-            tags: #5
+            tags: option5
           - name: Clear Bash history (truncate)
             shell:
               - unset HISTFILE
               - export HISTFILESIZE=0
               - history -c
-            tags: #6
+            tags: option6
            
