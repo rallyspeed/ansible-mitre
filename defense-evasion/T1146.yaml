@@ -1,0 +1,29 @@
+
+# Playbook-T1146
+- name : Clear Command History
+  hosts: linux
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+          - name: Clear Bash history (rm)
+            shell: rm ~/.bash_history
+            tags: #1
+          - name: Clear Bash history (rm)
+            shell: echo "" > ~/.bash_history
+            tags: #2
+          - name: Clear Bash history (rm)
+            shell: cat /dev/null > ~/.bash_history
+            tags: #3
+          - name: Clear Bash history (ln dev/null)
+            shell: ln -sf /dev/null ~/.bash_history
+            tags: #4
+          - name: Clear Bash history (truncate)
+            shell: truncate -s0 ~/.bash_history
+            tags: #5
+          - name: Clear Bash history (truncate)
+            shell:
+              - unset HISTFILE
+              - export HISTFILESIZE=0
+              - history -c
+            tags: #6
+           
