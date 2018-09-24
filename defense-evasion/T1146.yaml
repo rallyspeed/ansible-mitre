@@ -6,24 +6,25 @@
    - /opt/ansible/vars.yaml
   tasks:
           - name: Clear Bash history (rm)
-            shell: rm ~/.bash_history
             tags: option1
+            shell: rm ~/.bash_history
           - name: Clear Bash history (rm)
-            shell: echo "" > ~/.bash_history
             tags: option2
+            shell: echo "" > ~/.bash_history
           - name: Clear Bash history (rm)
-            shell: cat /dev/null > ~/.bash_history
             tags: option3
+            shell: cat /dev/null > ~/.bash_history
           - name: Clear Bash history (ln dev/null)
-            shell: ln -sf /dev/null ~/.bash_history
             tags: option4
+            shell: ln -sf /dev/null ~/.bash_history
           - name: Clear Bash history (truncate)
-            shell: truncate -s0 ~/.bash_history
             tags: option5
+            shell: truncate -s0 ~/.bash_history
           - name: Clear Bash history (truncate)
-            shell:
+            tags: option6
+            shell: |
               - unset HISTFILE
               - export HISTFILESIZE=0
               - history -c
-            tags: option6
+            
            
