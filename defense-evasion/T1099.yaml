@@ -9,3 +9,13 @@
             shell: |
               cp /etc/passwd /tmp/passwd
               touch -am -t 197001010000.00 /tmp/passwd
+          - name: Set a file's access and modify timestamp
+            tags: option2
+            shell: |
+              cp /etc/passwd /tmp/passwd
+              NOW=$(date)
+              date -s "1970-01-01 00:00:00"
+              touch /tmp/passwd
+              date -s "$NOW"
+              stat /tmp/passwd
+
