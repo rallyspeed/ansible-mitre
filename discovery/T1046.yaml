@@ -1,1 +1,12 @@
-T1046
+# attack_technique: T1046
+- name: Network Service Scanning
+  hosts: linux
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+          - name: Network Service Scanning
+            tags: SSH
+            shell: |
+                subnet=`ifconfig | grep 'inet ' | awk '{print $2}' | sed -e '/^127.0.0.1/d' | cut -d"." -f1-3`
+                for ip in ${1 254}; do for port in 22; do timeout 5 echo >/dev/tcp/$subnet.$ip/$port && echo "$subnet.$ip port $port is open" || echo "$subnet.$ip | grep port > \tmp\portscan.txt
+                
