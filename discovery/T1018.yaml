@@ -7,6 +7,6 @@
           - name: ping sweep
             shell: |
                 subnet=`ifconfig | grep 'inet ' | awk '{print $2}' | sed -e '/^127.0.0.1/d' | cut -d  '.' -f1-3`
-                "for ip in $(seq 1 254); do ping -c 1 $subnet.$ip; [ $? -eq 0 ] && echo '$subnet.$ip UP' || : ; done | grep 'UP' > /tmp/pingsweep.txt"
+                for ip in $(seq 1 254); do ping -c 1 $subnet.$ip; [ $? -eq 0 ] && echo '$subnet.$ip UP' || : ; done | grep 'UP' > /tmp/pingsweep.txt
                 
                 
