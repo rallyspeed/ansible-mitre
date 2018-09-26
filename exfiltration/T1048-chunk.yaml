@@ -23,6 +23,6 @@
       register: exfil_files_list
     - name: Debug test
       tags: always 
-      debug: msg="{{ exfil_files_list }}"
+      debug: msg="{{ exfil_files_list.stdout_lines }}"
         
     
