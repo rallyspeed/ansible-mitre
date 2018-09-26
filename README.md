@@ -3,9 +3,10 @@ MITRE playbooks using ansible format
 
 ## Prerequisites
 ansible (`apt-get install ansible`)
+customize vars.yaml file
 
 ## Installation
-- `git clone https://github.com/rallyspeed/Azure-CIS.git`
+- `git clone https://github.com/rallyspeed/ansible-mitre.git`
 
 ## Usage
 - `ansible-playbook [playbook].yaml`
