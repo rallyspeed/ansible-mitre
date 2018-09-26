@@ -24,6 +24,6 @@
     - name: Debug test
       tags: always 
       debug:
-        msg="{{ exfil_files_lists }}"
+        msg="{{ exfil_files_list }}"
 
     
