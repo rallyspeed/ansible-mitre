@@ -12,11 +12,13 @@
               echo "port='22'" >> /tmp/scan-ssh.sh 
               echo 'for ip in $(seq 4 5); do echo >/dev/tcp/$subnet.$ip/$port && echo "$subnet.$ip port $port is open" || echo "$subnet.$ip port $port is closed" ; done | grep port > /tmp/portscan-SSH.txt' >> /tmp/scan-ssh.sh 
               bash /tmp/scan-ssh.sh
-              
+              rm /tmp/scan-ssh.sh
          - name: Network Service Scanning - SMB
            tags: SMB
            shell: |
-              subnet=`ifconfig | grep 'inet ' | awk '{print $2}' | sed -e '/^127.0.0.1/d' | cut -d  '.' -f1-3`
-              port = 445
-              for ip in $(seq 1 254); do echo >/dev/tcp/$subnet.$ip/$port && echo $subnet.$ip port $port is open || echo $subnet.$ip port $port is closed ; done | grep port > /tmp/portscan-SMB.txt
- 
+              echo '#!/bin/bash' > /tmp/scan-smb.sh
+              echo "subnet=`ifconfig | grep 'inet ' | awk '{print $2}' | sed -e '/^127.0.0.1/d' | cut -d  '.' -f1-3`" >> /tmp/scan-smb.sh
+              echo "port='445'" >> /tmp/scan-smb.sh 
+              echo 'for ip in $(seq 4 5); do echo >/dev/tcp/$subnet.$ip/$port && echo "$subnet.$ip port $port is open" || echo "$subnet.$ip port $port is closed" ; done | grep port > /tmp/portscan-SMB.txt' >> /tmp/scan-smb.sh 
+              bash /tmp/scan-smb.sh
+              rm /tmp/scan-smb.sh
