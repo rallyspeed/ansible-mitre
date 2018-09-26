@@ -25,5 +25,5 @@
       tags: always 
       debug:
         msg="{{ exfil_files_list.stdout_lines }}"
-    - name: Grab files names form exfiltration_folder
+    - name: Exfil over SSH
       tags: always
