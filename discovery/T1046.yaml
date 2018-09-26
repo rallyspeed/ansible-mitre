@@ -9,7 +9,6 @@
            shell: >
               subnet=`ifconfig | grep 'inet ' | awk '{print $2}' | sed -e '/^127.0.0.1/d' | cut -d  '.' -f1-3`
               for ip in $(seq 1 254); do timeout 5 echo >/dev/tcp/$subnet.$ip/$port && echo $subnet.$ip port $port is open || echo port $port is closed ; done | grep port >> \tmp\portscan-SSH.txt
-              "for ip in ${seq 1 254}; do for port in 22; do timeout 5 echo >/dev/tcp/$subnet.$ip/$port && echo $subnet.$ip port $port is open || echo port $port is closed ; done ; done | grep port >> \tmp\portscan-SSH.txt"
          - name: Network Service Scanning - SMB
            tags: SMB
            shell: >
