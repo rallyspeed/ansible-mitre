@@ -25,5 +25,5 @@
       tags: always 
       debug:
         msg="{{ item.stdout_lines }}"
-      loop: "{{  exfil_files_list.results }}
+      loop: "{{  exfil_files_list.results }}"
     
