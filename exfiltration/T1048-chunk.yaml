@@ -21,8 +21,8 @@
       args:
         chdir: "{{ exfiltration_folder }}"
       register: exfil_files_list
-    - debug:
-        var: "exfil_files_list.stdout_lines"
+    - name: Debug test
+      debug: msg="{{ exfil_files_list.stdout_lines }}"
         
     - name: exfl over SSH
       tags: always 
