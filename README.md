@@ -24,3 +24,6 @@ INSTALL  sephamore for GUI interface.
  - `ssh -T git@github.com` To confirm ansible machine can reach the github repo
  - `semaphore -config /opt/config.json &`
  
+## Optional Install mysqclient
+ - `python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall`
+ - `pip3 install mysqlclient`
