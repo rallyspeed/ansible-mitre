@@ -1,4 +1,4 @@
-# attack_technique: T015
+# attack_technique: T1015
 - name: T1015 - Accessibility Features
   hosts: windows
   vars_files:
