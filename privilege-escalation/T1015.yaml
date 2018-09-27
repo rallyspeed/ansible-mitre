@@ -70,9 +70,9 @@
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\osk.exe
               name: Debugger
             register: T1015
-        - name: check if playbook was successfull
-          tags: always
-          fail: msg="T1015 failed or prevented by security control"
-          when: T1015.exists == False        
+         - name: check if playbook was bocked
+           tags: always
+           fail: msg="T1015 failed or prevented by security control"
+           when: T1015.exists == False        
             
       
