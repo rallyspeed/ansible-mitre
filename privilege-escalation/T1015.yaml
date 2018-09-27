@@ -12,4 +12,27 @@
               name: Debugger
               data: 'C:\windows\system32\cmd.exe'
               type: string
-            
+          - name: Attaches Command Prompt As Debugger To Process - sethc
+            #reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" /v "Debugger" /t REG_SZ /d "C:\windows\system32\cmd.exe" /f
+            tags: SETHC
+            win_regedit:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe
+              name: Debugger
+              data: 'C:\windows\system32\cmd.exe'
+              type: string
+          - name: Attaches Command Prompt As Debugger To Process - utilman
+            #reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\utilman.exe" /v "Debugger" /t REG_SZ /d "C:\windows\system32\cmd.exe" /f
+            tags: UTILMAN
+            win_regedit:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\utilman.exe
+              name: Debugger
+              data: 'C:\windows\system32\cmd.exe'
+              type: string          
+          - name: Attaches Command Prompt As Debugger To Process - magnify
+            #reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\magnify.exe" /v "Debugger" /t REG_SZ /d "C:\windows\system32\cmd.exe" /f
+            tags: MAGNIFY
+            win_regedit:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\magnify.exe
+              name: Debugger
+              data: 'C:\windows\system32\cmd.exe'
+              type: string     
