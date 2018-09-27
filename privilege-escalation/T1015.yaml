@@ -44,7 +44,7 @@
               name: Debugger
               data: 'C:\windows\system32\cmd.exe'
               type: string
-           - name: Attaches Command Prompt As Debugger To Process - DisplaySwitch
+          - name: Attaches Command Prompt As Debugger To Process - DisplaySwitch
             #reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DisplaySwitch.exe" /v "Debugger" /t REG_SZ /d "C:\windows\system32\cmd.exe" /f
             tags: DISPLAYSWITCH
             win_regedit:
