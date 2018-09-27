@@ -60,3 +60,12 @@
               name: Debugger
               data: 'C:\windows\system32\cmd.exe'
               type: string    
+          - name: Check REG exist
+            tags: OSK
+            win_reg_stat:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\osk.exe
+              name: Debugger
+            register: osk_set
+            
+            
+      
