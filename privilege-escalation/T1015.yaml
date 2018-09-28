@@ -72,10 +72,10 @@
             register: T1015
           - name: check if playbook was blocked
             tags: always
-            debug: msg="Playbook Completed:T1015:blocked"
+            debug: msg="Playbook Completed:T1015:blocked:"
             when: T1015.exists == False        
           - name: check if playbook was successfull
             tags: always
-            debug: msg="Playbook Completed:T1015:passed"
+            debug: msg="Playbook Completed:T1015:passed:"
             when: T1015.exists        
       
