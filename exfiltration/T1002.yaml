@@ -29,7 +29,7 @@
           - name: check files there
             tags: always
             stat:
-              path: {{ exfiltration_folder }}/{{ exfiltration_file }}.gzip  state=directory
+              path: "{{ exfiltration_folder }}/{{ exfiltration_file }}.gzip"
             register: T1002
           - name: check if playbook was blocked
             tags: always
