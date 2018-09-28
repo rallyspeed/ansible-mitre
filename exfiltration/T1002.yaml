@@ -26,4 +26,13 @@
                 rm /tmp/{{ victim_file }}-gzip.txt
                 rm /tmp/{{ victim_file }}-tar.txt
                 rm /tmp/{{ victim_file }}-gzip.txt.gz
-
+          - name: check files there
+          
+          - name: check if playbook was blocked
+            tags: always
+            debug: msg="Playbook Completed:T1002:blocked:linux:"
+            when: T1002.exists == False        
+          - name: check if playbook was successfull
+            tags: always
+            debug: msg="Playbook Completed:T1002:passed:linux:"
+            when: T1002.exists      
