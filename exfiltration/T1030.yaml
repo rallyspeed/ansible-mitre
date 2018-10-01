@@ -17,3 +17,17 @@
                 cd {{ exfiltration_folder }}
                 split -b {{ file_split_size }} /tmp/{{ victim_file }}.img
                 rm /tmp/{{ victim_file }}.img
+          - name: check files exist
+            tags: always
+            stat:
+              path: "{{ exfiltration_folder }}"
+              type: folder
+            register: T1030
+          - name: check if playbook was blocked
+            tags: always
+            debug: msg="Playbook Completed:T1030:blocked:linux:"
+            when: T1030.stat.exists == False        
+          - name: check if playbook was successfull
+            tags: always
+            debug: msg="Playbook Completed:T1002:passed:linux:"
+            when: T1030.stat.exists  
