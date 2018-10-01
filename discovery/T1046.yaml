@@ -43,7 +43,7 @@
          - name: check if playbook was blocked
            tags: SMB
            debug: msg="Playbook Completed:T1046:blocked:linux:"
-            when: T1046.stat.exists == False       
+           when: T1046.stat.exists == False       
          - name: check if playbook was successfull
            tags: SMB
            debug: msg="Playbook Completed:T1046:passed:linux:"
