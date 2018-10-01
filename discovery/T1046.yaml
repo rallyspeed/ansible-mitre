@@ -21,11 +21,11 @@
           - name: check if playbook was blocked
             tags: always
             debug: msg="Playbook Completed:T1046:blocked:linux:"
-            when: T1046.stat.exists == False        
+            when: T1046.stat.size == 0        
           - name: check if playbook was successfull
             tags: always
             debug: msg="Playbook Completed:T1046:passed:linux:"
-            when: T1046.stat.exists  
+            when: T1046.stat.size > 0  
          - name: Network Service Scanning - SMB
            tags: SMB
            shell: |
@@ -43,8 +43,8 @@
           - name: check if playbook was blocked
             tags: always
             debug: msg="Playbook Completed:T1046:blocked:linux:"
-            when: T1046.stat.exists == False        
+            when: T1046.stat.size == 0       
           - name: check if playbook was successfull
             tags: always
             debug: msg="Playbook Completed:T1046:passed:linux:"
-            when: T1046.stat.exists  
+            when: T1046.stat.size > 0  
