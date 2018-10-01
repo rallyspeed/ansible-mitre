@@ -21,7 +21,6 @@
             tags: always
             stat:
               path: "{{ exfiltration_folder }}"
-              type: folder
             register: T1030
           - name: check if playbook was blocked
             tags: always
@@ -30,4 +29,4 @@
           - name: check if playbook was successfull
             tags: always
             debug: msg="Playbook Completed:T1030:passed:linux:"
-            when: T1030.stat.exists  
+            when: T1030.stat.isdir  
