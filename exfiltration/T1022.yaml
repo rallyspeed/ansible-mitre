@@ -23,3 +23,16 @@
      shell: |
        rm -r {{ victim_folder }}
        rm /tmp/{{ victim_file }}.txt
+   - name: check files there
+     tags: always
+     stat:
+     path: "{{ exfiltration_folder }}/{{ exfiltration_file }}-enc.zip"
+     register: T1022
+   - name: check if playbook was blocked
+     tags: always
+     debug: msg="Playbook Completed:T1002:blocked:linux:"
+     when: T1022.stat.exists == False        
+   - name: check if playbook was successfull
+     tags: always
+     debug: msg="Playbook Completed:T1002:passed:linux:"
+     when: T1022.stat.exists  
