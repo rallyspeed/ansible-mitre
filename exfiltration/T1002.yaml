@@ -26,7 +26,6 @@
             shell: |
                 rm -r {{ victim_folder }}
                 rm /tmp/{{ victim_file }}-gzip.txt
-                rm /tmp/{{ victim_file }}-gzip.txt.gz
           - name: check files there
             tags: always
             stat:
