@@ -29,5 +29,5 @@
             when: T1030.stat.exists == False        
           - name: check if playbook was successfull
             tags: always
-            debug: msg="Playbook Completed:T1002:passed:linux:"
+            debug: msg="Playbook Completed:T1030:passed:linux:"
             when: T1030.stat.exists  
