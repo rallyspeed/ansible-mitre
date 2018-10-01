@@ -30,9 +30,9 @@
      register: T1022
    - name: check if playbook was blocked
      tags: always
-     debug: msg="Playbook Completed:T1002:blocked:linux:"
+     debug: msg="Playbook Completed:T1022:blocked:linux:"
      when: T1022.stat.exists == False        
    - name: check if playbook was successfull
      tags: always
-     debug: msg="Playbook Completed:T1002:passed:linux:"
+     debug: msg="Playbook Completed:T1022:passed:linux:"
      when: T1022.stat.exists  
