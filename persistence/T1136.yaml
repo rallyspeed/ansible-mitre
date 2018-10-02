@@ -9,7 +9,7 @@
                 useradd -M -N -r -s /bin/bash -c "{{ username_comment }}" {{ username_backdoor }}
         - name: check if user exists
           tags: always
-          command: "/usr/bin/getent passwd {{ username_backdoor }} | /usr/bin/wc -l | tr -d ' '"
+          command: /usr/bin/getent passwd {{ username_backdoor }} | /usr/bin/wc -l | tr -d ' '
           #shell: grep "^{{ username_backdoor }}:" /etc/passwd
           register: T1136
         - name: check if playbook was blocked
