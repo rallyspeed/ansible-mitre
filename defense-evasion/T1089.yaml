@@ -3,8 +3,23 @@
   hosts: linux
   tasks:
           - name: disable syslog
+            tags: SYSLOG
             shell: |
               service rsyslog stop
           - name: disable ufw
+            tags: FW
             shell: |
               ufw disable
+          - name: check fw status
+            tags: FW
+	          shell: |
+              ufw status
+            register: T1089
+          - name: check if playbook was blocked
+            tags: FW
+            debug: msg="Playbook Completed:T1089:blocked:linux:"
+            when: T1089.output == "Status: active"       
+          - name: check if playbook was successfull
+            tags: FW
+            debug: msg="Playbook Completed:T1089:passed:linux:"
+            when: T1089.output == "Status: inactive"               
