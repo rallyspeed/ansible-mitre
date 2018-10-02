@@ -18,8 +18,8 @@
           - name: check if playbook was blocked
             tags: FW
             debug: msg="Playbook Completed:T1089:blocked:linux:"
-            when: T1089.output == "Status: active"       
+            when: T1089.output == "Status\: active"       
           - name: check if playbook was successfull
             tags: FW
             debug: msg="Playbook Completed:T1089:passed:linux:"
-            when: T1089.output == "Status: inactive"               
+            when: T1089.output == "Status\: inactive"               
