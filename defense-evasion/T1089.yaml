@@ -62,3 +62,18 @@
             tags: FW
             debug: msg="Playbook Completed:T1089:passed:win:"
             when: '"OFF" in T1089.stdout'                  
+          - name: disable av
+            tags: AV
+            win_command:  Start-Process powershell -Verb runAs -ArgumentList ('Set-MpPreference -DisableRealtimeMonitoring $true')
+          - name: check av status
+            tags: AV
+            win_command: Netsh Advfirewall show Domain State
+            register: T1089
+          - name: check if playbook was blocked
+            tags: AV
+            debug: msg="Playbook Completed:T1089:blocked:win:"
+            when:  '"ON" in T1089.stdout'       
+          - name: check if playbook was successfull
+            tags: AV
+            debug: msg="Playbook Completed:T1089:passed:win:"
+            when: '"OFF" in T1089.stdout'   
