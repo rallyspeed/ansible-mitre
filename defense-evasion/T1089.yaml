@@ -50,3 +50,5 @@
               state: disabled
               profiles:
                 - Domain
+                - Private
+                - Public
