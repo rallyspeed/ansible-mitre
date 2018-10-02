@@ -61,19 +61,24 @@
           - name: check if playbook was successfull
             tags: FW
             debug: msg="Playbook Completed:T1089:passed:win:"
-            when: '"OFF" in T1089.stdout'                  
+            when: '"OFF" in T1089.stdout'
+          - name: check av status - prior TTP
+            tags: AV
+            win_shell: Get-MpPreference | findstr DisableRealtimeMonitoring
+            register: Pre-T1089
           - name: disable av
             tags: AV
             win_shell:  Set-MpPreference -DisableRealtimeMonitoring $true
+            when: '"False" in Pre-T1089.stdout'     
           - name: check av status
             tags: AV
             win_shell: Get-MpPreference | findstr DisableRealtimeMonitoring
-            register: T1089
+            register: Post-T1089
           - name: check if playbook was blocked
             tags: AV
             debug: msg="Playbook Completed:T1089:blocked:win:"
-            when:  '"False" in T1089.stdout'       
+            when:  '"False" in Post-T1089.stdout'       
           - name: check if playbook was successfull
             tags: AV
             debug: msg="Playbook Completed:T1089:passed:win:"
-            when: '"True" in T1089.stdout'   
+            when: '"True" in Post-T1089.stdout'   
