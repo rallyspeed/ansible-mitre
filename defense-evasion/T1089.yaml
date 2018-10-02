@@ -50,11 +50,9 @@
               state: disabled
               profiles:
                 - Domain
-                - Private
-                - Public
           - name: check fw status
             tags: FW
-            win_command: Netsh Advfirewall show allprofiles State
+            win_command: Netsh Advfirewall show Domain State
             register: T1089
           - name: check if playbook was blocked
             tags: FW
