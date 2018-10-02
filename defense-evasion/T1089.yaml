@@ -62,14 +62,19 @@
             tags: FW
             debug: msg="Playbook Completed:T1089:passed:win:"
             when: '"OFF" in T1089.stdout'
+            
+            ### Windows Defender pre-check
           - name: check Defender status - pre TTP
             tags: AV
             win_shell: Get-MpPreference | findstr DisableRealtimeMonitoring
             register: Pre-T1089-Defender
+            ### Windows Crodstrike pre-check
           - name: check Crowdstrike status - prior TTP
             tags: AV
             win_command: sc query csagent
             register: Pre-T1089-Crowdstrike
+            
+            ### Disable Windows Defender if enable
           - name: disable Defender
             tags: AV
             win_shell:  Set-MpPreference -DisableRealtimeMonitoring $true
