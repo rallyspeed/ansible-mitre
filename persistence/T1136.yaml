@@ -10,14 +10,14 @@
         - name: check if user exists
           tags: always
           shell: |
-                shell: grep "^{{ username_backdoor }}:" /etc/passwd
-                # "/usr/bin/getent passwd {{ username_backdoor }} | /usr/bin/wc -l | tr -d ' '"
+                #shell: grep "^{{ username_backdoor }}:" /etc/passwd
+                "/usr/bin/getent passwd {{ username_backdoor }} | /usr/bin/wc -l | tr -d ' '"
           register: T1136
         - name: check if playbook was blocked
           tags: always
           debug: msg="Playbook Completed:T1136:blocked:linux:"
-          when: T1136.rc == 0        
+          when: T1136.stdout == 0        
         - name: check if playbook was successfull
           tags: always
           debug: msg="Playbook Completed:T1136:passed:linux:"
-          when: T1136.rc == 1 
+          when: T1136.stdout == 1 
