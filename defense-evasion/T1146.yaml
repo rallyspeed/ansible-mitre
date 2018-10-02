@@ -26,5 +26,17 @@
               - unset HISTFILE
               - export HISTFILESIZE=0
               - history -c
-            
+          - name: check files there
+            tags: always
+            stat:
+              path: ~/.bash_history
+            register: T1146
+          - name: check if playbook was blocked
+            tags: always
+            debug: msg="Playbook Completed:T1146:blocked:linux:"
+            when: (T1146.stat.exists == False or T1146.stat.size > 2)
+          - name: check if playbook was successfull
+            tags: always
+            debug: msg="Playbook Completed:T1146:passed:linux:"
+            when: (T1146.stat.exists and T1146.stat.size < 2)
            
