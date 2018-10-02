@@ -10,7 +10,6 @@
         - name: check if user exists
           tags: always
           command: /usr/bin/getent passwd {{ username_backdoor }} | /usr/bin/wc -l | tr -d ' '
-          #shell: grep "^{{ username_backdoor }}:" /etc/passwd
           register: T1136
         - name: check if playbook was blocked
           tags: always
