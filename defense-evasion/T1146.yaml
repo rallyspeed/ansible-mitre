@@ -8,10 +8,10 @@
           - name: Clear Bash history (rm)
             tags: option1
             shell: rm ~/.bash_history
-          - name: Clear Bash history (rm)
+          - name: Clear Bash history (echo)
             tags: option2
             shell: echo "" > ~/.bash_history
-          - name: Clear Bash history (rm)
+          - name: Clear Bash history (cat)
             tags: option3
             shell: cat /dev/null > ~/.bash_history
           - name: Clear Bash history (ln dev/null)
