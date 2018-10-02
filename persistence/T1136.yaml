@@ -15,8 +15,8 @@
         - name: check if playbook was blocked
           tags: always
           debug: msg="Playbook Completed:T1136:blocked:linux:"
-          when: T1136.stat.exists == False        
+          when: T1136.stdout == 0        
         - name: check if playbook was successfull
           tags: always
           debug: msg="Playbook Completed:T1136:passed:linux:"
-          when: T1136.stat.exists  
+          when: T1136.stdout == 1 
