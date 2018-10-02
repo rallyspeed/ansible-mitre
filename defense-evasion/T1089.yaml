@@ -13,7 +13,7 @@
           - name: check fw status
             tags: FW
             shell: |
-              ufw status
+              ufw status | grep Status
             register: T1089
           - name: check if playbook was blocked
             tags: FW
