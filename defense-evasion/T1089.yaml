@@ -32,11 +32,11 @@
             register: T1089
           - name: check if playbook was blocked
             tags: FW
-            debug: msg="Playbook Completed:T1089:blocked:linux:"
+            debug: msg="Playbook Completed:T1089:blocked:windows:"
             when:  '"active" in T1089.stdout'       
           - name: check if playbook was successfull
             tags: FW
-            debug: msg="Playbook Completed:T1089:passed:linux:"
+            debug: msg="Playbook Completed:T1089:passed:windows:"
             when: '"inactive" in T1089.stdout'                  
 
 - name: Disabling Security Tools - Windows
