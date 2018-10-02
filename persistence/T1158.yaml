@@ -17,3 +17,16 @@
         - name: create visible file
           shell: |
                 echo "this file is visible" > {{ victim_folder }}-visible/{{ victim_file }}-visible
+        - name: check files there
+          tags: always
+          stat:
+            path: "{{ victim_folder_hidden }}/.{{ victim_file }}-2"
+          register: T1158
+        - name: check if playbook was blocked
+          tags: always
+          debug: msg="Playbook Completed:T1158:blocked:linux:"
+          when: T1158.stat.exists == False        
+        - name: check if playbook was successfull
+          tags: always
+          debug: msg="Playbook Completed:T1158:passed:linux:"
+          when: T1158.stat.exists  
