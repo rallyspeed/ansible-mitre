@@ -46,7 +46,7 @@
   tasks:
           - name: disable ufw
             tags: FW
-            win_firewall
+            win_firewall:
               state: disabled
               profiles:
                 - Domain
