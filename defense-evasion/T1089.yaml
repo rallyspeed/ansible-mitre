@@ -12,7 +12,7 @@
               ufw disable
           - name: check fw status
             tags: FW
-	          shell: |
+	    shell: |
               ufw status
             register: T1089
           - name: check if playbook was blocked
