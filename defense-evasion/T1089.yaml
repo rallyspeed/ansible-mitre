@@ -52,3 +52,15 @@
                 - Domain
                 - Private
                 - Public
+          - name: check fw status
+            tags: FW
+            win_command: Netsh Advfirewall show allprofiles State
+            register: T1089
+          - name: check if playbook was blocked
+            tags: FW
+            debug: msg="Playbook Completed:T1089:blocked:linux:"
+            when:  '"ON" in T1089.stdout'       
+          - name: check if playbook was successfull
+            tags: FW
+            debug: msg="Playbook Completed:T1089:passed:linux:"
+            when: '"OFF" in T1089.stdout'                  
