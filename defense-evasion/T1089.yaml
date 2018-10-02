@@ -64,7 +64,7 @@
             when: '"OFF" in T1089.stdout'                  
           - name: disable av
             tags: AV
-            win_shell:  Set-MpPreference -DisableRealtimeMonitoring $true'
+            win_shell:  Set-MpPreference -DisableRealtimeMonitoring $true
           - name: check av status
             tags: AV
             win_shell: Get-MpPreference | findstr DisableRealtimeMonitoring
