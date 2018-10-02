@@ -62,23 +62,27 @@
             tags: FW
             debug: msg="Playbook Completed:T1089:passed:win:"
             when: '"OFF" in T1089.stdout'
-          - name: check av status - prior TTP
+          - name: check Defender status - pre TTP
             tags: AV
             win_shell: Get-MpPreference | findstr DisableRealtimeMonitoring
-            register: Pre-T1089
-          - name: disable av
+            register: Pre-T1089-Defender
+          - name: check Crowdstrike status - prior TTP
+            tags: AV
+            win_command: sc query csagent
+            register: Pre-T1089-Crowdstrike
+          - name: disable Defender
             tags: AV
             win_shell:  Set-MpPreference -DisableRealtimeMonitoring $true
-            when: '"False" in Pre-T1089.stdout'     
-          - name: check av status
+            when: '"False" in Pre-T1089-Defender.stdout'     
+          - name: check Defender status - post TTP
             tags: AV
             win_shell: Get-MpPreference | findstr DisableRealtimeMonitoring
-            register: Post-T1089
+            register: Post-T1089-Defender
           - name: check if playbook was blocked
             tags: AV
             debug: msg="Playbook Completed:T1089:blocked:win:"
-            when:  '"False" in Post-T1089.stdout'       
+            when:  '"False" in Post-T1089-Defender.stdout'       
           - name: check if playbook was successfull
             tags: AV
             debug: msg="Playbook Completed:T1089:passed:win:"
-            when: '"True" in Post-T1089.stdout'   
+            when: '"True" in Post-T1089-Defender.stdout'   
