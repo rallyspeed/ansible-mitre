@@ -27,3 +27,7 @@ INSTALL  sephamore for GUI interface.
 ## Optional Install mysqclient
  - `python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall`
  - `pip3 install mysqlclient`
+
+## Ansible Usage and Report Generation
+ - Create Task Templates and assign 
+
