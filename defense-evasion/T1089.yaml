@@ -78,7 +78,15 @@
           - name: disable Defender
             tags: AV
             win_shell:  Set-MpPreference -DisableRealtimeMonitoring $true
-            when: '"False" in Pre-T1089-Defender.stdout'     
+            when: '"False" in Pre-T1089-Defender.stdout'
+            
+            ### Disable Crodstrike if enable
+          - name: disable Defender
+            tags: AV
+            win_command:  sc stop csagent
+            when: '"RUNNING" in Pre-T1089-Crowdstrike.stdout'
+
+            
           - name: check Defender status - post TTP
             tags: AV
             win_shell: Get-MpPreference | findstr DisableRealtimeMonitoring
