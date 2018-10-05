@@ -7,8 +7,8 @@
 #- import_playbook: defense-evasion/T1148.yaml
 
 # discovery
-- import_playbook: discovery/T1018.yaml
-- import_playbook: discovery/T1046.yaml tags=SSH
+# - import_playbook: discovery/T1018.yaml
+# - import_playbook: discovery/T1046.yaml tags=SSH
 
 # persistence
 - import_playbook: persistence/T1136.yaml
