@@ -15,11 +15,11 @@
         - name: check if playbook was blocked
           tags: always
           debug: msg="Playbook Completed:T1136:blocked:linux:"
-          when: 'T1136.stdout == "0"'       
+          when: '"0" in T1136.stdout'      
         - name: check if playbook was successfull
           tags: always
           debug: msg="Playbook Completed:T1136:passed:linux:"
-          when: 'T1136.stdout == "1"'
+          when: '"1" in T1136.stdout'    
 - name: Create Account - Windows
   hosts: windows
   vars_files:
