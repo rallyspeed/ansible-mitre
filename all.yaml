@@ -3,8 +3,8 @@
 # defense-evasion
 #- import_playbook: defense-evasion/T1089.yaml
 #- import_playbook: defense-evasion/T1099.yaml
- - include: defense-evasion/T1146.yaml
-   tags: ['option2']
+include: defense-evasion/T1146.yaml
+ tags: ['option2']
 #- import_playbook: defense-evasion/T1148.yaml
 
 # discovery
