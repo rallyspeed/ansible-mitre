@@ -9,3 +9,9 @@
 # discovery
 - import_playbook: discovery/T1018.yaml
 - import_playbook: discovery/T1046.yaml
+
+# persistence
+- import_playbook: persistence/T1136.yaml
+#- import_playbook: persistence/T1154.yaml
+- import_playbook: persistence/T1158.yaml
+#- import_playbook: persistence/T1168.yaml
