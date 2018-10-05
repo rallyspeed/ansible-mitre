@@ -1,0 +1,3 @@
+# Run all Playbooks
+- import_playbook: T1136.yaml
+- import_playbook: T1015.yaml
