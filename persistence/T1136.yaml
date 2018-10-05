@@ -10,7 +10,7 @@
         - name: check if user exists
           tags: always
           shell: |
-            "getent passwd {{ username_backdoor }} | wc -l | tr -d ' '"
+            getent passwd {{ username_backdoor }} | wc -l
           register: T1136
         - name: check if playbook was blocked
           tags: always
