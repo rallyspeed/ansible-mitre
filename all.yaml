@@ -5,3 +5,7 @@
 #- import_playbook: defense-evasion/T1099.yaml
 - import_playbook: defense-evasion/T1146.yaml
 #- import_playbook: defense-evasion/T1148.yaml
+
+# discovery
+- import_playbook: discovery/T1018.yaml
+- import_playbook: discovery/T1046.yaml
