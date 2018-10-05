@@ -1,3 +1,5 @@
 # Run all Playbooks
-- import_playbook: T1136.yaml
-- import_playbook: T1015.yaml
+- import_playbook: defense-evasion/T1089.yaml
+- import_playbook: defense-evasion/T1099.yaml
+- import_playbook: defense-evasion/T1146.yaml
+- import_playbook: defense-evasion/T1148.yaml
