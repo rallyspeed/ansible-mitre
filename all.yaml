@@ -3,12 +3,12 @@
 # defense-evasion
 #- import_playbook: defense-evasion/T1089.yaml
 #- import_playbook: defense-evasion/T1099.yaml
-- import_playbook: defense-evasion/T1146.yaml
+- import_playbook: defense-evasion/T1146.yaml tags=option2
 #- import_playbook: defense-evasion/T1148.yaml
 
 # discovery
 - import_playbook: discovery/T1018.yaml
-- import_playbook: discovery/T1046.yaml
+- import_playbook: discovery/T1046.yaml tags=SSH
 
 # persistence
 - import_playbook: persistence/T1136.yaml
