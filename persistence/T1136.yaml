@@ -36,5 +36,16 @@
             members:
               - '{{ username_backdoor }}'
             state: present
-
+        - name: check if user exists
+          tags: always
+          win_shell: Get-LocalUser | findstr '{{ username_backdoor }}'
+          register: T1136
+        - name: check if playbook was blocked
+          tags: always
+          debug: msg="Playbook Completed:T1136:blocked:win:"
+          when: '"True" not in T1136.stdout'      
+        - name: check if playbook was successfull
+          tags: always
+          debug: msg="Playbook Completed:T1136:passed:win:"
+          when: '"True" in T1136.stdout'    
 
