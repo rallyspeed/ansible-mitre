@@ -4,7 +4,7 @@ import MySQLdb
 import os, sys
 from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
-
+import urllib.request
 
 # Initial First File Opening
 first = True
@@ -55,8 +55,14 @@ def updatereport(TTP_ID,status,date,os):
     global first
     # Load matrix template
     if (first == True):
-        wb = load_workbook('./Matrix-MITRE.xlsx')
-        first = False
+        try:
+            url= "https://github.com/rallyspeed/ansible-mitre/raw/master/report/Matrix-MITRE.xlsx"
+            urllib.request.urlretrieve(url, "Updated-Matrix.xlsx")
+            wb = load_workbook('./Updated-Matrix.xlsx')
+            first = False
+        except:
+            print ("Failed to donwlod URL")
+
     # Load updated matrix
     else:
         wb = load_workbook('/var/www/html/matrix.xlsx')
