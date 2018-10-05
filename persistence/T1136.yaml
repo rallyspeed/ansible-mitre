@@ -28,8 +28,8 @@
   tasks:
         - name: Create a new system account
           win_user:
-          name: {{ username_backdoor }}
-          password: {{ password_backdoor }}
+          name: "{{ username_backdoor }}"
+          password: "{{ password_backdoor }}"
           state: present
           groups: Administrators
           groups_action: add
