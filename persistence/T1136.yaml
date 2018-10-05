@@ -30,7 +30,7 @@
            name: '{{ username_backdoor }}'
            password: '{{ password_backdoor }}'
            groups: Administrators
-           update_password: no
+           update_password: on_create
            password_never_expired: yes
 
 
