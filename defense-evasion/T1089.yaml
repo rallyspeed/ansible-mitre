@@ -68,7 +68,8 @@
             tags: AV
             win_shell: Get-MpPreference | findstr DisableRealtimeMonitoring
             register: Pre-T1089-Defender
-            ### Windows Crodstrike pre-check
+            
+            ### Crowdstrike pre-check
           - name: check Crowdstrike status - prior TTP
             tags: AV
             win_command: sc query csagent
@@ -85,16 +86,24 @@
             tags: AV
             win_command:  sc stop csagent
             when: '"RUNNING" in Pre-T1089-Crowdstrike.stdout'
-
-            
+          
+            ### Windows Defender post-check
           - name: check Defender status - post TTP
             tags: AV
             win_shell: Get-MpPreference | findstr DisableRealtimeMonitoring
             register: Post-T1089-Defender
+            
+            ### Crowdstrike post-check
+          - name: check Crowdstrike status - prior TTP
+            tags: AV
+            win_command: sc query csagent
+            register: Post-T1089-Crowdstrike
+            
           - name: check if playbook was blocked
             tags: AV
             debug: msg="Playbook Completed:T1089:blocked:win:"
-            when:  '"False" in Post-T1089-Defender.stdout'       
+            when:  '"False" in Post-T1089-Defender.stdout' or '"Running" in Post-T1089-Crowdstrike.stdout
+            
           - name: check if playbook was successfull
             tags: AV
             debug: msg="Playbook Completed:T1089:passed:win:"
