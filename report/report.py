@@ -12,7 +12,7 @@ first = True
 def getmsg():
 
     # O pen database connection
-    db = MySQLdb.connect("localhost","root","Eisti98!$","semaphore" )
+    db = MySQLdb.connect("localhost","root","*****","semaphore" )
 
     # prepare a cursor object using cursor() method
     cursor = db.cursor()
