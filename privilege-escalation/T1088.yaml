@@ -16,11 +16,15 @@
             delegate_to: localhost
           - name: Check REG exist
             tags: always
-            win_reg_stat:
-              path: HKCU:\software\classes\mscfile\shell\open\command
+            win_command:
+              reg.exe query hkcu\software\classes\mscfile\shell\open\command
             register: T1088
           - name: check if playbook was successfull
             tags: always
             debug: msg="Playbook Completed:T1088:passed:win:"
-            when: '"powershell.exe" in T1088.value'         
+            when: '"powershell.exe" in T1088.value' 
+          - name: check if playbook was failed
+            tags: always
+            debug: msg="Playbook Completed:T1088:failed:win:"
+            when: '"powershell.exe" not in T1088.value'         
       
