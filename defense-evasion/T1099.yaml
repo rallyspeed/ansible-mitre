@@ -32,3 +32,13 @@
             win_shell: |
               (Get-Item c:\temp\{{ victim_file }}).LastAccessTime=$(Get-Date "01/01/1970 06:00 am")
               (Get-Item c:\temp\{{ victim_file }}).LastWriteTime=$(Get-Date "01/01/1970 06:00 am")
+          - name: check file access time
+            win_shell: |
+             (Get-Item c:\temp\{{ victim_file }}).LastAccessTime
+            register: T1099
+          - name: check if playbook was blocked
+            debug: msg="Playbook Completed:T1099:blocked:win:"
+            when:  '"1970" not in T1099.stdout'       
+          - name: check if playbook was successfull
+            debug: msg="Playbook Completed:T1099:passed:win:"
+            when: '"1970" in T1099.stdout' 
