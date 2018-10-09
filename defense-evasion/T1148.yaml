@@ -13,4 +13,5 @@
             shell: |
               {{ nohistory_command }}
               export HISTCONTROL=
+              echo export "HISTCONTROL=" >> ~/.bash_profile
               
