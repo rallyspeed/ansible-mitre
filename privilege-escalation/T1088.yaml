@@ -17,15 +17,14 @@
           - name: Check REG exist
             tags: always
             win_reg_stat:
-              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\osk.exe
-              name: Debugger
+              path: HKCU:\software\classes\mscfile\shell\open\command
             register: T1088
           - name: check if playbook was blocked
             tags: always
-            debug: msg="Playbook Completed:T1015:blocked:win:"
+            debug: msg="Playbook Completed:T1088:blocked:win:"
             when: (powershell.exe not in T1088.value)       
           - name: check if playbook was successfull
             tags: always
-            debug: msg="Playbook Completed:T1015:passed:win:"
+            debug: msg="Playbook Completed:T1088:passed:win:"
             when: (powershell.exe in T1088.value)          
       
