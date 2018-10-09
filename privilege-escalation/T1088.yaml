@@ -4,7 +4,7 @@
   vars_files:
    - /opt/ansible/vars.yaml
   tasks:
-          - name: Attaches Command Prompt As Debugger To Process - osk
+          - name: Attaches powershell to eventviewer
             #reg.exe add hkcu\software\classes\mscfile\shell\open\command /ve /d "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" /f
             win_regedit:
               path: HKCU:\software\classes\mscfile\shell\open\command
