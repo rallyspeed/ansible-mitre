@@ -5,6 +5,7 @@
    - /opt/ansible/vars.yaml
   tasks:
           - name: Attaches powershell to eventviewer
+            tags: always
             #reg.exe add hkcu\software\classes\mscfile\shell\open\command /ve /d "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" /f
             win_regedit:
               path: HKCU:\software\classes\mscfile\shell\open\command
@@ -16,8 +17,7 @@
             delegate_to: localhost
           - name: Check REG exist
             tags: always
-            win_command:
-              reg.exe query hkcu\software\classes\mscfile\shell\open\command
+            win_command: reg.exe query hkcu\software\classes\mscfile\shell\open\command
             register: T1088
           - name: check if playbook was successfull
             tags: always
