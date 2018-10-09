@@ -19,10 +19,6 @@
             win_reg_stat:
               path: HKCU:\software\classes\mscfile\shell\open\command
             register: T1088
-          - name: check if playbook was blocked
-            tags: always
-            debug: msg="Playbook Completed:T1088:blocked:win:"
-            when: '"powershell.exe" in T1088.value  == False'     
           - name: check if playbook was successfull
             tags: always
             debug: msg="Playbook Completed:T1088:passed:win:"
