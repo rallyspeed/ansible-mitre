@@ -14,10 +14,10 @@
             register: T1099
           - name: check if playbook was blocked
             debug: msg="Playbook Completed:T1099:blocked:linux:"
-            when:  '"1970" in T1099.stdout'       
+            when:  '"1970" not in T1099.stdout'       
           - name: check if playbook was successfull
             debug: msg="Playbook Completed:T1099:passed:linux:"
-            when: '"1970" not in T1099.stdout' 
+            when: '"1970" in T1099.stdout' 
 
 - name :  Timestomp - Windows
   hosts: windows
