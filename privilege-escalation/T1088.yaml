@@ -22,7 +22,7 @@
           - name: check if playbook was blocked
             tags: always
             debug: msg="Playbook Completed:T1088:blocked:win:"
-            when: '"powershell.exe" in T1088.value'  == False     
+            when: '"powershell.exe" in T1088.value  == False'     
           - name: check if playbook was successfull
             tags: always
             debug: msg="Playbook Completed:T1088:passed:win:"
