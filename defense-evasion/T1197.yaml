@@ -18,7 +18,7 @@
           - name: check if playbook was successfull
             tags: always
             debug: msg="Playbook Completed:T1197:passed:win:"
-            when: '"net user /domain" in T1197.stdout'
+            when: '"net user" in T1197.stdout'
           - name: check if playbook was successfull
             tags: always
             debug: msg="Playbook Completed:T1197:failed:win:"
