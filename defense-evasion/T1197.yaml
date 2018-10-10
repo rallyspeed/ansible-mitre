@@ -6,7 +6,7 @@
   tasks:
           - name: Download payload
             tags: always
-            become: yes
+            #become: yes
             become_user: "SYSTEM"
             win_shell: whoami > c:\temp\whoami.txt
             # If you want to use HTTPS, make sure remote certificate is valid or a add root ca if self-signed
