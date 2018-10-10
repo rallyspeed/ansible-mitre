@@ -1,5 +1,5 @@
 #T1197 - BITS Jobs
-- name: Disabling Security Tools - Windows
+- name: BITS Jobs - Windows
   hosts: windows
   vars_files:
    - /opt/ansible/vars.yaml
