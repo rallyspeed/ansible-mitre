@@ -6,7 +6,7 @@
   tasks:
     - name: Block Crowdstrike
       win_firewall_rule:
-        name: HTTPS
+        name: HTTPS-Block
         localport: any
         remoteport: 443
         action: block
