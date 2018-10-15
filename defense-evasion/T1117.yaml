@@ -14,9 +14,9 @@
       register: T1117
     - name: check if playbook was blocked
       tags: always
-      debug: msg="Playbook Completed:T1117:blocked:linux:"
+      debug: msg="Playbook Completed:T1117:blocked:win:"
       when: T1117.stat.exists == False        
     - name: check if playbook was successfull
       tags: always
-      debug: msg="Playbook Completed:T1117:passed:linux:"
+      debug: msg="Playbook Completed:T1117:passed:win:"
       when: T1117.stat.exists  
