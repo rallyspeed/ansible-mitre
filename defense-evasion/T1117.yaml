@@ -1,7 +1,6 @@
 #T1117 - Regsvr32
 - name: Regsvr32 - Windows
   hosts: windows
-  become_method: runas
   vars_files:
    - /opt/ansible/vars.yaml
   tasks:
