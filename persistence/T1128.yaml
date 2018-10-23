@@ -13,7 +13,7 @@
     - name: check file exist
       tags: always
       win_stat:
-        path: evil.txt
+        path: c:\temp\evil.txt
       register: T1128
     - name: check if playbook was blocked
       tags: always
