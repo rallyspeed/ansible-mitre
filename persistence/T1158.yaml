@@ -5,29 +5,33 @@
    - /opt/ansible/vars.yaml
   tasks:
         - name: Create a hidden file in a hidden directory
+          tags: linux
           file: path={{ victim_folder_hidden }} state=directory
         - name: create hidden file
+          tags: linux
           shell: |
                 echo "this file is hidden" > {{ victim_folder_hidden }}/.{{ victim_file }}-1
         - name: Hidden file mv file to a .file
           shell: |
                 cp /etc/shadow {{ victim_folder_hidden }}/.{{ victim_file }}-2
         - name: Create visible Directories
+          tags: linux
           file: path={{ victim_folder }}-visible state=directory
         - name: create visible file
+          tags: linux
           shell: |
                 echo "this file is visible" > {{ victim_folder }}-visible/{{ victim_file }}-visible
         - name: check files there
-          tags: always
+          tags: linux
           stat:
             path: "{{ victim_folder_hidden }}/.{{ victim_file }}-2"
           register: T1158
         - name: check if playbook was blocked
-          tags: always
+          tags: linux
           debug: msg="Playbook Completed:T1158:blocked:linux:"
           when: T1158.stat.exists == False        
         - name: check if playbook was successfull
-          tags: always
+          tags: linux
           debug: msg="Playbook Completed:T1158:passed:linux:"
           when: T1158.stat.exists  
 
@@ -38,6 +42,7 @@
    - /opt/ansible/vars.yaml
   tasks:
     - name: create adfs file
+      tags: windows
       win_shell: |
         echo "test" > {{ victim_file }} | set-content -path {{ victim_file }} -stream ads_{{ victim_file }} -value "test"
         set-content -path {{ victim_file }} -stream ads_{{ victim_file }} -value "test2"
