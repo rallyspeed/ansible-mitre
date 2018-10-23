@@ -26,5 +26,5 @@
     - name: cleanup
       win_shell: |
         del C:\temp\{{ cnc_dll }}
-        del C:\temp\evil.txt
+        # del C:\temp\evil.txt
         "netsh.exe del helper {{ cnc_dll }}"
