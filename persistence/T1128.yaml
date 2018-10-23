@@ -24,7 +24,7 @@
       debug: msg="Playbook Completed:T1128:passed:win:"
       when: T1128.stat.exists 
     - name: cleanup
-      win_command: |
+      win_shell: |
         del C:\temp\{{ cnc_dll }}
         del C:\temp\evil.txt
-      win_shell: "netsh.exe del helper {{ cnc_dll }}"
+        "netsh.exe del helper {{ cnc_dll }}"
