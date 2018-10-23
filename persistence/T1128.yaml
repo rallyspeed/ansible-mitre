@@ -10,6 +10,7 @@
       win_shell: |
         cd c:\temp
         netsh.exe add helper {{ cnc_dll }}
+      ignore_errors: yes
     - name: check file exist
       tags: always
       win_stat:
