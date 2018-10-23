@@ -1,5 +1,5 @@
 # attack_technique: T1158
-- name: Hidden Files and Directories
+- name: Hidden Files and Directories - Linux
   hosts: linux
   vars_files:
    - /opt/ansible/vars.yaml
@@ -30,3 +30,16 @@
           tags: always
           debug: msg="Playbook Completed:T1158:passed:linux:"
           when: T1158.stat.exists  
+
+
+- name: Hidden Files and Directories - Windows
+  hosts: windows
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+    - name: create adfs file
+      win_shell: |
+        echo "test" > {{ victim_file }} | set-content -path {{ victim_file }} -stream ads_{{ victim_file }} -value "test"
+        set-content -path {{ victim_file }} -stream ads_{{ victim_file }} -value "test2"
+        set-content -path . -stream ads_{{ victim_file }} -value "test3"
+    
