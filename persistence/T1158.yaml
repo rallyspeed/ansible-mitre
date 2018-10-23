@@ -44,7 +44,6 @@
     - name: create adfs file
       tags: windows
       win_shell: |
-        echo "test" > {{ victim_file }} | set-content -path {{ victim_file }} -stream ads_{{ victim_file }} -value "test"
-        set-content -path {{ victim_file }} -stream ads_{{ victim_file }} -value "test2"
-        set-content -path . -stream ads_{{ victim_file }} -value "test3"
+        set-content -path {{ victim_file }} -stream ads_{{ victim_file }} -value "Secret PII data"
+        set-content -path . -stream ads_{{ victim_file }} -value "Secret PCI data"
     
