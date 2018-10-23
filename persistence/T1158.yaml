@@ -46,5 +46,22 @@
       win_shell: |
         echo "Do not delete this file" > {{ victim_file }} 
         set-content -path {{ victim_file }} -stream ads_{{ victim_file }} -value "Secret PII data"
+    - name: check file exist
+      tags: windows
+      win_shell: |
+        ls -Recurse | %{ gi $_.Fullname -stream *} | where stream -ne ':$Data' | Select-Object pschildname | findstr ads_{{ victim_file }}
+      register: T1158
+    - name: check if playbook was blocked
+      tags: windows
+      debug: msg="Playbook Completed:T1158:blocked:win:"
+      when: T1158.stat.exists == False        
+    - name: check if playbook was successfull
+      tags: windows
+      debug: msg="Playbook Completed:T1158:passed:win:"
+     - name: cleanup
+       tags: windows
+       win_shell: |
+        del {{ victim_file }}
+
 
     
