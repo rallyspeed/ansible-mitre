@@ -27,3 +27,4 @@
       win_command: |
         del C:\temp\{{ cnc_dll }}
         del C:\temp\evil.txt
+       win_shell: netsh.exe del helper {{ cnc_dll }}
