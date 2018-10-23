@@ -54,13 +54,14 @@
     - name: check if playbook was blocked
       tags: windows
       debug: msg="Playbook Completed:T1158:blocked:win:"
-      when: T1158.stat.exists == False        
+      when: '"ads" not in T1158.stdout'       
     - name: check if playbook was successfull
       tags: windows
       debug: msg="Playbook Completed:T1158:passed:win:"
-     - name: cleanup
-       tags: windows
-       win_shell: |
+      when: '"ads" in T1158.stdout' 
+    - name: cleanup
+      tags: windows
+      win_shell: |
         del {{ victim_file }}
 
 
