@@ -1,1 +1,4 @@
 #All persistence playbook
+- import_playbook: persistence/T1136.yaml
+- import_playbook: persistence/T1128.yaml
+- import_playbook: persistence/T1158.yaml
