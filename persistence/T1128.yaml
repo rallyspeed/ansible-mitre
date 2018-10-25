@@ -9,7 +9,7 @@
       register: command_result
       ignore_errors: yes
     - fail:
-        msg="Playbook Completed:T1128:failed:win:"
+        msg="Playbook Completed#T1128#failed#win#"
       when: command_result.rc == 1
     - name: execute malicious dll
       win_shell: |
@@ -24,10 +24,10 @@
         path: c:\temp\evil.txt
       register: T1128
     - name: check if playbook was blocked
-      debug: msg="Playbook Completed:T1128:blocked:win:"
+      debug: msg="Playbook Completed#T1128#blocked#win#"
       when: T1128.stat.exists == False
     - name: check if playbook was successfull
-      debug: msg="Playbook Completed:T1128:passed:win:" 
+      debug: msg="Playbook Completed#T1128:passed#win#" 
       when: T1128.stat.exists
     - name: cleanup
       win_shell: |
