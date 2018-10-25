@@ -22,7 +22,9 @@
         - name: check if playbook was successfull
           tags: always
           debug: msg="Playbook Completed:T1136:passed:linux:"
-          when: '"1" in T1136.stdout'    
+          when: '"1" in T1136.stdout'
+        - name: cleanup
+          shell: userdel {{ username_backdoor }} 
 - name: Create Account - Windows
   hosts: windows
   vars_files:
