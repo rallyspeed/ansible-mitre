@@ -29,7 +29,11 @@
           when: T1158.stat.exists == False        
         - name: check if playbook was successfull
           debug: msg="Playbook Completed:T1158:passed:linux:"
-          when: T1158.stat.exists  
+          when: T1158.stat.exists
+        - name: cleanup
+          shell: |
+              rm -r {{ victim_folder_hidden }}
+              rm -r {{ victim_folder }}-visible
 
 
 - name: Hidden Files and Directories - Windows
