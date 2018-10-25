@@ -30,6 +30,6 @@
           - name: cleanup      
             tags: always
             win_regedit:
-              key: HKCU:\software\classes\mscfile\shell\open\command
+              path: HKCU:\software\classes\mscfile\shell\open\command
               state: absent
             when: '"powershell.exe" in T1088.stdout' 
