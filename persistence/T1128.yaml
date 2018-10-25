@@ -28,12 +28,12 @@
       register: T1128
     - name: check if playbook was blocked
       tags: always
-      debug: msg="Playbook Completed:T1128:blocked:win:" and "'Unable to connect' not in command_result.stderr" 
-      when: T1128.stat.exists == False        
+      debug: msg="Playbook Completed:T1128:blocked:win:"
+      when: T1128.stat.exists == False and "'Unable to connect' not in command_result.stderr"    
     - name: check if playbook was successfull
       tags: always
-      debug: msg="Playbook Completed:T1128:passed:win:" and "'Unable to connect' not in command_result.stderr" 
-      when: T1128.stat.exists
+      debug: msg="Playbook Completed:T1128:passed:win:" 
+      when: T1128.stat.exists and "'Unable to connect' not in command_result.stderr"
     - name: cleanup
       win_shell: |
         del C:\temp\{{ cnc_dll }}
