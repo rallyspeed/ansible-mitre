@@ -56,5 +56,7 @@
         - name: check if playbook was successfull
           tags: always
           debug: msg="Playbook Completed:T1136:passed:win:"
-          when: '"True" in T1136.stdout'    
+          when: '"True" in T1136.stdout'
+        - name: cleanup
+          win_shell: Remove-Localuser -Name '{{ username_backdoor }}'
 
