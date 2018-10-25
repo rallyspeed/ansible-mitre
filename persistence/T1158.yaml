@@ -25,16 +25,16 @@
             path: "{{ victim_folder_hidden }}/.{{ victim_file }}-2"
           register: T1158
         - name: check if playbook was blocked
-          debug: msg="Playbook Completed:T1158:blocked:linux:"
+          debug: msg="Playbook Completed#T1158#blocked#linux#"
           when: T1158.stat.exists == False        
         - name: check if playbook was successfull
-          debug: msg="Playbook Completed:T1158:passed:linux:"
+          debug: msg="Playbook Completed#T1158#passed#linux#"
           when: T1158.stat.exists
         - name: cleanup
           shell: |
               rm -r {{ victim_folder_hidden }}
               rm -r {{ victim_folder }}-visible
-
+          when: T1158.stat.exists
 
 - name: Hidden Files and Directories - Windows
   hosts: windows
@@ -54,14 +54,15 @@
       wait_for: timeout=10
       delegate_to: localhost
     - name: check if playbook was blocked
-      debug: msg="Playbook Completed:T1158:blocked:win:"
+      debug: msg="Playbook Completed#T1158#blocked#win#"
       when: '"ads" not in T1158.stdout'       
     - name: check if playbook was successfull
-      debug: msg="Playbook Completed:T1158:passed:win:"
+      debug: msg="Playbook Completed#T1158#passed#win#"
       when: '"ads" in T1158.stdout' 
     - name: cleanup
       win_shell: |
         del {{ victim_file }}
+      when: '"ads" in T1158.stdout' 
 
 
     
