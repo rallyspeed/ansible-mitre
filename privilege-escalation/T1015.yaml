@@ -70,38 +70,38 @@
             win_reg_stat:
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\osk.exe
               name: Debugger
-			register: T1015
-		 - name: Check REG exist
+	    register: T1015
+	  - name: Check REG exist
             tags: SETHC
             win_reg_stat:
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe
               name: Debugger
             register: T1015
-		 - name: Check REG exist
+	  - name: Check REG exist
             tags: UTILMAN
             win_reg_stat:
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\utilman.exe
               name: Debugger
             register: T1015
-		 - name: Check REG exist
+	  - name: Check REG exist
             tags: MAGNIFY
             win_reg_stat:
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\magnify.exe
               name: Debugger
             register: T1015		
-		 - name: Check REG exist
+	  - name: Check REG exist
             tags: NARRATOR
             win_reg_stat:
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\narrator.exe
               name: Debugger
             register: T1015				
-		 - name: Check REG exist
+	  - name: Check REG exist
             tags: DISPLAYSWITCH
             win_reg_stat:
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DisplaySwitch.exe
               name: Debugger
             register: T1015
-		 - name: Check REG exist
+	  - name: Check REG exist
             tags: ATBROKER
             win_reg_stat:
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\atbroker.exe
