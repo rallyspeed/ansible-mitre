@@ -29,5 +29,5 @@
             when: '"powershell.exe" not in T1088.stdout'
           - name: cleanup      
             tags: always
-            win_command: reg.exe delete hkcu\software\classes\mscfile\shell\open\command /ve
+            win_command: "reg.exe delete hkcu\software\classes\mscfile\shell\open\command /ve"
             when: '"powershell.exe" in T1088.stdout'
