@@ -33,16 +33,16 @@
           - name: check if playbook was blocked
             tags: always
             debug: msg="Playbook Completed#T1168#blocked#linux#"
-            when: '"evil.sh" not in T1168.stdout'      
+            when: '{{ backdoor_script }} not in T1168.stdout'      
           - name: check if playbook was successfull
             tags: always
             debug: msg="Playbook Completed#T1168#passed#linux#"
-            when: '"evil.sh" in T1168.stdout'
+            when: '{{ backdoor_script }} in T1168.stdout'
           - name: cleanup
             shell: |
               crontab -l < /tmp/crontmp
               rm {{ backdoor_script }}
               rm {{ crontab_task }}
               rm /tmp/crontmp
-            when: '"evil.sh" in T1168.stdout'
+            when: '{{ backdoor_script }} in T1168.stdout'
 
