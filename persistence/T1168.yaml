@@ -19,4 +19,16 @@
           - name: crontab
             shell: |
                 crontab -l > /tmp/crontmp
-                echo "* * * * * {{ backdoor_script }}" > {{ crontab_task }} && crontab {{ crontab_task }} 
+                echo "* * * * * {{ backdoor_script }}" > {{ crontab_task }} && crontab {{ crontab_task }}
+          - name: Wait before status check
+            tags: always
+            wait_for: timeout=10
+            delegate_to: localhost
+            
+            
+          - name: cleanup
+            shell: |
+            crontab -l < /tmp/crontmp
+            rm {{ backdoor_script }}
+            rm {{ crontab_task }}
+
