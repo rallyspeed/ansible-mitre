@@ -40,8 +40,8 @@
             when: '"{{ backdoor_script }}" in T1168.stdout'
           - name: cleanup
             shell: |
-            crontab -l < /tmp/crontmp
-            rm {{ backdoor_script }}
-            rm {{ crontab_task }}
-            rm /tmp/crontmp
+              crontab -l < /tmp/crontmp
+              rm {{ backdoor_script }}
+              rm {{ crontab_task }}
+              rm /tmp/crontmp
 
