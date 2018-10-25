@@ -9,7 +9,7 @@
       register: command_result
       ignore_errors: yes
     - name: check if download successfull
-        msg="Playbook Completed#T1128#failed#win#"
+      msg="Playbook Completed#T1128#failed#win#"
       when: command_result.rc == 1
     - block:
       - name: execute malicious dll
