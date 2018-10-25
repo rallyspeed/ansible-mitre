@@ -7,6 +7,9 @@
         - name: Create a new system account
           shell: |
                 useradd -M -N -r -s /bin/bash -c "{{ username_comment }}" {{ username_backdoor }}
+        - name: Wait before status check
+          tags: always
+          wait_for: timeout=10
         - name: check if user exists
           tags: always
           shell: |
