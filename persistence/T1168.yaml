@@ -24,8 +24,20 @@
             tags: always
             wait_for: timeout=10
             delegate_to: localhost
-            
-            
+         
+           - name: check if crontab exist
+            tags: always
+            shell: |
+              crontab -l
+            register: T1168
+          - name: check if playbook was blocked
+            tags: always
+            debug: msg="Playbook Completed#T1168#blocked#linux#"
+            when: '"{{ backdoor_script }}" not in T1168.stdout'      
+          - name: check if playbook was successfull
+            tags: always
+            debug: msg="Playbook Completed#T1168#passed#linux#"
+            when: '"{{ backdoor_script }}" in T1168.stdout'
           - name: cleanup
             shell: |
             crontab -l < /tmp/crontmp
