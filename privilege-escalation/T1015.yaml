@@ -64,18 +64,54 @@
             tags: always
             wait_for: timeout=10
             delegate_to: localhost
+			
           - name: Check REG exist
             tags: OSK
             win_reg_stat:
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\osk.exe
               name: Debugger
+			register: T1015
+		 - name: Check REG exist
+            tags: SETHC
+            win_reg_stat:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe
+              name: Debugger
             register: T1015
+		 - name: Check REG exist
+            tags: UTILMAN
+            win_reg_stat:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\utilman.exe
+              name: Debugger
+            register: T1015
+		 - name: Check REG exist
+            tags: MAGNIFY
+            win_reg_stat:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\magnify.exe
+              name: Debugger
+            register: T1015		
+		 - name: Check REG exist
+            tags: NARRATOR
+            win_reg_stat:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\narrator.exe
+              name: Debugger
+            register: T1015				
+		 - name: Check REG exist
+            tags: DISPLAYSWITCH
+            win_reg_stat:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DisplaySwitch.exe
+              name: Debugger
+            register: T1015
+		 - name: Check REG exist
+            tags: ATBROKER
+            win_reg_stat:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\atbroker.exe
+              name: Debugger
+            register: T1015				
           - name: check if playbook was blocked
             tags: always
-            debug: msg="Playbook Completed:T1015:blocked:win:"
+            debug: msg="Playbook Completed:T1015#blocked#win#"
             when: T1015.exists == False        
           - name: check if playbook was successfull
             tags: always
-            debug: msg="Playbook Completed:T1015:passed:win:"
-            when: T1015.exists        
-      
+            debug: msg="Playbook Completed#T1015#passed#win#"
+            when: T1015.exists 
