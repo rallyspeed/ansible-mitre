@@ -28,8 +28,8 @@
             debug: msg="Playbook Completed:T1088:failed:win:"
             when: '"powershell.exe" not in T1088.stdout
           - name: cleanup      
-                tags: always
-                win_regedit:
+            tags: always
+            win_regedit:
               key: HKCU:\software\classes\mscfile\shell\open\command
-                    state: absent
-                when: '"powershell.exe" in T1088.stdout' 
+              state: absent
+            when: '"powershell.exe" in T1088.stdout' 
