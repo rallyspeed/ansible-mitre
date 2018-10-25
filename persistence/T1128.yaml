@@ -11,15 +11,15 @@
         cd c:\temp
         netsh.exe add helper {{ cnc_dll }}
       ignore_errors: yes
+    - name: Wait before status check
+      tags: always
+      wait_for: timeout=10
+      delegate_to: localhost
     - name: check file exist
       tags: always
       win_stat:
         path: c:\temp\evil.txt
       register: T1128
-    - name: Wait before status check
-      tags: always
-      wait_for: timeout=10
-      delegate_to: localhost
     - name: check if playbook was blocked
       tags: always
       debug: msg="Playbook Completed:T1128:blocked:win:"
