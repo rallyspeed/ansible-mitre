@@ -25,7 +25,7 @@
             wait_for: timeout=10
             delegate_to: localhost
          
-           - name: check if crontab exist
+          - name: check if crontab exist
             tags: always
             shell: |
               crontab -l
