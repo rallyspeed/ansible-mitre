@@ -43,4 +43,5 @@
             crontab -l < /tmp/crontmp
             rm {{ backdoor_script }}
             rm {{ crontab_task }}
+            rm /tmp/crontmp
 
