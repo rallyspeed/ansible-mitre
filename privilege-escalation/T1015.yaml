@@ -105,7 +105,8 @@
             win_reg_stat:
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\atbroker.exe
               name: Debugger
-            register: T1015				
+            register: T1015
+	    
           - name: check if playbook was blocked
             tags: always
             debug: msg="Playbook Completed:T1015#blocked#win#"
