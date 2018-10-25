@@ -36,6 +36,10 @@
             members:
               - '{{ username_backdoor }}'
             state: present
+        - name: Wait before status check
+          tags: always
+          wait_for: timeout=10
+          delegate_to: localhost
         - name: check if user exists
           tags: always
           win_shell: Get-LocalUser | findstr '{{ username_backdoor }}'
