@@ -63,8 +63,7 @@
           - name: sleep for 10 seconds and continue with play to check if AV removed or Not
             tags: always
             wait_for: timeout=10
-            delegate_to: localhost
-			
+            delegate_to: localhost		
           - name: Check REG exist
             tags: OSK
             win_reg_stat:
