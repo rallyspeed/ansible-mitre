@@ -17,14 +17,15 @@
           register: T1136
         - name: check if playbook was blocked
           tags: always
-          debug: msg="Playbook Completed:T1136:blocked:linux:"
+          debug: msg="Playbook Completed#T1136#blocked#linux#"
           when: '"0" in T1136.stdout'      
         - name: check if playbook was successfull
           tags: always
-          debug: msg="Playbook Completed:T1136:passed:linux:"
+          debug: msg="Playbook Completed#T1136#passed#linux#"
           when: '"1" in T1136.stdout'
         - name: cleanup
-          shell: userdel {{ username_backdoor }} 
+          shell: userdel {{ username_backdoor }}
+          when: '"1" in T1136.stdout'
 - name: Create Account - Windows
   hosts: windows
   vars_files:
@@ -51,12 +52,13 @@
           register: T1136
         - name: check if playbook was blocked
           tags: always
-          debug: msg="Playbook Completed:T1136:blocked:win:"
+          debug: msg="Playbook Completed#T1136#blocked#win#"
           when: '"True" not in T1136.stdout'      
         - name: check if playbook was successfull
           tags: always
-          debug: msg="Playbook Completed:T1136:passed:win:"
+          debug: msg="Playbook Completed#T1136#passed#win#"
           when: '"True" in T1136.stdout'
         - name: cleanup
           win_shell: Remove-Localuser -Name '{{ username_backdoor }}'
+          when: '"True" in T1136.stdout'
 
