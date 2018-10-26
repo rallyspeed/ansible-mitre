@@ -50,11 +50,13 @@
           tags: HKCURUN
           win_regedit:
               path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+              name: Debugger
               state: absent
           when: T1060.exists
         - name: cleanup HKLMRUN      
           tags: HKLMRUN
           win_regedit:
               path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+              name: Debugger
               state: absent
           when: T1060.exists 
