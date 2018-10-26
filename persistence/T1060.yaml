@@ -48,13 +48,13 @@
           
         - name: cleanup HKCURUN      
           tags: HKCURUN
-            win_regedit:
+          win_regedit:
               path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
               state: absent
-            when: T1060.exists
+          when: T1060.exists
         - name: cleanup HKLMRUN      
           tags: HKLMRUN
-            win_regedit:
+          win_regedit:
               path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
               state: absent
-            when: T1060.exists 
+          when: T1060.exists 
