@@ -1,34 +1,25 @@
-# attack_technique: T1060
-- name: T1060 - Registry Run Keys / Start Folder
+# attack_technique: T1180
+- name: T1180 - Screensaver
   hosts: windows
   vars_files:
    - /opt/ansible/vars.yaml
   tasks:
-        - name: Attaches Command Prompt As Debugger To Process - HKCURUN
-          #REG ADD "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /V "Debugger" /t REG_SZ /F /D
-          tags: HKCURUN
+        - name: Activate Screen saver
+          #reg.exe add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaveActive /t REG_SZ /d 1 /f
+          tags: always
           win_regedit:
-            path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
-            name: Debugger
-            data: 'C:\windows\system32\cmd.exe'
+            path: HKCU:\Control Panel\Desktop
+            name: ScreenSaveActive
+            data: 1
             type: string
-        - name: Attaches Command Prompt As Debugger To Process - HKLMRUN
-          #REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /V "Debugger" /t REG_SZ /F /D
-          tags: HKLMRUN
+        - name: Activate Screen saver timeout
+          #reg.exe add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaveActive /t REG_SZ /d 1 /f
+          tags: always
           win_regedit:
-            path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
-            name: Debugger
-            data: 'C:\windows\system32\cmd.exe'
+            path: HKCU:\Control Panel\Desktop
+            name: ScreenSaveActive
+            data: 1
             type: string
-        - name: Startup Folder
-          tags: STARTUP
-          win_shell: |
-            $TargetFile = "$env:SystemRoot\System32\cmd.exe"
-            $ShortcutFile = "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\Notepad.lnk"
-            $WScriptShell = New-Object -ComObject WScript.Shell
-            $Shortcut = $WScriptShell.CreateShortcut($ShortcutFile)
-            $Shortcut.TargetPath = $TargetFile
-            $Shortcut.Save()
             
         - name: sleep for 10 seconds and continue with play to check if AV removed or Not
           tags: always
