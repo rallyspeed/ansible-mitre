@@ -5,6 +5,7 @@
    - /opt/ansible/vars.yaml
   tasks:
         - name: Create a new system account
+          tags: always
           shell: |
                 useradd -M -N -r -s /bin/bash -c "{{ username_comment }}" {{ username_backdoor }}
         - name: Wait before status check
@@ -24,19 +25,23 @@
           debug: msg="Playbook Completed#T1136#passed#linux#"
           when: '"1" in T1136.stdout'
         - name: cleanup
+          tags: always
           shell: userdel {{ username_backdoor }}
           when: '"1" in T1136.stdout'
+          
 - name: Create Account - Windows
   hosts: windows
   vars_files:
    - /opt/ansible/vars.yaml
   tasks:
         - name: Create a new system account
+          tags: always
           win_user:
            name: '{{ username_backdoor }}'
            password: '{{ password_backdoor }}'
            password_never_expired: yes
         - name: Add a local and domain user to a local group
+          tags: always
           win_group_membership:
             name: Administrators
             members:
@@ -59,6 +64,7 @@
           debug: msg="Playbook Completed#T1136#passed#win#"
           when: '"True" in T1136.stdout'
         - name: cleanup
+          tags: always
           win_shell: Remove-Localuser -Name '{{ username_backdoor }}'
           when: '"True" in T1136.stdout'
 
