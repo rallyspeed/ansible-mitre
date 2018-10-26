@@ -30,7 +30,7 @@
           win_regedit:
             path: HKCU:\Control Panel\Desktop
             name: SCRNSAVE.EXE
-            data: "c:\windows\System32\evilscreensaver.scr"
+            data: "c:/\windows/\System32/\evilscreensaver.scr"
             type: string
             
         - name: sleep for 10 seconds and continue with play to check if AV removed or Not
