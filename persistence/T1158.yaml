@@ -5,32 +5,41 @@
    - /opt/ansible/vars.yaml
   tasks:
         - name: Create a hidden file in a hidden directory
+          tags: always
           file: path={{ victim_folder_hidden }} state=directory
         - name: create hidden file
           shell: |
                 echo "this file is hidden" > {{ victim_folder_hidden }}/.{{ victim_file }}-1
         - name: Hidden file mv file to a .file
+          tags: always
           shell: |
                 cp /etc/shadow {{ victim_folder_hidden }}/.{{ victim_file }}-2
         - name: Create visible Directories
+          tags: always
           file: path={{ victim_folder }}-visible state=directory
         - name: create visible file
+          tags: always
           shell: |
                 echo "this file is visible" > {{ victim_folder }}-visible/{{ victim_file }}-visible
         - name: Wait before status check
+          tags: always
           wait_for: timeout=10
           delegate_to: localhost
         - name: check files there
+          tags: always
           stat:
             path: "{{ victim_folder_hidden }}/.{{ victim_file }}-2"
           register: T1158
         - name: check if playbook was blocked
+          tags: always
           debug: msg="Playbook Completed#T1158#blocked#linux#"
           when: T1158.stat.exists == False        
         - name: check if playbook was successfull
+          tags: always
           debug: msg="Playbook Completed#T1158#passed#linux#"
           when: T1158.stat.exists
         - name: cleanup
+          tags: always
           shell: |
               rm -r {{ victim_folder_hidden }}
               rm -r {{ victim_folder }}-visible
@@ -42,10 +51,12 @@
    - /opt/ansible/vars.yaml
   tasks:
     - name: create adfs file
+      tags: always
       win_shell: |
         echo "Do not delete this file" > {{ victim_file }} 
         set-content -path {{ victim_file }} -stream ads_{{ victim_file }} -value "Secret PII data"
     - name: check file exist
+      tags: always
       win_shell: |
         ls -Recurse | %{ gi $_.Fullname -stream *} | where stream -ne ':$Data' | Select-Object pschildname | findstr ads_{{ victim_file }}
       register: T1158
@@ -54,12 +65,15 @@
       wait_for: timeout=10
       delegate_to: localhost
     - name: check if playbook was blocked
+      tags: always
       debug: msg="Playbook Completed#T1158#blocked#win#"
       when: '"ads" not in T1158.stdout'       
     - name: check if playbook was successfull
+      tags: always
       debug: msg="Playbook Completed#T1158#passed#win#"
       when: '"ads" in T1158.stdout' 
     - name: cleanup
+      tags: always
       win_shell: |
         del {{ victim_file }}
       when: '"ads" in T1158.stdout' 
