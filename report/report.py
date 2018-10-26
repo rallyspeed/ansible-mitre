@@ -101,7 +101,7 @@ def savereport():
     t = time.localtime()
     timestamp = time.strftime('%b-%d-%Y_%H%M', t)
     copyfile("/var/www/html/matrix.xlsx","/var/www/html/matrix" + timestamp + ".xlsx")
-    print("File available: http://35.210.224.241/matrix" + timestamp + ".xlsx")
+    print("File available: http://x.x.x.x/matrix" + timestamp + ".xlsx")
 
 def main():
     getmsg()
