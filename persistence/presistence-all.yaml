@@ -1,8 +1,12 @@
 #All persistence playbook
+  gather_facts: yes
+  tasks:
+  - set_fact: osk_tag=true
+    tags: OSK
 - import_playbook: ../privilege-escalation/T1015.yaml
   ignore_errors: yes
-  tags:
-    - OSK
+  when:
+  - "osk_tag is defined"
 #- import_playbook: T1128.yaml
 #  ignore_errors: yes
 #- import_playbook: T1136.yaml
