@@ -6,6 +6,12 @@ ansible (`apt-get install ansible`)
 customize vars.yaml file
 
 ## Architecture
+ - Ansible Playbook machine with Semaphore GUI and mySQL database
+ - Victim machines, here windows and linux (Can be over the same LAN or accross the WAN, traffic is encrypted)
+ - Attacking machine, can be the same machine or can be split.
+ 
+ Attacking machine fqdn or IP are configured in the vars.yaml file
+
 ![ScreenShot](archi.JPG)
 
 ## Installation
