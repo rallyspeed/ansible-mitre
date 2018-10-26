@@ -1,5 +1,5 @@
 # ansible-mitre
-MITRE playbooks using ansible format
+Attack playbooks based on MITRE ATT&CK framework using ansible format
 
 ## Prerequisites
 ansible (`apt-get install ansible`)
