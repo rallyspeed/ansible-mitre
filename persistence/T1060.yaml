@@ -20,7 +20,7 @@
             name: Debugger
             data: 'C:\windows\system32\cmd.exe'
             type: string
-       -  name: Startup Folder
+        - name: Startup Folder
           tags: STARTUP
           win_shell: |
             $TargetFile = "$env:SystemRoot\System32\cmd.exe"
