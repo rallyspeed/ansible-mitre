@@ -5,6 +5,9 @@ MITRE playbooks using ansible format
 ansible (`apt-get install ansible`)
 customize vars.yaml file
 
+## Architecture
+![ScreenShot](https://raw.github.com/rallyspeed/ansible-mitre/main/archi.jpg
+
 ## Installation
 - `git clone https://github.com/rallyspeed/ansible-mitre.git`
 
