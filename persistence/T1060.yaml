@@ -84,3 +84,9 @@
               name: Debugger
               state: absent
           when: T1060.exists 
+        - name: cleanup STARTUP      
+          tags: STARTUP
+          win_file:
+            path: C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\Notepad.lnk
+            state: absent
+          when: T1060.stat.exists 
