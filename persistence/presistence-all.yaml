@@ -1,4 +1,6 @@
 #All persistence playbook
+- import_playbook: T1015.yaml
+  ignore_errors: yes
 - import_playbook: T1128.yaml
   ignore_errors: yes
 - import_playbook: T1136.yaml
@@ -7,5 +9,4 @@
   ignore_errors: yes
 - import_playbook: T1168.yaml
   ignore_errors: yes
-- import_playbook: T1015.yaml
-  ignore_errors: yes
+
