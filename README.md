@@ -6,7 +6,7 @@ ansible (`apt-get install ansible`)
 customize vars.yaml file
 
 ## Architecture
-![ScreenShot](https://raw.github.com/rallyspeed/ansible-mitre/archi.JPG)
+![ScreenShot](archi.JPG)
 
 ## Installation
 - `git clone https://github.com/rallyspeed/ansible-mitre.git`
