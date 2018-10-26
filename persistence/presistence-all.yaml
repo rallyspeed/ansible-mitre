@@ -1,5 +1,5 @@
 #All persistence playbook
-- import_playbook: T1015.yaml
+- import_playbook: ../privilege-escalation/T1015.yaml
   ignore_errors: yes
   tags:
     - OSK
