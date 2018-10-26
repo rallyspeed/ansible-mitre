@@ -1,0 +1,47 @@
+# attack_technique: T1060
+- name: T1060 - Registry Run Keys / Start Folder
+  hosts: windows
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+        - name: Attaches Command Prompt As Debugger To Process - HKCURUN
+          #REG ADD "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /V "Debugger" /t REG_SZ /F /D
+          tags: HKCURUN
+          win_regedit:
+            path: HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Run
+            name: Debugger
+            data: 'C:\windows\system32\cmd.exe'
+            type: string
+        - name: Attaches Command Prompt As Debugger To Process - HKLMRUN
+          #REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /V "Debugger" /t REG_SZ /F /D
+          tags: HKLMRUN
+          win_regedit:
+            path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Run
+            name: Debugger
+            data: 'C:\windows\system32\cmd.exe'
+            type: string
+        - name: sleep for 10 seconds and continue with play to check if AV removed or Not
+          tags: always
+          wait_for: timeout=10
+          delegate_to: localhost		
+        - name: Check REG exist
+          tags: HKCURUN
+          win_reg_stat:
+            path: HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Run
+            name: Debugger
+          register: T1060
+        - name: Check REG exist
+          tags: HKLMRUN
+          win_reg_stat:
+            path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Run
+            name: Debugger
+          register: T1060
+
+        - name: check if playbook was blocked
+          tags: always
+          debug: msg="Playbook Completed#T1060#blocked#win#"
+          when: T1060.exists == False        
+        - name: check if playbook was successfull
+          tags: always
+          debug: msg="Playbook Completed#T1060#passed#win#"
+          when: T1060.exists 
