@@ -48,8 +48,8 @@
           register: T1060
         - name: Check if startup file exist exist
           tags: STARTUP
-          stat:
-            path: "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\Notepad.lnk"
+          win_stat:
+            path: C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\Notepad.lnk
           register: T1060
 
         - name: check if playbook was blocked
