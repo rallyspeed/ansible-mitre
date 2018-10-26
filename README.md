@@ -17,8 +17,16 @@ customize vars.yaml file
 ## Installation
 - `git clone https://github.com/rallyspeed/ansible-mitre.git`
 
-## Usage
+## Usage - CLI
 - `ansible-playbook [playbook].yaml`
+ Some playbooks require tags
+ 
+## Usage - GUI
+- Create som task templates based on playbook repository
+![ScreenShot](task-templates.JPG)
+
+- Launch the task
+![ScreenShot](task-running.JPG)
 
 ## Optional INSTALL SEPHAMORE GUI
 INSTALL  sephamore for GUI interface.
@@ -37,6 +45,6 @@ INSTALL  sephamore for GUI interface.
  - `python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall`
  - `pip3 install mysqlclient`
 
-## Ansible Usage and Report Generation
- - Create Task Templates and assign 
+## Report Generation
+ - `python3 report.py`
 
