@@ -46,15 +46,29 @@
             path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
             name: Debugger
           register: T1060
+        - name: Check if startup file exist exist
+          tags: STARTUP
+          stat:
+            path: C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\Notepad.lnk
+          register: T1060
 
         - name: check if playbook was blocked
-          tags: always
+          tags: HKCURUN,HKLMRUN
           debug: msg="Playbook Completed#T1060#blocked#win#"
           when: T1060.exists == False        
         - name: check if playbook was successfull
-          tags: always
+          tags: HKCURUN,HKLMRUN
           debug: msg="Playbook Completed#T1060#passed#win#"
           when: T1060.exists
+         
+        - name: check if playbook was blocked
+          tags: STARTUP
+          debug: msg="Playbook Completed#T1060#blocked#win#"
+          when: T1060.stat.exists == False        
+        - name: check if playbook was successfull
+          tags: STARTUP
+          debug: msg="Playbook Completed#T1060#passed#win#"
+          when: T1060.stat.exists
           
         - name: cleanup HKCURUN      
           tags: HKCURUN
