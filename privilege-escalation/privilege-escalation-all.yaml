@@ -1,0 +1,4 @@
+#All privilege-escalation playbook
+- import_playbook: T1015.yaml
+  # AVAILABE TAGS:  OSK,SETHC,UTILMAN,MAGNIFY,NARRATOR,DISPLAYSWITCH,ATBROKER
+  ignore_errors: yes
