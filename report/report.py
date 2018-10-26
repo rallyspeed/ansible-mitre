@@ -5,6 +5,8 @@ import os, sys
 from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
 import urllib.request
+import time
+from shutil import copyfile
 
 # Initial First File Opening
 first = True
@@ -27,11 +29,11 @@ def getmsg():
             for row in results:
             # Now print fetched result
                 msg = row[1]
-                result=msg.split(":")
+                result=msg.split("#")
                 Task_ID=row[0]
-                TTP_ID=result[2]
-                status=result[3]
-                os=result[4]
+                TTP_ID=result[1]
+                status=result[2]
+                os=result[3]
                 try:
                     # Query to grave task completion date
                     sql2 = "SELECT end FROM task WHERE id=%d" % (Task_ID)
@@ -85,15 +87,25 @@ def updatereport(TTP_ID,status,date,os):
                 # Green color 00FF00 if TTP blocked
                     if status == "blocked":
                         ws.cell(row=i,column=j-1).fill = PatternFill(start_color="00FF00", end_color="FF0000",fill_type = "solid")
-                # Red color FF0000 if TTP not bocked
+                # Red color FF0000 if TTP not blocked
                     elif status == "passed":
                         ws.cell(row=i,column=j-1).fill = PatternFill(start_color="FF0000", end_color="00FF00",fill_type = "solid")
+                 # Orange color FFA500 if TTP failed
+                    elif status == "failed":
+                        ws.cell(row=i,column=j-1).fill = PatternFill(start_color="FFA500", end_color="00FF00",fill_type = "solid")
     except:
         print ("failed to loop through xls")
     wb.save("/var/www/html/matrix.xlsx")
 
+def savereport():
+    t = time.localtime()
+    timestamp = time.strftime('%b-%d-%Y_%H%M', t)
+    copyfile("/var/www/html/matrix.xlsx","/var/www/html/matrix" + timestamp + ".xlsx")
+    print("File available: http://35.210.224.241/matrix" + timestamp + ".xlsx")
+
 def main():
     getmsg()
+    savereport()
 
 if __name__ == '__main__':
     main()
