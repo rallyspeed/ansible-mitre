@@ -11,7 +11,8 @@
             $Filter = Set-WmiInstance -Namespace root\subscription -Class __EventFilter -Arguments @{
               EventNamespace = 'root/cimv2'
               Name = "Backdoor-Logon-Filter"
-              Query = "SELECT * FROM __InstanceCreationEvent WITHIN 10 WHERE TargetInstance ISA 'Win32_LoggedOnUser'"
+              #Query = "SELECT * FROM __InstanceCreationEvent WITHIN 10 WHERE TargetInstance ISA 'Win32_LoggedOnUser'"
+              Query = "SELECT Name FROM Win32_UserAccount WHERE Name = 'svc_winrm'"
               QueryLanguage = 'WQL'
             }
             # Configure Consumer with Command line
