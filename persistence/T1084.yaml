@@ -34,11 +34,24 @@
           win_stat:
             path: C:\temp\{{ victim_file }}
           register: T1084
+        
+        - name: check if playbook was blocked
+          tags: always
+          debug: msg="Playbook Completed#T1084#blocked#win#"
+          when: T1084.stat.exists == False        
+        - name: check if playbook was successfull
+          tags: always
+          debug: msg="Playbook Completed#T1084#passed#win#"
+          when: T1084.stat.exists    
           
-          
-            #$EventConsumerToCleanup = Get-WmiObject -Namespace root/subscription -Class CommandLineEventConsumer -Filter "Name = 'Backdoor-Consumer'"
-            #$EventFilterToCleanup = Get-WmiObject -Namespace root/subscription -Class __EventFilter -Filter "Name = 'Backdoor-Logon-Filter'"
-            #$FilterConsumerBindingToCleanup = Get-WmiObject -Namespace root/subscription -Query "REFERENCES OF {$($EventConsumerToCleanup.__RELPATH)} WHERE ResultClass = __FilterToConsumerBinding"
-            #$FilterConsumerBindingToCleanup | Remove-WmiObject
-            #$EventConsumerToCleanup | Remove-WmiObject
-            #$EventFilterToCleanup | Remove-WmiObject
+        - name: cleanup STARTUP      
+          tags: STARTUP
+          win_shell: |
+            $EventConsumerToCleanup = Get-WmiObject -Namespace root/subscription -Class CommandLineEventConsumer -Filter "Name = 'Backdoor-Consumer'"
+            $EventFilterToCleanup = Get-WmiObject -Namespace root/subscription -Class __EventFilter -Filter "Name = 'Backdoor-Logon-Filter'"
+            $FilterConsumerBindingToCleanup = Get-WmiObject -Namespace root/subscription -Query "REFERENCES OF {$($EventConsumerToCleanup.__RELPATH)} WHERE ResultClass = __FilterToConsumerBinding"
+            $FilterConsumerBindingToCleanup | Remove-WmiObject
+            $EventConsumerToCleanup | Remove-WmiObject
+            $EventFilterToCleanup | Remove-WmiObject
+          when: T1060.stat.exists 
+
