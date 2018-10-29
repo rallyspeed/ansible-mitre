@@ -38,4 +38,27 @@
           tags: always
           wait_for: timeout=10
           delegate_to: localhost		
+          
+        - name: Check if REG exist
+          tags: always
+          win_reg_stat:
+            path: HKCU:\Control Panel\Desktop
+            name: SCRNSAVE.EXE
+          register: T1180
        
+        - name: check if playbook was blocked
+          tags: always
+          debug: msg="Playbook Completed#T1180#blocked#win#"
+          when: T1180.exists == False        
+        - name: check if playbook was successfull
+          tags: always
+          debug: msg="Playbook Completed#T1180#passed#win#"
+          when: T1180.exists
+          
+        - name: cleanup REG      
+          tags: always
+          win_regedit:
+              path: HKCU:\Control Panel\Desktop
+              name: SCRNSAVE.EXE
+              state: absent
+          when: T1180.exists
