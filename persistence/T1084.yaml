@@ -6,7 +6,7 @@
   tasks:
         - name:
           tags: always
-          win_shell:
+          win_shell: |
             # Create Filter - User logging in
             $Filter = Set-WmiInstance -Namespace root\subscription -Class __EventFilter -Arguments @{
                    EventNamespace = 'root/cimv2'
