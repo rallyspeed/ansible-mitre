@@ -13,5 +13,6 @@
   ignore_errors: yes
 - import_playbook: T1168.yaml
   ignore_errors: yes
-
+- import_playbook: T1180.yaml
+  ignore_errors: yes
 
