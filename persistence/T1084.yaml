@@ -53,5 +53,5 @@
             $FilterConsumerBindingToCleanup | Remove-WmiObject
             $EventConsumerToCleanup | Remove-WmiObject
             $EventFilterToCleanup | Remove-WmiObject
-          when: T1060.stat.exists 
+          when: T1084.stat.exists 
 
