@@ -61,9 +61,8 @@
               path: HKCU:\Control Panel\Desktop
               name: SCRNSAVE.EXE
               state: absent
-          when: T1180.exists
-                  - name: cleanup STARTUP      
-       - name: cleanup Files      
+          when: T1180.exists    
+        - name: cleanup Files      
           tags: always
           win_file:
             path:   %SystemRoot%\System32\evilscreensaver.scr
