@@ -65,6 +65,6 @@
         - name: cleanup Files      
           tags: always
           win_file:
-            path:   %SystemRoot%\System32\evilscreensaver.scr
+            path: '%SystemRoot%\System32\evilscreensaver.scr'
             state: absent
           when: T1180.stat.exists 
