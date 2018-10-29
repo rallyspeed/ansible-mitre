@@ -67,4 +67,4 @@
           win_file:
             path: '%SystemRoot%\System32\evilscreensaver.scr'
             state: absent
-          when: T1180.stat.exists 
+          when: T1180.exists 
