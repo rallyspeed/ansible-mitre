@@ -7,7 +7,7 @@
         - name:
           tags: always
           win_command: |
-            cmd /k copy "{{ backdoor_exe }}"  c:\Windows\System32\evilscreensaver.scr
+            cmd /k copy "{{ backdoor_exe }}"  %SystemRoot%\System32\evilscreensaver.scr
         - name: Activate Screen saver
           #reg.exe add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaveActive /t REG_SZ /d 1 /f
           tags: always
@@ -62,3 +62,10 @@
               name: SCRNSAVE.EXE
               state: absent
           when: T1180.exists
+                  - name: cleanup STARTUP      
+       - name: cleanup Files      
+          tags: always
+          win_file:
+            path:   %SystemRoot%\System32\evilscreensaver.scr
+            state: absent
+          when: T1180.stat.exists 
