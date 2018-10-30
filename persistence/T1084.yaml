@@ -1,5 +1,5 @@
 # attack_technique: T1084
-- name: T1084 - Windows Management Instrumentation Event Subscription
+- name: T1084 - Windows Management Instrumentation Event Subscription - Part 1
   hosts: windows
   vars_files:
    - /opt/ansible/vars.yaml
@@ -11,8 +11,8 @@
             $Filter = Set-WmiInstance -Namespace root\subscription -Class __EventFilter -Arguments @{
               EventNamespace = 'root/cimv2'
               Name = "Backdoor-Logon-Filter"
-              #Query = "SELECT * FROM __InstanceCreationEvent WITHIN 10 WHERE TargetInstance ISA 'Win32_LoggedOnUser'"
-              Query = "SELECT * FROM __InstanceCreationEvent WITHIN 10 WHERE TargetInstance ISA 'Win32_Process' and TargetInstance.ProcessName = notepad.exe"
+              Query = "SELECT * FROM __InstanceCreationEvent WITHIN 10 WHERE TargetInstance ISA 'Win32_LoggedOnUser'"
+              #Query = "SELECT * FROM __InstanceCreationEvent WITHIN 10 WHERE TargetInstance ISA 'Win32_Process' and TargetInstance.ProcessName = notepad.exe"
               QueryLanguage = 'WQL'
             }
             # Configure Consumer with Command line
@@ -29,7 +29,12 @@
           tags: always
           wait_for: timeout=10
           delegate_to: localhost
-          
+   
+- name: T1084 - Windows Management Instrumentation Event Subscription - Part 2
+  hosts: windows
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
         - name: Check if startup file exist exist
           tags: always
           win_stat:
