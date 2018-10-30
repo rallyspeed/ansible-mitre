@@ -12,7 +12,7 @@
               EventNamespace = 'root/cimv2'
               Name = "Backdoor-Logon-Filter"
               #Query = "SELECT * FROM __InstanceCreationEvent WITHIN 10 WHERE TargetInstance ISA 'Win32_LoggedOnUser'"
-              Query = "SELECT * FROM __InstanceCreationEvent WITHIN 10 WHERE TargetInstance ISA 'Win32_Process'"
+              Query = "SELECT * FROM __InstanceCreationEvent WITHIN 10 WHERE TargetInstance ISA 'Win32_Process' and TargetInstance.ProcessName = notepad.exe"
               QueryLanguage = 'WQL'
             }
             # Configure Consumer with Command line
