@@ -5,6 +5,8 @@
 - import_playbook: T1060.yaml
   # AVAILABLE TAGS: STARTUP, HKLMRUN, HKCURUN
   ignore_errors: yes
+- import_playbook: T1084.yaml
+  ignore_errors: yes
 - import_playbook: T1128.yaml
   ignore_errors: yes
 - import_playbook: T1136.yaml
