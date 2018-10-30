@@ -32,6 +32,6 @@
         - name: cleanup temp fie      
           tags: always
           win_file:
-            path: C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\Notepad.lnk
+            path: C:\temp\{{ exfiltration_file }}
             state: absent
           when: T1084.stat.exists 
