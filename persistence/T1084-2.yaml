@@ -18,8 +18,8 @@
           debug: msg="Playbook Completed#T1084#passed#win#"
           when: T1084.stat.exists    
           
-        - name: cleanup STARTUP      
-          tags: STARTUP
+        - name: cleanup WMI SUB      
+          tags: always
           win_shell: |
             $EventConsumerToCleanup = Get-WmiObject -Namespace root/subscription -Class CommandLineEventConsumer -Filter "Name = 'Backdoor-Consumer'"
             $EventFilterToCleanup = Get-WmiObject -Namespace root/subscription -Class __EventFilter -Filter "Name = 'Backdoor-Logon-Filter'"
@@ -27,4 +27,11 @@
             $FilterConsumerBindingToCleanup | Remove-WmiObject
             $EventConsumerToCleanup | Remove-WmiObject
             $EventFilterToCleanup | Remove-WmiObject
+          when: T1084.stat.exists
+          
+        - name: cleanup temp fie      
+          tags: always
+          win_file:
+            path: C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\Notepad.lnk
+            state: absent
           when: T1084.stat.exists 
