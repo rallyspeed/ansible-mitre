@@ -27,9 +27,8 @@
             $FilterConsumerBindingToCleanup | Remove-WmiObject
             $EventConsumerToCleanup | Remove-WmiObject
             $EventFilterToCleanup | Remove-WmiObject
-          when: T1084.stat.exists
           
-        - name: cleanup temp fie      
+        - name: cleanup temp file      
           tags: always
           win_file:
             path: C:\temp\{{ exfiltration_file }}
