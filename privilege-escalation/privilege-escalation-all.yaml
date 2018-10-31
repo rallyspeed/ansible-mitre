@@ -2,11 +2,11 @@
 - name: output msg based on tag
   hosts: windows
   tasks:
-    - name: debug msg for defensive turn on
+    - name: debug msg for windows defender turn on
       tags: WDEFENDER
       debug: msg="Playbook ran#PRIV-ESCALATION-WIN-DEFENDER#"
       
-    - name: Run handlers only
+    - name: debug msg for defense turn off
       tags: NOTHING
       debug: msg="Playbook ran#PRIV-ESCALATION-NO-AV-EDR#"
   
