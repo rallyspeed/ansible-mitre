@@ -1,5 +1,6 @@
 #All privilege-escalation playbook
 - name: output msg based on tag
+  hosts: windows
   tasks:
     - name: debug msg for defensive turn on
       debug: msg="Playbook ran with windows defender"
