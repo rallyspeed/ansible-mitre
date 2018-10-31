@@ -11,8 +11,12 @@
       debug: msg="Playbook ran without#PRIV-ESCALATION-NO-AV-EDR#"
   
 - import_playbook: T1015.yaml
-   AVAILABE TAGS:  OSK,SETHC,UTILMAN,MAGNIFY,NARRATOR,DISPLAYSWITCH,ATBROKER
+  # AVAILABE TAGS:  OSK,SETHC,UTILMAN,MAGNIFY,NARRATOR,DISPLAYSWITCH,ATBROKER
   ignore_errors: yes
 - import_playbook: T1088.yaml
   ignore_errors: yes
 
+- name: Generate report
+    tags: always
+    command: /opt/ansible/python3 report.py
+    delegate_to: localhost	
