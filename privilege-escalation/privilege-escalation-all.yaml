@@ -17,6 +17,9 @@
   ignore_errors: yes
 
 - name: Generate report
-  tags: always
-  command: /opt/ansible/python3 report.py
-  delegate_to: localhost	
+  hosts: windows
+  tasks:
+    - name: Generate report
+      tags: always
+      command: /opt/ansible/python3 report.py
+      delegate_to: localhost	
