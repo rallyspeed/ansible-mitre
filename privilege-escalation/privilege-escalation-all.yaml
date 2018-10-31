@@ -1,11 +1,13 @@
 #All privilege-escalation playbook
-- name: debug msg for defensive turn on
-  debug: msg="Playbook ran with windows defender"
-  when: WDEFENDER in ansible_tags 
-  
-- name: Run handlers only
-  debug: msg="Playbook ran without any AV/EDR"
-  when: NOTHING in ansible_tags 
+- name: output msg based on tag
+  tasks:
+    - name: debug msg for defensive turn on
+      debug: msg="Playbook ran with windows defender"
+      when: WDEFENDER in ansible_tags 
+
+    - name: Run handlers only
+      debug: msg="Playbook ran without any AV/EDR"
+      when: NOTHING in ansible_tags 
   
 #- import_playbook: T1015.yaml
   # AVAILABE TAGS:  OSK,SETHC,UTILMAN,MAGNIFY,NARRATOR,DISPLAYSWITCH,ATBROKER
