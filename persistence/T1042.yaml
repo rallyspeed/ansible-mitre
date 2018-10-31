@@ -32,5 +32,5 @@
     - name: CLEANUP - Restore change .wav file execution
       tags: always
       win_command: |
-        assoc .wav=WMP11.AssocFile.WAV
+        cmd.exe /k assoc .wav=WMP11.AssocFile.WAV
       when: ' backdoor_exe in T1042.stdout'
