@@ -4,11 +4,11 @@
   tasks:
     - name: debug msg for Windows Defender
       tags: WDEFENDER
-      debug: msg="Playbook ran#PRIV-ESCALATION-WIN-DEFENDER#"
+      debug: msg="Playbook ran#PERSISTENCE-WIN-DEFENDER#"
       
     - name: debug msg for no defensive turn on
       tags: NOTHING
-      debug: msg="Playbook ran#PRIV-ESCALATION-NO-AV-EDR#"
+      debug: msg="Playbook ran#PERSISTENCE-NO-AV-EDR#"
   
   
 - import_playbook: ../privilege-escalation/T1015.yaml
