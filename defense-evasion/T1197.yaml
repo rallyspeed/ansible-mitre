@@ -15,7 +15,7 @@
       delegate_to: localhost
     - name: Check Payload downloaded
       tags: always
-      win_command: type c:\temp\{{ exfil_script_windows }
+      win_command: type c:\temp\{{ exfil_script_windows }}
       register: T1197
     - name: check if playbook was successfull
       tags: always
