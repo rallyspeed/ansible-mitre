@@ -1,4 +1,11 @@
 #All persistence playbook
+
+- name: debug msg for defensive turn on
+  when: WDEFENDER in ansible_tags 
+  debug: msg="Playbook ran with windows defender"
+- name: Run handlers only 
+  when: NOTHING in ansible_tags 
+  debug: msg="Playbook ran without any defense"
 - import_playbook: ../privilege-escalation/T1015.yaml
   # AVAILABE TAGS:  OSK,SETHC,UTILMAN,MAGNIFY,NARRATOR,DISPLAYSWITCH,ATBROKER
   ignore_errors: yes
