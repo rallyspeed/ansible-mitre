@@ -5,6 +5,8 @@
     - name: debug msg for defensive turn on
       tags: WDEFENDER
       debug: msg="Playbook ran with #WIN-DEFENDER#"
+      
+      msg="Playbook Completed#T1060#blocked#win#"
 
     - name: Run handlers only
       tags: NOTHING
