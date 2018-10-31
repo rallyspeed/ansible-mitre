@@ -14,7 +14,7 @@
 - import_playbook: ../privilege-escalation/T1015.yaml
   # AVAILABE TAGS:  OSK,SETHC,UTILMAN,MAGNIFY,NARRATOR,DISPLAYSWITCH,ATBROKER
   ignore_errors: yes
-- import_playbook: T042.yaml
+- import_playbook: T1042.yaml
   ignore_errors: yes
 - import_playbook: T1060.yaml
   # AVAILABLE TAGS: STARTUP, HKLMRUN, HKCURUN
