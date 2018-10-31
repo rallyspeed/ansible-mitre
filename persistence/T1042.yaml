@@ -23,11 +23,11 @@
     - name: check if playbook was blocked
       tags: always
       debug: msg="Playbook Completed#T1042#blocked#win#"
-      when: "{{ backdoor_exe }}" not in T1042.stdout       
+      when: '"{{ backdoor_exe }}" not in T1042.stdout'      
     - name: check if playbook was successfull
       tags: always
       debug: msg="Playbook Completed#T1042#passed#win#"
-      when: "{{ backdoor_exe }}" in T1042.stdout
+      when: '"{{ backdoor_exe }}" in T1042.stdout'
       
     #- name: CLEANUP - Restore change .wav file execution
     #  tags: always
