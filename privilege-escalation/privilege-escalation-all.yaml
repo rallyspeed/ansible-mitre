@@ -1,8 +1,10 @@
 #All privilege-escalation playbook
 - name: debug msg for defensive turn on
-  when: WDEFENDER in ansible_tags 
   debug: msg="Playbook ran with windows defender"
-- name: Run handlers only 
+  when: WDEFENDER in ansible_tags 
+  
+- name: Run handlers only
+  debug: msg="Playbook ran without any AV/EDR"
   when: NOTHING in ansible_tags 
   
 #- import_playbook: T1015.yaml
