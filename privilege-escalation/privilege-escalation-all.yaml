@@ -6,8 +6,6 @@
       tags: WDEFENDER
       debug: msg="Playbook ran with#WIN-DEFENDER#"
       
-      msg="Playbook Completed#T1060#blocked#win#"
-
     - name: Run handlers only
       tags: NOTHING
       debug: msg="Playbook ran without#NO-AV/EDR#"
