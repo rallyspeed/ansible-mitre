@@ -1,7 +1,13 @@
 #All privilege-escalation playbook
-- import_playbook: T1015.yaml
+- name: debug msg for defensive turn on
+  when: WDEFENDER in ansible_tags 
+  debug: msg="Playbook ran with windows defender"
+- name: Run handlers only 
+  when: NOTHING in ansible_tags 
+  
+#- import_playbook: T1015.yaml
   # AVAILABE TAGS:  OSK,SETHC,UTILMAN,MAGNIFY,NARRATOR,DISPLAYSWITCH,ATBROKER
-  ignore_errors: yes
-- import_playbook: T1088.yaml
-  ignore_errors: yes
+ # ignore_errors: yes
+#- import_playbook: T1088.yaml
+#  ignore_errors: yes
 
