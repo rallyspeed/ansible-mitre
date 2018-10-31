@@ -4,11 +4,11 @@
   tasks:
     - name: debug msg for defensive turn on
       tags: WDEFENDER
-      debug: msg="Playbook ran with#PRIV-ESCALATION-WIN-DEFENDER#"
+      debug: msg="Playbook ran#PRIV-ESCALATION-WIN-DEFENDER#"
       
     - name: Run handlers only
       tags: NOTHING
-      debug: msg="Playbook ran without#PRIV-ESCALATION-NO-AV-EDR#"
+      debug: msg="Playbook ran#PRIV-ESCALATION-NO-AV-EDR#"
   
 - import_playbook: T1015.yaml
   # AVAILABE TAGS:  OSK,SETHC,UTILMAN,MAGNIFY,NARRATOR,DISPLAYSWITCH,ATBROKER
