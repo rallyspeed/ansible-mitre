@@ -1,0 +1,41 @@
+# attack_technique: T1037
+- name: T1037 - Logon Scripts
+  hosts: windows
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+  - name: Attaches backdoor upon logon
+    tags: always
+    win_regedit:
+      path: HKCU:\Environment
+      name: UserInitMprLogonScript
+      data: cmd.exe /c "{{ backdoor_exe }}"
+      type: string
+      
+  - name: sleep for 10 seconds and continue with play to check if AV removed or Not
+    tags: always
+    wait_for: timeout=10
+    delegate_to: localhost
+  - name: Check REG UserInitMprLogonScript exist
+    tags: always
+    win_reg_stat:
+      path: HKCU:\Environment
+      name: UserInitMprLogonScript
+    register: T1037
+  - name: check if playbook was blocked
+    tags: always
+    debug: msg="Playbook Completed#T1037#blocked#win#"
+    when: T1037.exists == False        
+  - name: check if playbook was successfull
+    tags: always
+    debug: msg="Playbook Completed#T1037#passed#win#"
+    when: T1037.exists
+  
+  - name: cleanup HKCURUN      
+    tags: HKCURUN
+    win_regedit:
+        path: HKCU:\Environment
+        name: UserInitMprLogonScript
+        state: absent
+    when: T1037.exists
+         
