@@ -10,7 +10,7 @@
     win_regedit:
       path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\Image File Execution Options\notepad.exe
       name: Debugger
-      data: {{ backdoor_exe }}
+      data: "{{ backdoor_exe }}"
       type: string
       
   - name: sleep for 10 seconds and continue with play to check if AV removed or Not
