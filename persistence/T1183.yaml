@@ -20,7 +20,7 @@
   - name: Check REG debugger exist
     tags: always
     win_reg_stat:
-      path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\Image File Execution Options\notepad.exe
+      path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion NT\Image File Execution Options\notepad.exe
       name: Debugger
     register: T1183
   - name: check if playbook was blocked
@@ -33,10 +33,9 @@
     when: T1183.exists
   
   - name: cleanup HKCURUN      
-    tags: HKCURUN
+    tags: always
     win_regedit:
-        path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\Image File Execution Options\notepad.exe
-        name: Debugger
+        path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\notepad.exe
         state: absent
     when: T1183.exists
          
