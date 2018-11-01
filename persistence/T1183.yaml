@@ -31,4 +31,12 @@
     tags: always
     debug: msg="Playbook Completed#T1183#passed#win#"
     when: T1183.exists
+  
+  - name: cleanup HKCURUN      
+    tags: HKCURUN
+    win_regedit:
+        path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\Image File Execution Options\notepad.exe
+        name: Debugger
+        state: absent
+    when: T1183.exists
          
