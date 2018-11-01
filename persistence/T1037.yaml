@@ -31,11 +31,11 @@
     debug: msg="Playbook Completed#T1037#passed#win#"
     when: T1037.exists
   
-  - name: cleanup HKCURUN      
-    tags: HKCURUN
-    win_regedit:
-        path: HKCU:\Environment
-        name: UserInitMprLogonScript
-        state: absent
-    when: T1037.exists
+  #- name: cleanup REG      
+  #  tags: always
+  #  win_regedit:
+  #      path: HKCU:\Environment
+  #      name: UserInitMprLogonScript
+  #      state: absent
+  #  when: T1037.exists
          
