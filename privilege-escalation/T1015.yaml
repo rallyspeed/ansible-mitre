@@ -114,3 +114,45 @@
             tags: always
             debug: msg="Playbook Completed#T1015#passed#win#"
             when: T1015.exists 
+          - name: CleanUp REG
+            tags: OSK
+            win_regedit:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\osk.exe
+              state: absent
+            when: T1015.exists
+          - name: CleanUp REG
+            tags: SETHC
+            win_regedit:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe
+              state: absent
+            when: T1015.exists
+          - name: CleanUp REG
+            tags: UTILMAN
+            win_regedit:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\utilman.exe
+              state: absent
+            when: T1015.exists
+          - name: CleanUp REG
+            tags: MAGNIFY
+            win_regedit:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\magnify.exe
+              state: absent
+            when: T1015.exists		
+          - name: CleanUp REG
+            tags: NARRATOR
+            win_regedit:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\narrator.exe
+              state: absent
+            when: T1015.exists				
+          - name: CleanUp REG
+            tags: DISPLAYSWITCH
+            win_regedit:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DisplaySwitch.exe
+              state: absent
+            when: T1015.exists
+          - name: CleanUp REG
+            tags: ATBROKER
+            win_regedit:
+              path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\atbroker.exe
+              state: absent
+            when: T1015.exists    
