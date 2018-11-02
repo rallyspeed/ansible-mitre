@@ -1,4 +1,5 @@
 # attack_technique: T1031
+# Backdoor should already be available on target
 - name: T1031 - Modify Existing Service
   hosts: windows
   vars_files:
