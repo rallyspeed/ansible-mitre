@@ -52,11 +52,11 @@
   - name: check if playbook was blocked
     tags: PSH
     debug: msg="Playbook Completed#T1050#blocked#win#"
-    when: 'ObjectNotFound' in T1050.stdout  
+    when: "'ObjectNotFound' in T1050.stdout"  
   - name: check if playbook was successfull
     tags: PSH
     debug: msg="Playbook Completed#T1050#passed#win#"
-    when: 'ObjectNotFound' not in T1050.stdout      
+    when: "'ObjectNotFound' not in T1050.stdout"      
    
   - name: cleanup PATH      
     tags: CMD
@@ -68,4 +68,4 @@
     tags: PSH
     win_shell: |
         (Get-WmiObject Win32_Service -filter "name='{{ backdoor_svc_name }}'").Delete()
-    when: 'ObjectNotFound' not in T1050.stdout   
+    when: "'ObjectNotFound' not in T1050.stdout"   
