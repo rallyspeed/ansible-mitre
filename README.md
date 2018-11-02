@@ -2,9 +2,9 @@
 Attack playbooks based on MITRE ATT&CK framework using ansible format
 
 ## Prerequisites
-ansible (`apt-get install ansible`)
-ansible-winrm (`pip install "pywinrm>=0.3.0"`)
-customize vars.yaml file
+- ansible (`apt-get install ansible`)
+- ansible-winrm (`pip install "pywinrm>=0.3.0"`)
+- customize vars.yaml file
 
 ## Architecture
  - Ansible Playbook machine with Semaphore GUI and mySQL database
