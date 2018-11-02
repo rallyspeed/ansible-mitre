@@ -9,9 +9,9 @@
       win_command: |
         schtasks /create /sc minute /mo 1 /tn "{{ backdoor_svc_name }}" /tr {{ backdoor_exe }}
 
-    - name: sleep for 10 seconds and continue with play to check if AV removed or Not
+    - name: sleep for 70 seconds and continue with play to check if AV removed or Not and st to run
       tags: always
-      wait_for: timeout=10
+      wait_for: timeout=70
       delegate_to: localhost
 
     - name: Check task created
