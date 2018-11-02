@@ -8,11 +8,11 @@
   - name: create a new service
     tags: CMD
     win_command: |
-      sc create {{ backdoor_service_name }} binpath= "cmd /c {{ backdoor_exe }}"
+      sc create {{ backdoor_svc_name }} binpath= "cmd /c {{ backdoor_exe }}"
   - name: start the new service
     tags: CMD
     win_command: |
-      sc start {{ backdoor_service_name }}
+      sc start {{ backdoor_svc_name }}
       
   - name: sleep for 10 seconds and continue with play to check if AV removed or Not
     tags: always
@@ -22,7 +22,7 @@
   - name: Check if service create ok
     tags: CMD
     win_command: |
-      sc qc {{ backdoor_service_name }} | PATH
+      sc qc {{ backdoor_svc_name }} | PATH
     register: T1050
   - name: check if playbook was blocked
     tags: CMD
@@ -36,6 +36,6 @@
   - name: cleanup PATH      
     tags: CMD
     win_command: |
-        sc stop {{ backdoor_service_name }}
-        sc delete {{ backdoor_service_name }}
+        sc stop {{ backdoor_svc_name }}
+        sc delete {{ backdoor_svc_name }}
     when: 'backdoor_exe in T1050.stdout'   
