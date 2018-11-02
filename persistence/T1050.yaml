@@ -5,10 +5,13 @@
   vars_files:
    - /opt/ansible/vars.yaml
   tasks:
-  - name: Modify service path for WSearch service
+  - name: create a new service
     tags: CMD
     win_command: |
       sc create {{ backdoor_service_name }} binpath= "cmd /c {{ backdoor_exe }}"
+  - name: start the new service
+    tags: CMD
+    win_command: |
       sc start {{ backdoor_service_name }}
       
   - name: sleep for 10 seconds and continue with play to check if AV removed or Not
