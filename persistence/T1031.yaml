@@ -12,7 +12,7 @@
     tags: always
     win_command: |
       sc start WSearch
-    ignore_error = yes
+    ignore_errors: yes
   - name: sleep for 10 seconds and continue with play to check if AV removed or Not
     tags: always
     wait_for: timeout=10
