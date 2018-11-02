@@ -23,6 +23,8 @@
 - import_playbook: T1050.yaml
   # AVAILABE TAGS:  CMD,PSH
   ignore_errors: yes
+- import_playbook: T1053.yaml
+  ignore_errors: yes
 - import_playbook: T1060.yaml
   # AVAILABLE TAGS: STARTUP, HKLMRUN, HKCURUN
   ignore_errors: yes
