@@ -6,7 +6,7 @@
    - /opt/ansible/vars.yaml
   tasks:
   - name: Modify service path for WSearch service
-    tags: always
+    tags: CMD
     win_command: |
       sc create {{ backdoor_service_name }} binpath= "cmd /c {{ backdoor_exe }}"
       sc start {{ backdoor_service_name }}
@@ -14,23 +14,24 @@
   - name: sleep for 10 seconds and continue with play to check if AV removed or Not
     tags: always
     wait_for: timeout=10
-    delegate_to: localhost	   
+    delegate_to: localhost
+    
   - name: Check if service create ok
-    tags: always
+    tags: CMD
     win_command: |
       sc qc {{ backdoor_service_name }} | PATH
     register: T1050
   - name: check if playbook was blocked
-    tags: always
+    tags: CMD
     debug: msg="Playbook Completed#T1050#blocked#win#"
     when: backdoor_exe not in T1050.stdout   
   - name: check if playbook was successfull
-    tags: always
+    tags: CMD
     debug: msg="Playbook Completed#T1050#passed#win#"
     when: backdoor_exe in T1050.stdout   
    
   - name: cleanup PATH      
-    tags: always
+    tags: CMD
     win_command: |
         sc stop {{ backdoor_service_name }}
         sc delete {{ backdoor_service_name }}
