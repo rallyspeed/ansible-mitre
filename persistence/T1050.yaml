@@ -9,11 +9,11 @@
     tags: CMD
     win_command: |
       sc create {{ backdoor_svc_name }} binpath= "cmd /c {{ backdoor_exe }}"
-  - name: start the new service
+  - name: start the new service, even if successfull, start will through an error message
     tags: CMD
     win_command: |
       sc start {{ backdoor_svc_name }}
-      
+    ignore_errors: yes
   - name: sleep for 10 seconds and continue with play to check if AV removed or Not
     tags: always
     wait_for: timeout=10
