@@ -36,6 +36,5 @@
   - name: cleanup PATH      
     tags: CMD
     win_command: |
-        sc stop {{ backdoor_svc_name }}
         sc delete {{ backdoor_svc_name }}
     when: 'backdoor_exe in T1050.stdout'   
