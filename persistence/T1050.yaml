@@ -18,6 +18,11 @@
     win_command: |
       sc start {{ backdoor_svc_name }}
     ignore_errors: yes
+  - name: start the new service, even if successfull, start will through an error message
+    tags: PSH
+    win_shell: |
+      Start-Service -Name "{{ backdoor_svc_name }}"
+    ignore_errors: yes
   - name: sleep for 10 seconds and continue with play to check if AV removed or Not
     tags: always
     wait_for: timeout=10
@@ -26,8 +31,15 @@
   - name: Check if service create ok
     tags: CMD
     win_command: |
-      sc qc {{ backdoor_svc_name }} | PATH
+      sc qc {{ backdoor_svc_name }} | findstr PATH
     register: T1050
+    
+  - name: Check if service create ok
+    tags: PSH
+    win_shell: |
+      Get-Service -Name "{{ backdoor_svc_name }}"
+    register: T1050
+    
   - name: check if playbook was blocked
     tags: CMD
     debug: msg="Playbook Completed#T1050#blocked#win#"
@@ -37,8 +49,23 @@
     debug: msg="Playbook Completed#T1050#passed#win#"
     when: backdoor_exe in T1050.stdout   
    
+  - name: check if playbook was blocked
+    tags: PSH
+    debug: msg="Playbook Completed#T1050#blocked#win#"
+    when: ObjectNotFound in T1050.stdout   
+  - name: check if playbook was successfull
+    tags: PSH
+    debug: msg="Playbook Completed#T1050#passed#win#"
+    when: ObjectNotFound not in T1050.stdout       
+   
   - name: cleanup PATH      
     tags: CMD
     win_command: |
         sc delete {{ backdoor_svc_name }}
     when: 'backdoor_exe in T1050.stdout'   
+    
+  - name: cleanup PATH      
+    tags: PSH
+    win_shell: |
+        (Get-WmiObject Win32_Service -filter "name='{{ backdoor_svc_name }}'").Delete()
+    when: ObjectNotFound not in T1050.stdout   
