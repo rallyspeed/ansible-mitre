@@ -13,42 +13,54 @@ first = True
 
 def getmsg():
 
-    # Connection to semaphore mysql database
-    db = MySQLdb.connect("localhost","root","******","semaphore" )
+    # O pen database connection
+    db = MySQLdb.connect("localhost","root","********","semaphore" )
 
     # prepare a cursor object using cursor() method
     cursor = db.cursor()
     # Query for completed playbooks
-    sql1 = "SELECT task_id,output FROM task__output WHERE output like '%Playbook Completed%'"
+    #Select last playbook ran
+    sql1 = "select id,end from task order by id desc limit 1"
+    try:
+        cursor.execute(sql1)
+        result = cursor.fetchone()
+        task_id = result[0]
+        date = result[1]
+    except:
+        print("failed to query for name")
+
+    sql21 = "SELECT output FROM task__output WHERE output like '%Playbook Completed%' "
+    sql2 = sql21 + "AND task_id=%s" % task_id
+    sql31 = "SELECT output FROM task__output WHERE output like '%Playbook ran%' "
+    sql3 = sql31 + "AND task_id=%s" % task_id
     try:
         # Execute the SQL command
-        cursor.execute(sql1)
+        cursor.execute(sql2)
         # Fetch all the rows in a list of lists.
         results = cursor.fetchall()
         try:
             for row in results:
             # Now print fetched result
-                msg = row[1]
+                msg = row[0]
                 result=msg.split("#")
-                Task_ID=row[0]
                 TTP_ID=result[1]
                 status=result[2]
                 os=result[3]
-                try:
-                    # Query to grave task completion date
-                    sql2 = "SELECT end FROM task WHERE id=%d" % (Task_ID)
-                    cursor.execute(sql2)
-                    task_result = cursor.fetchall()
-                    for row in task_result:
-                        date=row[0]
-                except:
-                    print ("Failed to query date")
                 updatereport(TTP_ID,status,date,os)
         except:
             print("Failed to query task")
     except:
         print ("Error: unable to fecth data")
-
+    cursor2 = db.cursor()
+    try:
+        cursor2.execute(sql3)
+        result2 = cursor2.fetchone()
+        msg = result2[0]
+        result3 = msg.split("#")
+        name = result3[1]
+        return name
+    except:
+        print("failed to query for name")
     # disconnect from server
     db.close()
 
@@ -97,15 +109,18 @@ def updatereport(TTP_ID,status,date,os):
         print ("failed to loop through xls")
     wb.save("/var/www/html/matrix.xlsx")
 
-def savereport():
+def savereport(name):
     t = time.localtime()
     timestamp = time.strftime('%b-%d-%Y_%H%M', t)
-    copyfile("/var/www/html/matrix.xlsx","/var/www/html/matrix" + timestamp + ".xlsx")
-    print("File available: http://x.x.x.x/matrix" + timestamp + ".xlsx")
+    try:
+        copyfile("/var/www/html/matrix.xlsx","/var/www/html/matrix-" + name + "-" + timestamp + ".xlsx")
+        print("File available: http://35.210.224.241/matrix-" + name + "-" + timestamp + ".xlsx")
+    except:
+        print("Failed to copy file")
 
 def main():
-    getmsg()
-    savereport()
+    naming=getmsg()
+    savereport(naming)
 
 if __name__ == '__main__':
     main()
