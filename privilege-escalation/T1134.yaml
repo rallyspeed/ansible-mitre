@@ -12,4 +12,4 @@
       
     - name: Execute elevation powershell script
       win_shell: |
-        c:\temp\Get-System.ps1; [MyProcess]::CreateProcessFromParent((Get-Process systemPID.stdout).Id,"cmd.exe")
+        c:\temp\psgetsys.ps1; [MyProcess]::CreateProcessFromParent((Get-Process systemPID.stdout).Id,"cmd.exe")
