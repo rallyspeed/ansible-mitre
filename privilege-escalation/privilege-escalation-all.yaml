@@ -1,5 +1,12 @@
 #All privilege-escalation playbook
-- name: Defense checks to update report name
+
+- import_playbook: T1015.yaml
+  # AVAILABE TAGS:  OSK,SETHC,UTILMAN,MAGNIFY,NARRATOR,DISPLAYSWITCH,ATBROKER
+  ignore_errors: yes
+- import_playbook: T1088.yaml
+  ignore_errors: yes
+
+- name: Generate report
   hosts: windows
   tasks:
     - name: check if windows defender is activated
@@ -11,16 +18,6 @@
     - name: debug msg for defense turn off
       debug: msg="Playbook ran#PRIV-ESCALATION-NO-AV-EDR#"
       when: '"True" in Windows-Defender.stdout'
-  
-- import_playbook: T1015.yaml
-  # AVAILABE TAGS:  OSK,SETHC,UTILMAN,MAGNIFY,NARRATOR,DISPLAYSWITCH,ATBROKER
-  ignore_errors: yes
-- import_playbook: T1088.yaml
-  ignore_errors: yes
-
-- name: Generate report
-  hosts: windows
-  tasks:
     - name: Generate report
       tags: always
       command: python3 /opt/ansible/report.py
