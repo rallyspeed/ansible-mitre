@@ -3,14 +3,14 @@
   hosts: windows
   tasks:
     - name: check if windows defender is activated
-    
+      win_shell: Get-MpPreference | findstr DisableRealtimeMonitoring
+      register: Windows-Defender
     - name: debug msg for windows defender turn on
       debug: msg="Playbook ran#PRIV-ESCALATION-WIN-DEFENDER#"
-      when: 
-      
+      when: '"False" in Windows-Defender.stdout'  
     - name: debug msg for defense turn off
       debug: msg="Playbook ran#PRIV-ESCALATION-NO-AV-EDR#"
-      when:
+      when: '"True" in Windows-Defender.stdout'
   
 - import_playbook: T1015.yaml
   # AVAILABE TAGS:  OSK,SETHC,UTILMAN,MAGNIFY,NARRATOR,DISPLAYSWITCH,ATBROKER
