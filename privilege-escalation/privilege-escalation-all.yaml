@@ -10,12 +10,15 @@
   hosts: windows
   tasks:
     - name: check if windows defender is activated
+      tags: always
       win_shell: Get-MpPreference | findstr DisableRealtimeMonitoring
       register: Windows-Defender
     - name: debug msg for windows defender turn on
+      tags: always
       debug: msg="Playbook ran#PRIV-ESCALATION-WIN-DEFENDER#"
       when: '"False" in Windows-Defender.stdout'  
     - name: debug msg for defense turn off
+      tags: always
       debug: msg="Playbook ran#PRIV-ESCALATION-NO-AV-EDR#"
       when: '"True" in Windows-Defender.stdout'
     - name: Generate report
