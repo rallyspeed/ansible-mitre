@@ -44,6 +44,7 @@ INSTALL  sephamore for GUI interface.
  
 ## Optional Install mysqclient
  - `python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall`
+ - `apt-get install libmysqlclient-dev`
  - `pip3 install mysqlclient`
 
 ## Report Generation
