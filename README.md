@@ -23,14 +23,14 @@ Attack playbooks based on MITRE ATT&CK framework using ansible format
  Some playbooks require tags
  
 ## Usage - GUI
-- Create som task templates based on playbook repository
+- Create some tasks templates based on playbook repository
 ![ScreenShot](task-templates.JPG)
 
 - Launch the task
 ![ScreenShot](task-running.JPG)
 
 ## Optional INSTALL SEPHAMORE GUI
-INSTALL  sephamore for GUI interface.
+INSTALL  sephamore for GUI interface. ref: https://github.com/ansible-semaphore/semaphore
  - `apt-get install mysql-server`
  - `mysql_secure_installation`
  - `wget https://github.com/ansible-semaphore/semaphore/releases/download/v2.5.1/semaphore_2.5.1_linux_amd64.deb`
