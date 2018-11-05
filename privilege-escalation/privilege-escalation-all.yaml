@@ -2,13 +2,15 @@
 - name: output msg based on tag
   hosts: windows
   tasks:
+    - name: check if windows defender is activated
+    
     - name: debug msg for windows defender turn on
-      tags: WDEFENDER
       debug: msg="Playbook ran#PRIV-ESCALATION-WIN-DEFENDER#"
+      when: 
       
     - name: debug msg for defense turn off
-      tags: NOTHING
       debug: msg="Playbook ran#PRIV-ESCALATION-NO-AV-EDR#"
+      when:
   
 - import_playbook: T1015.yaml
   # AVAILABE TAGS:  OSK,SETHC,UTILMAN,MAGNIFY,NARRATOR,DISPLAYSWITCH,ATBROKER
