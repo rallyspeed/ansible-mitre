@@ -42,10 +42,11 @@ INSTALL  sephamore for GUI interface.
  - `ssh -T git@github.com` To confirm ansible machine can reach the github repo
  - `semaphore -config /opt/config.json &`
  
-## Optional Install mysqclient
+## Required install to generate report (report.py)
  - `python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall`
  - `apt-get install libmysqlclient-dev`
  - `pip3 install mysqlclient`
+ - `pip3 install openpyxl`
 
 ## Report Generation
  - `python3 report.py`
