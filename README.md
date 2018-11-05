@@ -3,7 +3,7 @@ Attack playbooks based on MITRE ATT&CK framework using ansible format
 
 ## Prerequisites
 - ansible (`apt-get install ansible`)
-- ansible-winrm (`pip install "pywinrm>=0.3.0"`)
+- ansible-winrm (`pip install "pywinrm>=0.3.0"`, `pip install pywinrm[credssp]`)
 - customize vars.yaml file
 
 ## Architecture
