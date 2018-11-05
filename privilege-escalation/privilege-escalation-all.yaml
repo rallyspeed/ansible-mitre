@@ -1,6 +1,8 @@
 #All privilege-escalation playbook
 - name: Defense checks to update report name
   hosts: windows
+  vars_files:
+ - /opt/ansible/vars.yaml
   tasks:
     - name: check if windows defender is activated
       win_shell: Get-MpPreference | findstr DisableRealtimeMonitoring
