@@ -1,5 +1,5 @@
 #All privilege-escalation playbook
-- name: output msg based on tag
+- name: Defense checks to update report name
   hosts: windows
   tasks:
     - name: check if windows defender is activated
