@@ -20,11 +20,11 @@
            register: T1046
          - name: check if playbook was blocked
            tags: SSH
-           debug: msg="Playbook Completed:T1046:blocked:linux:"
+           debug: msg="Playbook Completed#T1046#blocked#linux#"
            when: T1046.stat.size == 0  
          - name: check if playbook was successfull
            tags: SSH
-           debug: msg="Playbook Completed:T1046:passed:linux:"
+           debug: msg="Playbook Completed#T1046#passed#linux#"
            when: T1046.stat.size > 0 
          - name: Network Service Scanning - SMB
            tags: SMB
@@ -42,9 +42,9 @@
            register: T1046
          - name: check if playbook was blocked
            tags: SMB
-           debug: msg="Playbook Completed:T1046:blocked:linux:"
+           debug: msg="Playbook Completed#T1046#blocked#linux#"
            when: T1046.stat.exists == False       
          - name: check if playbook was successfull
            tags: SMB
-           debug: msg="Playbook Completed:T1046:passed:linux:"
+           debug: msg="Playbook Completed#T1046#passed#linux#"
            when: T1046.stat.exists
