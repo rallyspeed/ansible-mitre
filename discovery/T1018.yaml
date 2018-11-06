@@ -36,7 +36,8 @@
       - name: gather info
         tags: always
         win_shell: |
-          $first3 =((Get-NetIPConfiguration).IPv4Address.IPAddress).split(.")
+          $IP = (Get-NetIPConfiguration).IPv4Address.IPAddress
+          $first3 = $IP.split(".")
           $scanip = [string]::join(".",$first3)
           $ping = New-Object System.Net.Networkinformation.Ping
       - name: ping sweep
