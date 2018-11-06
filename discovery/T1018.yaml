@@ -5,6 +5,7 @@
    - /opt/ansible/vars.yaml
   tasks:
           - name: ping sweep
+            tags: always
             shell: |
                 subnet=`ifconfig | grep 'inet ' | awk '{print $2}' | sed -e '/^127.0.0.1/d' | cut -d  '.' -f1-3`
                 for ip in $(seq 1 254); do ping -c 1 $subnet.$ip; [ $? -eq 0 ] && echo $subnet.$ip UP || : ; done | grep UP >> /tmp/pingsweep.txt
@@ -15,10 +16,10 @@
             register: T1018
           - name: check if playbook was blocked
             tags: always
-            debug: msg="Playbook Completed:T1018:blocked:linux:"
+            debug: msg="Playbook Completed#T1018#blocked#linux#"
             when: T1018.stat.exists == False        
           - name: check if playbook was successfull
             tags: always
-            debug: msg="Playbook Completed:T1018:passed:linux:"
+            debug: msg="Playbook Completed#T1018#passed#linux#"
             when: T1018.stat.exists           
                 
