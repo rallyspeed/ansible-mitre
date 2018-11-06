@@ -41,6 +41,11 @@
           $scanip = [string]::join(".",$first3)
           $ping = New-Object System.Net.Networkinformation.Ping
           for($i=1; $i -le 5; $i++) { $ping.send(“$scanip.$i”) | select address, status | findstr Success >> c:\temp\sweep.txt}
+
+      - name: sleep for 10 seconds and continue with play to check if AV removed or Not
+        tags: always
+        wait_for: timeout=10
+        delegate_to: localhost	
           
       - name: Check if startup file exist exist
         tags: always
