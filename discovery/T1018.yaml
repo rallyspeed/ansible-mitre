@@ -40,7 +40,5 @@
           $first3 = $IP.split(".")
           $scanip = [string]::join(".",$first3)
           $ping = New-Object System.Net.Networkinformation.Ping
-      - name: ping sweep
-        tags: always
-        win_shell: |
           1..5| % { $ping.send(“$scanip.$_”) | select address, status } | findstr Success > c:\temp\sweep.txt
+
