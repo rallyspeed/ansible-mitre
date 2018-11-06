@@ -13,7 +13,6 @@
     - set_fact:
         tags: always
         pid={{systemPID.stdout}}
-      
     - name: Execute elevation powershell script
       tags: always
       win_shell: |
