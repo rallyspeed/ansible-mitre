@@ -3,6 +3,10 @@
 - import_playbook: T1018.yaml
   ignore_errors: yes
 
+- import_playbook: T1046.yaml
+  # AVAILABE TAGS:  SSH,SMB
+  ignore_errors: yes
+
 - name: Generate report
   hosts: windows
   tasks:
