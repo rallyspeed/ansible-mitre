@@ -48,3 +48,17 @@
            tags: SMB
            debug: msg="Playbook Completed#T1046#passed#linux#"
            when: T1046.stat.exists
+      
+         - name: cleanup files      
+           tags: SSH
+           file:
+             path: /tmp/portscan-SSH.txt
+             state: absent
+           when: T1046.stat.size == 0   
+      
+         - name: cleanup files      
+           tags: SMB
+           file:
+             path: /tmp/portscan-SMB.txt
+             state: absent
+           when: T1046.stat.exist    
