@@ -21,7 +21,7 @@
         echo '[MyProcess]::CreateProcessFromParent({{pid}} ,"cmd.exe")' > c:\temp\priv-temp.ps1
     - name: Remove carriage return from file
       win_shell: |
-        (Get-Content .\priv-temp.ps1) -join ' ' > priv.ps1
+        (Get-Content c:\temp\priv-temp.ps1) -join ' ' > c:\temp\priv.ps1
     - name: Execute ps script
       win_shell: |
         powershell.exe -ExecutionPolicy Bypass -Command c:\temp\priv.ps1
