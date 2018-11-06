@@ -19,6 +19,11 @@
             debug: msg="Playbook Completed#T1099#passed#linux#"
             when: '"1970" in T1099.stdout' 
 
+          - name: cleanup      
+            tags: always
+            shell: |
+              rm -r {{victim_folder }}
+
 - name :  Timestomp - Windows
   hosts: windows
   vars_files:
