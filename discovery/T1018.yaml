@@ -22,4 +22,9 @@
             tags: always
             debug: msg="Playbook Completed#T1018#passed#linux#"
             when: T1018.stat.exists           
-                
+          - name: cleanup files      
+            tags: always
+            file:
+              path: path: /tmp/pingsweep.txt
+              state: absent
+            when: T1018.stat.exists                
