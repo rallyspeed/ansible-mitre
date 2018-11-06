@@ -42,3 +42,11 @@
           - name: check if playbook was successfull
             debug: msg="Playbook Completed#T1099#passed#win#"
             when: '"1970" in T1099.stdout' 
+            
+          - name: cleanup      
+            tags: always
+            win_file:
+              path: c:\temp\{{ victim_file }}
+              state: absent
+    
+            
