@@ -15,9 +15,9 @@
       register: T1085
     - name: check if playbook was blocked
       tags: always
-      debug: msg="Playbook Completed:T1085:blocked:win:"
+      debug: msg="Playbook Completed#T1085:blocked#win#"
       when: T1085.stat.exists == False        
     - name: check if playbook was successfull
       tags: always
-      debug: msg="Playbook Completed:T1085:passed:win:"
+      debug: msg="Playbook Completed#T1085#passed#win#"
       when: T1085.stat.exists  
