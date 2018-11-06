@@ -43,4 +43,4 @@
       - name: ping sweep
         tags: always
         win_shell: |
-          1..5| % { $ping.send(“$scanip.ping $_”) | select address, status } | findstr Success > c:\temp\sweep.txt
+          1..5| % { $ping.send(“$scanip.$_”) | select address, status } | findstr Success > c:\temp\sweep.txt
