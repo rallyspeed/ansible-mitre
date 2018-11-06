@@ -25,6 +25,6 @@
           - name: cleanup files      
             tags: always
             file:
-              path: path: /tmp/pingsweep.txt
+              path: /tmp/pingsweep.txt
               state: absent
             when: T1018.stat.exists                
