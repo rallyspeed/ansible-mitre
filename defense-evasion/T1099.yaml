@@ -13,10 +13,10 @@
              ls -l {{victim_folder }}/{{ victim_file }} --time=atime
             register: T1099
           - name: check if playbook was blocked
-            debug: msg="Playbook Completed:T1099:blocked:linux:"
+            debug: msg="Playbook Completed#T1099#blocked#linux#"
             when:  '"1970" not in T1099.stdout'       
           - name: check if playbook was successfull
-            debug: msg="Playbook Completed:T1099:passed:linux:"
+            debug: msg="Playbook Completed#T1099#passed#linux#"
             when: '"1970" in T1099.stdout' 
 
 - name :  Timestomp - Windows
@@ -37,8 +37,8 @@
              (Get-Item c:\temp\{{ victim_file }}).LastAccessTime
             register: T1099
           - name: check if playbook was blocked
-            debug: msg="Playbook Completed:T1099:blocked:win:"
+            debug: msg="Playbook Completed#T1099#blocked#win#"
             when:  '"1970" not in T1099.stdout'       
           - name: check if playbook was successfull
-            debug: msg="Playbook Completed:T1099:passed:win:"
+            debug: msg="Playbook Completed#T1099#passed#win#"
             when: '"1970" in T1099.stdout' 
