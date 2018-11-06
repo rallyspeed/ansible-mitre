@@ -40,4 +40,4 @@
           $first3 = $IP.split(".") | select-object -first 3   
           $scanip = [string]::join(".",$first3)
           $ping = New-Object System.Net.Networkinformation.Ping
-          for($i=1; $i -le 5; $i++) { $ping.send(“$scanip.$i”) | select address, status >> c:\temp\sweep.txt}
+          for($i=1; $i -le 5; $i++) { $ping.send(“$scanip.$i”) | select address, status | findstr Success >> c:\temp\sweep.txt}
