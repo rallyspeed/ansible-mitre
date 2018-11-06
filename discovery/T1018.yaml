@@ -33,7 +33,7 @@
   vars_files:
     - /opt/ansible/vars.yaml
   tasks:
-      - name: gather info
+      - name: ping sweep
         tags: always
         win_shell: |
           $IP = (Get-NetIPConfiguration).IPv4Address.IPAddress
