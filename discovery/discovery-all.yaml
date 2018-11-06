@@ -16,11 +16,11 @@
       register: WindowsDefender
     - name: debug msg for windows defender turn on
       tags: always
-      debug: msg="Playbook ran#PRIV-ESCALATION-WIN-DEFENDER#"
+      debug: msg="Playbook ran#DISCOVERY-WIN-DEFENDER#"
       when: '"False" in WindowsDefender.stdout'  
     - name: debug msg for defense turn off
       tags: always
-      debug: msg="Playbook ran#PRIV-ESCALATION-NO-AV-EDR#"
+      debug: msg="Playbook ran#DISCOVERY-NO-AV-EDR#"
       when: '"True" in WindowsDefender.stdout'
     - name: Generate report
       tags: always
