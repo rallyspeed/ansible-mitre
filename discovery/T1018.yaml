@@ -33,7 +33,7 @@
   vars_files:
     - /opt/ansible/vars.yaml
   tasks:
-      - name: ping sweep
+      - name: gather info
         tags: always
         win_shell: |
           $subnet = 0
@@ -42,4 +42,7 @@
           $first3 = $IP.split(.") | selet-object -first 3
           $scanip = [string]::join(".",$first3)
           $ping = New-Object System.Net.Networkinformation.Ping
+      - name: ping sweep
+        tags: always
+        win_shell: |
           1..5| % { $ping.send(“$scanip.ping $_”) | select address, status } | findstr Success > c:\temp\sweep.txt
