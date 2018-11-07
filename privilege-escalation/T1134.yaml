@@ -29,6 +29,8 @@
     - name: Execute ps script
       tags: always
       win_shell: |
+        Set-ExecutionPolicy Bypass -scope Process -Force
+        cd c:\temp
         .\priv.ps1
       register: result
     - debug: msg="{{ result.stdout }}"
