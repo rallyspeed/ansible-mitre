@@ -6,21 +6,26 @@
    - /opt/ansible/vars.yaml
   tasks:
           - name: disable history
+            tags: always
             shell: |
               export HISTCONTROL=ignoreboth
               echo export "HISTCONTROL=ignoreboth" >> ~/.bash_profile
           - name: execute hidden commands
+            tags: always
             shell: |
               {{ nohistory_command }}
               export HISTCONTROL=
               echo export "HISTCONTROL=" >> ~/.bash_profile
           - name: check .bash_history
+            tags: always
             shell: |
              cat ~/.bash_history
             register: T1148
           - name: check if playbook was blocked
+            tags: always
             debug: msg="Playbook Completed3T1148#blocked#linux#"
             when:  '".recon" in T1148.stdout'       
           - name: check if playbook was successfull
+            tags: always
             debug: msg="Playbook Completed#T1148#passed#linux#"
             when: '".recon" not in T1148.stdout'        
