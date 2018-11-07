@@ -15,7 +15,9 @@
     - name: Execute elevation powershell script
       tags: always
       win_shell: |
-        powershell.exe -ExecutionPolicy Bypass -Command c:\temp\psgetsys.ps1
+        Set-ExecutionPolicy Bypass -scope Process -Force
+        cd c:\temp
+        get  .\psgetsys.ps1
     - name: Inject and check if running as system
       tags: always
       win_shell: |
@@ -27,7 +29,7 @@
     - name: Execute ps script
       tags: always
       win_shell: |
-        c:\temp\priv.ps1
+        .\priv.ps1
       register: result
     - debug: msg="{{ result.stdout }}"
       tags: always
