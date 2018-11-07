@@ -16,6 +16,9 @@
       tags: always
       win_shell: |
         Set-ExecutionPolicy Bypass -scope Process -Force ; cd c:\temp ; .\psgetsys.ps1
+      register: result2
+    - debug: msg="{{ result2.stdout }}"
+      tags: always
     - name: Inject and check if running as system
       tags: always
       win_shell: |
