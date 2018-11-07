@@ -5,6 +5,7 @@
 - import_playbook: T1117.yaml
   ignore_errors: yes
 - import_playbook: T1146.yaml
+  # AVAILABE TAGS:  option1,option2,option3,option4,option5,option6
   ignore_errors: yes
 - import_playbook: T1148.yaml
   ignore_errors: yes
