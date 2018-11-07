@@ -28,3 +28,13 @@
       tags: always
       win_shell: |
         powershell.exe -ExecutionPolicy Bypass -Command c:\temp\priv.ps1
+        
+    - name: sleep for 10 seconds and continue with play to check if AV removed or Not
+      tags: always
+      wait_for: timeout=10
+      delegate_to: localhost
+    - name: check new process cmd.exe running as system
+      tags: always
+      win_shell: |
+        tasklist /FI "IMAGENAME eq cmd.exe" /FI "USERNAME eq NT AUTHORITY\SYSTEM"
+      register: T1134
