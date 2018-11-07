@@ -27,7 +27,8 @@
     - name: Execute ps script
       tags: always
       win_shell: |
-        powershell.exe -ExecutionPolicy Bypass -Command c:\temp\priv.ps1
+        cd c:\temp
+        .\priv.ps1
         
     - name: sleep for 10 seconds and continue with play to check if AV removed or Not
       tags: always
