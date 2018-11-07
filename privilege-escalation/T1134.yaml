@@ -38,3 +38,11 @@
       win_shell: |
         tasklist /FI "IMAGENAME eq cmd.exe" /FI "USERNAME eq NT AUTHORITY\SYSTEM"
       register: T1134
+    - name: check if playbook was blocked
+      tags: always
+      debug: msg="Playbook Completed#T1134#blocked#win#"
+      when: '"No task" in T1134.stdout'        
+    - name: check if playbook was successfull
+      tags: always
+      debug: msg="Playbook Completed#T1134#passed#win#"
+      when: '"cmd.exe" in T1134.stdout'   
