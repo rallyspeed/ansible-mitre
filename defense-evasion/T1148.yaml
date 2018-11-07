@@ -19,8 +19,8 @@
              cat ~/.bash_history
             register: T1148
           - name: check if playbook was blocked
-            debug: msg="Playbook Completed:T1148:blocked:linux:"
+            debug: msg="Playbook Completed3T1148#blocked#linux#"
             when:  '".recon" in T1148.stdout'       
           - name: check if playbook was successfull
-            debug: msg="Playbook Completed:T1148:passed:linux:"
+            debug: msg="Playbook Completed#T1148#passed#linux:"
             when: '".recon" not in T1148.stdout'        
