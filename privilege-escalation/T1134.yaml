@@ -30,6 +30,7 @@
         c:\temp\priv.ps1
       register: result
     - debug:
+      tags: always
         var: result
         verbosity: 2
     - name: sleep for 10 seconds and continue with play to check if AV removed or Not
