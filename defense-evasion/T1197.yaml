@@ -1,4 +1,5 @@
 #T1197 - BITS Jobs
+# Unable to execute via WinRM
 - name: BITS Jobs - Windows
   hosts: windows
   vars_files:
