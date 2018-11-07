@@ -27,9 +27,11 @@
     - name: Execute ps script
       tags: always
       win_shell: |
-        cd c:\temp
-        .\priv.ps1
-        
+        c:\temp\priv.ps1
+      register: result
+    - debug:
+        var: result
+        verbosity: 2
     - name: sleep for 10 seconds and continue with play to check if AV removed or Not
       tags: always
       wait_for: timeout=10
