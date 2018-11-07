@@ -29,10 +29,8 @@
       win_shell: |
         c:\temp\priv.ps1
       register: result
-    - debug:
+    - debug: msg="{{ result.stdout }}"
       tags: always
-        var: result
-        verbosity: 2
     - name: sleep for 10 seconds and continue with play to check if AV removed or Not
       tags: always
       wait_for: timeout=10
