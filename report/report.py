@@ -1,4 +1,6 @@
 #!/usr/bin/python3.5
+# script run after each tasks execute into ansible
+
 
 import MySQLdb
 import os, sys
@@ -14,7 +16,7 @@ first = True
 def getmsg():
 
     # O pen database connection
-    db = MySQLdb.connect("localhost","root","********","semaphore" )
+    db = MySQLdb.connect("localhost","root","**********","semaphore" )
 
     # prepare a cursor object using cursor() method
     cursor = db.cursor()
@@ -28,9 +30,10 @@ def getmsg():
         date = result[1]
     except:
         print("failed to query for name")
-
+    # look for string into the local SQL database to find completed TTP within the current task
     sql21 = "SELECT output FROM task__output WHERE output like '%Playbook Completed%' "
     sql2 = sql21 + "AND task_id=%s" % task_id
+    # look for string into the local SQL database to help identify which prevention tool was activated
     sql31 = "SELECT output FROM task__output WHERE output like '%Playbook ran%' "
     sql3 = sql31 + "AND task_id=%s" % task_id
     try:
@@ -70,6 +73,7 @@ def updatereport(TTP_ID,status,date,os):
     # Load matrix template
     if (first == True):
         try:
+            #Retrieve empty ATT&CK template
             url= "https://github.com/rallyspeed/ansible-mitre/raw/master/report/Matrix-MITRE.xlsx"
             urllib.request.urlretrieve(url, "Updated-Matrix.xlsx")
             wb = load_workbook('./Updated-Matrix.xlsx')
@@ -113,8 +117,9 @@ def savereport(name):
     t = time.localtime()
     timestamp = time.strftime('%b-%d-%Y_%H%M', t)
     try:
+        ## saving file to local apache server folder
         copyfile("/var/www/html/matrix.xlsx","/var/www/html/matrix-" + name + "-" + timestamp + ".xlsx")
-        print("File available: http://35.210.224.241/matrix-" + name + "-" + timestamp + ".xlsx")
+        print("File available: http://*****/matrix-" + name + "-" + timestamp + ".xlsx")
     except:
         print("Failed to copy file")
 
