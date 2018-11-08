@@ -6,6 +6,10 @@ Attack playbooks based on MITRE ATT&CK framework using ansible format
 - ansible-winrm (`pip install "pywinrm>=0.3.0"`, `pip install pywinrm[credssp]`)
 - customize vars.yaml file
 
+## Compatibility
+- Ansible machine: Ubuntu 18.04
+- Traget machine: Tested against Ubunutu 18.04 and Windows Server 2016
+
 ## Architecture
  - Ansible Playbook machine with Semaphore GUI and mySQL database
  - Victim machines, here windows and linux (Can be over the same LAN or accross the WAN, traffic is encrypted)
