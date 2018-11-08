@@ -1,5 +1,7 @@
 #All defensive-evasion playbook
 
+- import_playbook: T1085.yaml
+  ignore_errors: yes
 - import_playbook: T1099.yaml
   ignore_errors: yes
 - import_playbook: T1117.yaml
