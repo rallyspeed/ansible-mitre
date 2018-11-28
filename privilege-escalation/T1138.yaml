@@ -21,7 +21,7 @@
         dest: c:\temp\
     - name: install shim
       win_command: |
-        sdbinst puttyfix32.sdb    
+        sdbinst c:\temp\puttyfix32.sdb    
       register: shim
     - name: Execute putty32
       tags: always
