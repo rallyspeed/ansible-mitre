@@ -12,8 +12,13 @@
     - name: copy dll
       tags: always
       win_copy:
-        src: /opt/ansible/putty32.exe
-        dest: c:\temp\  
+        src: /opt/ansible/{{ cnc_dll }}
+        dest: c:\temp\
+    - name: copy sdb file
+      tags: always
+      win_copy:
+        src: /opt/ansible/puttyfix32.sdb
+        dest: c:\temp\
     - name: install shim
       win_command: |
         sdbinst puttyfix32.sdb    
