@@ -21,21 +21,31 @@
     - name: Execute putty32
       tags: always
       win_command: |
+        cd c:\temp
         cmd.exe /k putty32.exe
+        
     - name: sleep for 10 seconds and continue with play to check if AV removed or Not
       tags: always
       wait_for: timeout=10
       delegate_to: localhost
-    - name: check if file created
+
+    - name: check file exist
       tags: always
-      win_shell: |
-        tasklist /FI "IMAGENAME eq cmd.exe" /FI "USERNAME eq NT AUTHORITY\SYSTEM"
-      register: T1134
+      win_stat:
+        path: c:\temp\evil.txt
+      register: T1138
     - name: check if playbook was blocked
       tags: always
-      debug: msg="Playbook Completed#T1134#blocked#win#"
-      when: '"No task" in T1134.stdout'        
+      debug: msg="Playbook Completed#T1138#blocked#win#"
+      when: T1138.stat.exists == False        
     - name: check if playbook was successfull
       tags: always
-      debug: msg="Playbook Completed#T1134#passed#win#"
-      when: '"cmd.exe" in T1134.stdout'   
+      debug: msg="Playbook Completed#T1138#passed#win#"
+      when: T1138.stat.exists 
+      
+    - name: cleanup      
+      tags: alawys
+      win_file:
+        path: c:\temp\evil.txt
+        state: absent
+      when: T1138.stat.exists 
