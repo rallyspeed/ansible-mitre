@@ -26,8 +26,7 @@
     - name: Execute putty32
       tags: always
       win_command: |
-        cd c:\temp
-        cmd.exe /k putty32.exe
+        cmd.exe /k c:\temp\putty32.exe
         
     - name: sleep for 10 seconds and continue with play to check if AV removed or Not
       tags: always
