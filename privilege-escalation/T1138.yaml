@@ -57,7 +57,7 @@
     - name: delete files
       tags: always
       file:
-        path: c:\temp
+        path: c:\temp\"{{ item }}" 
         state: absent
       with_items:
         - puttyfix32.sdb
