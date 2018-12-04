@@ -41,11 +41,11 @@
     - name: check if playbook was blocked
       tags: always
       debug: msg="Playbook Completed#T1138#blocked#win#"
-      when: T1138.stat.exists == False        
+      when: T1138.exists == False        
     - name: check if playbook was successfull
       tags: always
       debug: msg="Playbook Completed#T1138#passed#win#"
-      when: T1138.stat.exists 
+      when: T1138.exists 
       
     - name: cleanup      
       tags: al
