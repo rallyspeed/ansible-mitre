@@ -56,11 +56,11 @@
         del c:\temp\{{ cnc_dll }}
       when: T1138.exists 
       
-   - name: delete files
-     file:
-      path: c:\temp
-      state: absent
-     with_items:
-      - puttyfix32.sdb
-      - putty32.exe
-      - {{ cnc_dll }}
+    - name: delete files
+      file:
+        path: c:\temp
+        state: absent
+      with_items:
+        - puttyfix32.sdb
+        - putty32.exe
+        - {{ cnc_dll }}
