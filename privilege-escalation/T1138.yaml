@@ -62,5 +62,5 @@
       with_items:
         - c:\temp\puttyfix32.sdb
         - c:\temp\putty32.exe
-        - c:\temp\"{{ cnc_dll }}"
+        - c:\temp\{{ cnc_dll }}
       when: T1138.exists
