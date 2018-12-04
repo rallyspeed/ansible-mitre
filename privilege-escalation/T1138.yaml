@@ -56,10 +56,6 @@
       
     - name: delete files
       tags: always
-      file:
-        path: c:\temp\"{{ item }}" 
-        state: absent
-      with_items:
-        - puttyfix32.sdb
-        - putty32.exe
-        - "{{ cnc_dll }}"
+      win_command: | 
+        del c:\temp\putty*.*
+      when: T1138.exists
