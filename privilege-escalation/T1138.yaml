@@ -56,7 +56,7 @@
       
     - name: delete files
       tags: always
-      file:
+      win_file:
         path: "{{ item }}"
         state: absent
       with_items:
