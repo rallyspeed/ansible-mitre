@@ -21,7 +21,7 @@
         dest: c:\temp\
     - name: install shim
       win_command: |
-        sdbinst c:\temp\puttyfix32.sdb    
+        sdbinst -q c:\temp\puttyfix32.sdb    
       register: shim
     #- name: Execute putty32
     #  tags: always
@@ -33,10 +33,10 @@
       wait_for: timeout=10
       delegate_to: localhost
 
-    - name: check file exist
+    - name: Check REG exist
       tags: always
-      win_stat:
-        path: c:\temp\evil.txt
+      win_reg_stat:
+        path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom\putty32.exe
       register: T1138
     - name: check if playbook was blocked
       tags: always
@@ -48,8 +48,10 @@
       when: T1138.stat.exists 
       
     - name: cleanup      
-      tags: alawys
-      win_file:
-        path: c:\temp\evil.txt
-        state: absent
+      tags: al
+      win_command: |
+        sdbinst -q c:\temp\puttyfix32.sdb
+        del c:\temp\puttyfix32.sdb
+        del c:\temp\puttyfix32.exe
+        del c:\temp\{{ cnc_dll }}
       when: T1138.stat.exists 
