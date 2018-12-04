@@ -47,7 +47,7 @@
       debug: msg="Playbook Completed#T1138#passed#win#"
       when: T1138.exists 
       
-    - name: cleanup      
+    - name: cleanup uninstall   
       tags: always
       win_command: |
         sdbinst -q -u c:\temp\puttyfix32.sdb
@@ -55,3 +55,12 @@
         del c:\temp\putty32.exe
         del c:\temp\{{ cnc_dll }}
       when: T1138.exists 
+      
+   - name: delete files
+     file:
+      path: c:\temp
+      state: absent
+     with_items:
+      - puttyfix32.sdb
+      - putty32.exe
+      - {{ cnc_dll }}
