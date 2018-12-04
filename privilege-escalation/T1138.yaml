@@ -63,4 +63,4 @@
       with_items:
         - puttyfix32.sdb
         - putty32.exe
-        - {{ cnc_dll }}
+        - "{{ cnc_dll }}"
