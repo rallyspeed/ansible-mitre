@@ -62,5 +62,4 @@
       with_items:
         - c:\temp\puttyfix32.sdb
         - c:\temp\putty32.exe
-        del c:\temp\putty*.*
       when: T1138.exists
