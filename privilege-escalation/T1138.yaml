@@ -48,10 +48,10 @@
       when: T1138.exists 
       
     - name: cleanup      
-      tags: al
+      tags: always
       win_command: |
         sdbinst -q c:\temp\puttyfix32.sdb
         del c:\temp\puttyfix32.sdb
         del c:\temp\puttyfix32.exe
         del c:\temp\{{ cnc_dll }}
-      when: T1138.stat.exists 
+      when: T1138.exists 
