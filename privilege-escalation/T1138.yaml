@@ -1,4 +1,5 @@
 # attack_technique: T1138
+# putt32 bit version is used here
 - name: T1138 - Application Shimming
   hosts: windows
   vars_files:
@@ -51,12 +52,10 @@
       tags: always
       win_command: |
         sdbinst -q -u c:\temp\puttyfix32.sdb
-        del c:\temp\puttyfix32.sdb
-        del c:\temp\putty32.exe
-        del c:\temp\{{ cnc_dll }}
       when: T1138.exists 
       
     - name: delete files
+      tags: always
       file:
         path: c:\temp
         state: absent
