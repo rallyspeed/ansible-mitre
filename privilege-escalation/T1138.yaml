@@ -8,7 +8,7 @@
     - name: copy putty32 bit version
       tags: always
       win_copy:
-        src: /opt/ansible/putty32.exe
+        src: /opt/ansible/files/putty32.exe
         dest: c:\temp\
     - name: copy dll
       tags: always
@@ -18,7 +18,7 @@
     - name: copy sdb file
       tags: always
       win_copy:
-        src: /opt/ansible/puttyfix32.sdb
+        src: /opt/ansible/files/puttyfix32.sdb
         dest: c:\temp\
     - name: install shim
       tags: always
