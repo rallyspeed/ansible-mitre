@@ -55,4 +55,15 @@
     - name: check if playbook was successfull
       tags: always
       debug: msg="Playbook Completed#T1134#passed#win#"
-      when: '"cmd.exe" in T1134.stdout'   
+      when: '"cmd.exe" in T1134.stdout'
+      
+    - name: delete files
+      tags: always
+      win_file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - c:\temp\psgetsys.ps1
+        - c:\temp\priv.ps1
+        - c:\temp\priv-temp.ps1
+
