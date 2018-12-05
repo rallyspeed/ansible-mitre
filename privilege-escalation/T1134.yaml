@@ -26,7 +26,7 @@
       tags: always
       win_shell: |
         Set-ExecutionPolicy Bypass -scope Process -Force ; cd c:\temp ; .\psgetsys.ps1
-        Set-ExecutionPolicy Bypass -scope Process -Force ; cd c:\temp ; .\priv.ps1
+        cd c:\temp ; .\priv.ps1
       register: result
     - debug: msg="{{ result.stdout }}"
       tags: always
