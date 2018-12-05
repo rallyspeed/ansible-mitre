@@ -55,7 +55,7 @@
       when: T1138.exists 
       
     - name: delete files
-      tags: always
+      tags: al
       win_file:
         path: "{{ item }}"
         state: absent
