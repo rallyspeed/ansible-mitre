@@ -64,7 +64,7 @@
         path: "{{ item }}"
         state: absent
       with_items:
-        - c:\temp\psgetsys.ps1
-        - c:\temp\priv.ps1
-        - c:\temp\priv-temp.ps1
+        - d:\temp\psgetsys.ps1
+        - d:\temp\priv.ps1
+        - d:\temp\priv-temp.ps1
 
