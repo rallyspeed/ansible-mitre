@@ -13,7 +13,7 @@
     - name: copy dll
       tags: always
       win_copy:
-        src: /opt/ansible/{{ cnc_dll }}
+        src: /opt/ansible/files/{{ cnc_dll }}
         dest: c:\temp\
     - name: copy sdb file
       tags: always
