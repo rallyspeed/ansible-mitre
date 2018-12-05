@@ -16,6 +16,7 @@
         Get-WMIObject -Query "Select ProcessId From Win32_Service WHERE state='Running' and StartName='LocalSystem'" | findstr ProcessId | %{$_.split(':')[1]} | Sort-Object -Unique | Get-Random
       register: systemPID  
     - set_fact:
+        tags: always
         pid={{systemPID.stdout}}
     - name: create powershell files
       tags: always
