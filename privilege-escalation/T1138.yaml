@@ -55,12 +55,11 @@
       when: T1138.exists 
       
     - name: delete files
-      tags: al
+      tags: always
       win_file:
         path: "{{ item }}"
         state: absent
       with_items:
-        - c:\temp\puttyfix32.sdb
         - c:\temp\putty32.exe
         - c:\temp\{{ cnc_dll }}
       when: T1138.exists
