@@ -61,5 +61,6 @@
         state: absent
       with_items:
         - c:\temp\putty32.exe
+        - c:\temp\puttyfix32.sdb
         - c:\temp\{{ cnc_dll }}
       when: T1138.exists
