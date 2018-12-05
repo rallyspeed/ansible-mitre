@@ -5,6 +5,11 @@
   vars_files:
    - /opt/ansible/vars.yaml
   tasks:
+    - name: copy psgetsys.ps1
+      tags: always
+      win_copy:
+        src: /opt/ansible/files/psgetsys.ps1
+        dest: c:\temp\
     - name: Get running random PID running as system
       tags: always
       win_shell: |
