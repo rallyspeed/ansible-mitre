@@ -21,6 +21,7 @@
         src: /opt/ansible/puttyfix32.sdb
         dest: c:\temp\
     - name: install shim
+      tags: always
       win_command: |
         sdbinst -q c:\temp\puttyfix32.sdb    
       register: shim
