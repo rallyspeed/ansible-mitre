@@ -30,7 +30,10 @@
       register: T1103
     - debug: msg="{{ T1103.stdout }}"
       tags: always
-      register: T1103
+    - name: sleep for 10 seconds and continue with play to check if AV removed or Not
+      tags: always
+      wait_for: timeout=10
+      delegate_to: localhost
     - name: check if playbook was blocked
       tags: always
       debug: msg="Playbook Completed#T1103#blocked#win#"
