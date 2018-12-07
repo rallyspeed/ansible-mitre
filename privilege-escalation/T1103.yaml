@@ -14,6 +14,11 @@
       win_copy:
         src: /opt/ansible/files/T1103.reg
         dest: c:\temp\
+    - name: copy T1103-cleanup.reg
+      tags: always
+      win_copy:
+        src: /opt/ansible/files/T1103-cleanup.reg
+        dest: c:\temp\
     - name: Update registry key
       tags: always
       win_command: |
@@ -34,7 +39,11 @@
       tags: always
       debug: msg="Playbook Completed#T1103#passed#win#"
       when: T1103.exists 
-     
+ 
+     - name: Cleanup registry key
+      tags: always
+      win_command: |
+        reg.exe import c:\temp\T1103-cleanup.reg
     - name: delete files
       tags: always
       win_file:
@@ -43,3 +52,4 @@
       with_items:
         - c:\temp\cnc.dll
         - c:\temp\T1103.reg
+        - c:\temp\T1103-cleanup.reg
