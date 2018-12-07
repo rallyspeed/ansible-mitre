@@ -18,19 +18,23 @@
       tags: always
       win_command: |
         reg.exe import c:\temp\T1103.reg
-    - name: sleep for 10 seconds and continue with play to check if AV removed or Not
+    - name: Check REG exist
       tags: always
-      wait_for: timeout=10
-      delegate_to: localhost
+      win_reg_stat:
+        path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows
+        name: AppInit_DLLs
+        value: 1
+        
+      register: T1103
     - name: check if playbook was blocked
       tags: always
       debug: msg="Playbook Completed#T1103#blocked#win#"
-      when: '"No task" in T1103.stdout'        
+      when: T1103.exists == False        
     - name: check if playbook was successfull
       tags: always
       debug: msg="Playbook Completed#T1103#passed#win#"
-      when: '"cmd.exe" in T1103.stdout'
-      
+      when: T1103.exists 
+     
     - name: delete files
       tags: always
       win_file:
