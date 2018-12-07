@@ -21,8 +21,7 @@
     - name: Check REG exist
       tags: always
       win_reg_stat:
-        path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows
-        name: AppInit_DLLs
+        path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs
       register: T1103
     - debug: msg="{{ T1103.stdout }}"
       tags: always
