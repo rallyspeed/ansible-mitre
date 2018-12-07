@@ -23,8 +23,9 @@
       win_reg_stat:
         path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows
         name: AppInit_DLLs
-        value: 1
-        
+      register: T1103
+    - debug: msg="{{ result.stdout }}"
+      tags: always
       register: T1103
     - name: check if playbook was blocked
       tags: always
