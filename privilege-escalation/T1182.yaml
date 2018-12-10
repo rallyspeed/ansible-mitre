@@ -23,9 +23,9 @@
     - name: Check REG exist
       tags: always
       win_reg_stat:
-    	path: HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\AppCertDLLs
+    	 path: HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\AppCertDLLs
        name: Debugger
-       register: T1182
+      register: T1182
     - name: check if playbook was blocked
       tags: always
       debug: msg="Playbook Completed#T1182#blocked#win#"
