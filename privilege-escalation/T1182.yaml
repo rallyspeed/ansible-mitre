@@ -3,8 +3,7 @@
   hosts: windows
   vars_files:
    - /opt/ansible/vars.yaml
-
-tasks:
+  tasks:
     - name: copy cnc.dll
       tags: always
       win_copy:
