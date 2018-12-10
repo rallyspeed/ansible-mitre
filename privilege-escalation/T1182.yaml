@@ -9,7 +9,7 @@
       win_copy:
         src: /opt/ansible/files/cnc.dll
         dest: c:\temp\
-    - name: Attaches Command Prompt As Debugger To Process - osk
+    - name: Add registry entry (Does no longer exist on modern windows platforms)
       tags: always
       win_regedit:
        path: HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\AppCertDLLs
