@@ -10,8 +10,8 @@
 #  ignore_errors: yes
 - import_playbook: T1138.yaml
   ignore_errors: yes
-- import_playbook: T1182.yaml
-  ignore_errors: yes
+#- import_playbook: T1182.yaml
+#  ignore_errors: yes
 
 - name: Generate report
   hosts: windows
