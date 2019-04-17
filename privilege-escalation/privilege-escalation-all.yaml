@@ -22,6 +22,8 @@
       register: WindowsDefender
     - name: debug msg for windows defender turn on
       tags: always
+      debug: var=WindowsDefender
+      debug: var=WindowsDefender.stdout
       debug: msg="Playbook ran#PRIV-ESCALATION-WIN-DEFENDER#"
       when: "'False' in WindowsDefender.stdout"
     - name: debug msg for defense turn off
