@@ -43,7 +43,7 @@
       debug: msg="Playbook Completed#T1103#passed#win#"
       when: T1103.exists 
  
-     - name: Cleanup registry key
+    - name: Cleanup registry key
       tags: always
       win_command: |
         reg.exe import c:\temp\T1103-cleanup.reg
